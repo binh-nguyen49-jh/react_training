@@ -5,7 +5,7 @@ import waves from "./waves.svg";
 
 import "./AuthenticationPage.scss";
 
-export default class AuthenticationPage extends Component {
+class AuthenticationPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,3 +43,5 @@ export default class AuthenticationPage extends Component {
     );
   }
 }
+
+export default React.memo(AuthenticationPage);

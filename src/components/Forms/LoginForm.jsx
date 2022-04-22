@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { logInWithEmail } from "../../API/authentication";
 import { composeValidators, maxLength, minLength, required } from "../../utils/formValidate";
 import FormButton from "../FormButton/FormButton";
+import withRouter from "../HOC/withRouter";
 import InputField from "../InputField/InputField";
 import './Form.scss';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,10 +53,17 @@ export default class LoginForm extends Component {
     try {
       const userProfile = await logInWithEmail(this.state.email.value, this.state.password.value);
       console.log(userProfile);
+      this.props.navigate("/homepage")
     } catch (error) {
-      this.setState({
-        loginError: error.code.split('/')[1].split('-').join(" ")
-      })
+      if(!error.code) {
+        this.setState({
+          loginError: error.message
+        })
+      } else {
+        this.setState({
+          loginError: error.code.split('/')[1].split('-').join(" ")
+        })
+      }
     }
   };
   render() {
@@ -89,3 +97,5 @@ export default class LoginForm extends Component {
     );
   }
 }
+
+export default withRouter(React.memo(LoginForm));

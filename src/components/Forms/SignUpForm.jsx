@@ -9,9 +9,10 @@ import {
 } from "../../utils/formValidate";
 import DropdownField from "../DropdownField/DropdownField";
 import FormButton from "../FormButton/FormButton";
+import withRouter from "../HOC/withRouter";
 import InputField from "../InputField/InputField";
 
-export default class SignUpForm extends Component {
+class SignUpForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,6 +30,7 @@ export default class SignUpForm extends Component {
       name: required,
       position: required,
     };
+
   }
 
   componentDidMount = async () => {
@@ -75,9 +77,15 @@ export default class SignUpForm extends Component {
       const userProfile = await registerWithEmail(registerInfo);
       console.log(userProfile);
     } catch (error) {
-      this.setState({
-        loginError: error.code.split("/")[1].split("-").join(" "),
-      });
+      if(!error.code) {
+        this.setState({
+          loginError: error.message
+        })
+      } else {
+        this.setState({
+          loginError: error.code.split('/')[1].split('-').join(" ")
+        })
+      }
     }
   };
   render() {
@@ -144,3 +152,5 @@ export default class SignUpForm extends Component {
     );
   }
 }
+
+export default withRouter(React.memo(SignUpForm))
