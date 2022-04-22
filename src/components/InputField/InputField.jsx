@@ -1,54 +1,60 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react';
-import ForwardRef from '../../HOC/ForwardRef';
-import 'InputField.scss';
+import './InputField.scss';
 
 class InputField extends Component {
+  static propTypes = {
+    type: PropTypes.string, 
+    name: PropTypes.string,
+    label: PropTypes.string,
+    placeholder: PropTypes.string,
+    className: PropTypes.string,
+    validate: PropTypes.func,
+    onChange: PropTypes.func
+  }
   constructor(props) {
     super(props);
     this.state = {
-      value: defaultValue,
-      error: ""
+      value: ''
     }
   }
 
   handleChange = (event) => {
     this.setState({
-      value: event.target.value,
-      error: ""
+      value: event.target.value
     });
-    this.props.onChange(this.props.name, this.state.value, this.state.error);
+    this.props.onChange(this.props.name, event.target.value, '');
   }
 
-  validate = (value) => {
-    this.setState({
-      error: this.props.validate(value)
-    });
+  validate = () => {
+    this.props.onValidate(this.props.name, this.state.value);
   }
 
   render = () => {
-    const { ref,
+    const { 
       type,
       name,
       label,
       placeholder,
       className } = this.props;
     return (
-      <div className='form__input'>
+      <div className='form__input' >
         <input
-          ref={ref}
           placeholder={placeholder}
-          onBlur={validate}
-          onChange={handleChange}
+          onBlur={this.validate}
+          onChange={this.handleChange}
           type={type}
           name={name}
+          id={name}
           value={this.state.value}
           className={className? className:""} />
         <label htmlFor={name}>{label}</label>
-        <span className="form__error">{error}</span>
+        <span className="form__error">{this.props.error}</span>
       </div>
     )
 
   }
 }
 
-export default ForwardRef(InputField);
+
+export default React.memo(InputField);

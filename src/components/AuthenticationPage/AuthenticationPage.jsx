@@ -13,7 +13,7 @@ export default class AuthenticationPage extends Component {
     };
   }
 
-  toggleState() {
+  toggleState = () => {
     this.setState((prevState) => ({
       isSigningUp: !prevState.isSigningUp,
     }));
