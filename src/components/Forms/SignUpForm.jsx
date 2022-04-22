@@ -66,7 +66,6 @@ class SignUpForm extends Component {
     for (let field in this.validators) {
       registerInfo[field] = this.state[field].value;
       const error = this.onValidateInput(field, this.state[field].value);
-      console.log(error)
       if (error) {
         errorFlag=true;
       }
