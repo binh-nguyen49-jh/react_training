@@ -34,25 +34,3 @@
 
  
 }
-.select {
-  position: relative;
-}
-
-.select:after {
-  content: '\25BC';
-  width: 45px;
-  height: 45px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transition: .25s all ease;
-  pointer-events: none;
-  z-index: 3;
-  color: #029AA8;
-
-}

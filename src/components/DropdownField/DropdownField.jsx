@@ -31,8 +31,8 @@ class DropdownField extends Component {
           name={name}
           id={name}
           className={className ? className : ""}
-          defaultValue=''
         >
+          <option value={''} checked>{this.props.placeholder}</option>
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
@@ -40,7 +40,7 @@ class DropdownField extends Component {
           ))}
         </select>
         <label htmlFor={name}>{label}</label>
-        <span className="form__error">{this.state.error}</span>
+        <span className="form__error">{this.props.error}</span>
       </div>
     );
   };

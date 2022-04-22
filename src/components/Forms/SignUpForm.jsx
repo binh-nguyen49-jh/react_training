@@ -66,6 +66,7 @@ class SignUpForm extends Component {
     for (let field in this.validators) {
       registerInfo[field] = this.state[field].value;
       const error = this.onValidateInput(field, this.state[field].value);
+      console.log(error)
       if (error) {
         errorFlag=true;
       }
@@ -76,6 +77,7 @@ class SignUpForm extends Component {
     try {
       const userProfile = await registerWithEmail(registerInfo);
       console.log(userProfile);
+      this.props.toggleState();
     } catch (error) {
       if(!error.code) {
         this.setState({
@@ -129,7 +131,7 @@ class SignUpForm extends Component {
             label="Position"
             placeholder="Select your position"
             options={this.state.positions}
-            error={this.state.password.error}
+            error={this.state.position.error}
             onChange={this.onChangeForm}
           />
           {this.state.loginError && (
