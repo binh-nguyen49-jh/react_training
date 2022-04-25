@@ -86,27 +86,11 @@ function useFirebaseAuth() {
     setUser(null);
   };
 
-  const checkExpiration = async () => {
-    // check expiration by uid
-    if (!idToken) {
-        return false;
-    }
-    let checkRevocation = false;
-    firebaseAuth.verifyIdToken(idToken, checkRevocation).then((payload) => {
-      return true;
-    })
-    .catch((error) => {
-      logOut();
-      return false;
-    });;
-
- };
-
   return {
     user,
     idToken,
     logInWithEmail,
     registerWithEmail,
-    checkExpiration
+    logOut
   };
 }
