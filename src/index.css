@@ -6,6 +6,8 @@
 :root {
   --primary-cl: #029AA8;
   --gray-cl: #C4C4C4;
+  --sidebar-width: 75px;
+  --topbar-height: 60px;
 }
 
 body {
@@ -15,4 +17,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (min-width: 481px) {
+  :root {
+    --topbar-height: 100px
+  }
 }

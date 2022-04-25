@@ -5,10 +5,11 @@ import {
 
 import {
   firebaseAuth,
-} from "./firebase";
+} from "../API/firebase";
 import {
-  createContext
+  createContext, useContext, useEffect, useState
 } from "react";
+import UserAPI from "../API/userAPI";
 
 const authContext = createContext();
 
@@ -29,30 +30,30 @@ export const useAuth = () => {
 };
 
 function useFirebaseAuth() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(false);
 
   useEffect(() => {
     const updateUser = firebaseAuth.onAuthStateChanged(async user => {
       if (user) {
         setUser(user);
       } else {
-        setUser(null);
+        setUser(false);
       }
     });
     return () => updateUser();
   }, []);
 
-  const logInWithEmail = (email, password) => {
+  const logInWithEmail = async (email, password) => {
       try {
         const res = await signInWithEmailAndPassword(firebaseAuth, email, password);
         const user = res.user;
         setUser(user);
       } catch (err) {
-        setUser(null);
+        setUser(false);
       }
   };
 
-  const registerWithEmail = ({
+  const registerWithEmail = async ({
     name,
     email,
     password,
@@ -69,13 +70,13 @@ function useFirebaseAuth() {
         })
         setUser(user);
       } catch (err) {
-        setUser(null);
+        setUser(false);
       }
   };
 
   const logOut = () => {
     firebaseAuth.signOut();
-    setUser(null);
+    setUser(false);
   };
 
   return {

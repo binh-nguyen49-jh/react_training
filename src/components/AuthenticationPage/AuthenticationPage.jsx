@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import LoginForm from "../Forms/LoginForm";
 import SignUpForm from "../Forms/SignUpForm";
-import waves from "./waves.svg";
 
 import "./AuthenticationPage.scss";
 
@@ -34,10 +33,6 @@ class AuthenticationPage extends Component {
               <LoginForm toggleState={this.toggleState} />
             )}
           </div>
-        </div>
-        <div className="background">
-          <img src={waves} alt="waves background" />
-          <div className="background__water"></div>
         </div>
       </main>
     );

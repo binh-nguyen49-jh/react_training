@@ -4,9 +4,13 @@ import AuthenticationPage from './components/AuthenticationPage/AuthenticationPa
 import HomePage from './components/HomePage/HomePage';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import Header from './components/Header/Header';
+import waves from "./waves.svg";
 
 function App() {
   return (
+    <>
+    <Header />
     <Routes>
       <Route element = { 
         <ProtectedRoute>
@@ -22,7 +26,11 @@ function App() {
       } path='/profile' />
       
     </Routes>
-    
+    <div className="background">
+      <img src={waves} alt="waves background" />
+      <div className="background__water"></div>
+    </div>
+    </>
   );
 }
 
