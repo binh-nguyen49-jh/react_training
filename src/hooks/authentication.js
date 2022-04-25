@@ -30,21 +30,13 @@ export const useAuth = () => {
 
 function useFirebaseAuth() {
   const [user, setUser] = useState(null);
-  const [idToken, setIdToken] = useState(null);
 
   useEffect(() => {
     const updateUser = firebaseAuth.onAuthStateChanged(async user => {
       if (user) {
         setUser(user);
-        
-        user.getIdToken(false).then(idToken => {
-          setIdToken(idToken);
-        }).catch(error => {
-          setIdToken(null);
-        });
       } else {
         setUser(null);
-        setIdToken(null);
       }
     });
     return () => updateUser();
@@ -88,7 +80,6 @@ function useFirebaseAuth() {
 
   return {
     user,
-    idToken,
     logInWithEmail,
     registerWithEmail,
     logOut
