@@ -44,37 +44,6 @@ function useFirebaseAuth() {
     return () => updateUser();
   }, []);
 
-  const logInWithEmail = async (email, password) => {
-      try {
-        const res = await signInWithEmailAndPassword(firebaseAuth, email, password);
-        const user = res.user;
-        setUser(user);
-      } catch (err) {
-        setUser(false);
-      }
-  };
-
-  const registerWithEmail = async ({
-    name,
-    email,
-    password,
-    position
-  }) => {
-      try {
-        const res = await createUserWithEmailAndPassword(firebaseAuth, email, password);
-        const user = res.user;
-        await UserAPI.createUser({
-          uid: res.user.uid,
-          name,
-          email,
-          position
-        })
-        setUser(user);
-      } catch (err) {
-        setUser(false);
-      }
-  };
-
   const logOut = () => {
     firebaseAuth.signOut();
     setUser(false);
@@ -82,8 +51,6 @@ function useFirebaseAuth() {
 
   return {
     user,
-    logInWithEmail,
-    registerWithEmail,
     logOut
   };
 }
