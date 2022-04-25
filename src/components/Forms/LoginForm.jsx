@@ -53,7 +53,6 @@ class LoginForm extends Component {
     try {
       const userProfile = await logInWithEmail(this.state.email.value, this.state.password.value);
       console.log(userProfile);
-      this.props.navigate("/homepage")
     } catch (error) {
       if(!error.code) {
         this.setState({
@@ -67,8 +66,7 @@ class LoginForm extends Component {
     }
   };
   render() {
-    return (
-      <>
+    return (<>
         <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
           <InputField 

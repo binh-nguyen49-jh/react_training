@@ -16,7 +16,9 @@ export default function Header(props) {
     <header>
       <div className="container">
         <h1 className='logo'>
+          <Link to={'/'}>
             <img src="https://res.cloudinary.com/daten/image/upload/v1650878482/journey_horizon_mb4dlp.png" alt="journey horizon logo" />
+          </Link>
         </h1>
         <nav>
           <ul>
@@ -33,8 +35,8 @@ export default function Header(props) {
                 <li>
                   <Link className="nav__item" to={'/profile'}>
                     <Avatar img_url={'https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg'} style={{
-                      width: "50px",
-                      height: "50px",
+                      width: "30px",
+                      height: "30px",
                     }} />
                   </Link>
                 </li>

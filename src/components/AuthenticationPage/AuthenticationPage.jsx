@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Navigate } from "react-router-dom";
 import LoginForm from "../Forms/LoginForm";
 import SignUpForm from "../Forms/SignUpForm";
+import withFirebaseAuth from "../HOC/withFirebaseAuth";
 
 import "./AuthenticationPage.scss";
 
@@ -20,7 +22,9 @@ class AuthenticationPage extends Component {
 
   render() {
     return (
-      <main>
+      (this.props.user)?
+      <Navigate to='/'></Navigate>
+      :<main>
         <div className="container">
           <div className="logo">
             <img src="journeyh.png" alt="" />
@@ -39,4 +43,4 @@ class AuthenticationPage extends Component {
   }
 }
 
-export default React.memo(AuthenticationPage);
+export default withFirebaseAuth(React.memo(AuthenticationPage));

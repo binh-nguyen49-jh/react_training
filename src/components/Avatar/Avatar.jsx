@@ -7,7 +7,8 @@ const Avatar = (props) => (
         backgroundPosition: '50% 50%',
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        borderRadius: "50%"
+        borderRadius: "50%",
+        ...props.style
     }} />
 )
 

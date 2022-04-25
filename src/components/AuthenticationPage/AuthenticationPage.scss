@@ -1,7 +1,5 @@
 main .container {
   height: fit-content;
-  min-height: calc(100vh - var(--topbar-height));
-
   display: flex;
   align-items: center;
   padding: 50px;
@@ -65,7 +63,5 @@ main .logo {
     display: flex;
     justify-content: flex-end;
   }
-  main .container {
-    width: calc(100vw - var(--sidebar-width));
-  }
+ 
 }

@@ -34,6 +34,7 @@ function useFirebaseAuth() {
 
   useEffect(() => {
     const updateUser = firebaseAuth.onAuthStateChanged(async user => {
+        console.log("update: ", user)
       if (user) {
         setUser(user);
       } else {
