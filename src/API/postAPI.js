@@ -3,14 +3,13 @@ import uploadSingleFile from "../utils/uploadImage";
 import { firestoreDB } from "./firebase";
 
 export default class PostAPI {
-  // create a post document
   static async createPost(postData) {
     const images = postData['images'];
     const image_urls = await Promise.all(
       images.map(image => uploadSingleFile(image))
     );
     const post = {
-      image_urls: image_urls,
+      imageUrls: image_urls,
       ...postData
     };
     delete post['images'];
@@ -18,12 +17,12 @@ export default class PostAPI {
     return addDoc(collection(firestoreDB, "posts"), post);
   }
 
-  // retrieve post from other user id
+  // retrieve others posts
   static async getPosts(userId, perPage = 10, page = 0) {
     const q = query(
       collection(firestoreDB, "posts"), 
-      where("owner_id", "!=", userId),
-      orderBy('owner_id', 'createdAt'),
+      where("ownerId", "!=", userId),
+      orderBy('ownerId', 'createdAt'),
       limit(perPage),
       startAfter(page * perPage)
     );

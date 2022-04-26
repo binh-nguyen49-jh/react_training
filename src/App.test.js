@@ -1,9 +1,10 @@
 /* eslint-disable jest/no-conditional-expect */
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDoc, getDocs } from 'firebase/firestore/lite';
 import { firestoreDB } from './API/firebase';
 import PositionAPI from './API/positionAPI';
 import { logInWithEmail, registerWithEmail } from './API/authentication';
 import PostAPI from './API/postAPI';
+import UserPostAPI from './API/userPostAPI';
 
 test('connect to fire store', async () => {
   const testCollection = collection(firestoreDB, 'testCollection'); // get collection created for testing
@@ -11,7 +12,7 @@ test('connect to fire store', async () => {
   const data = documents.docs.map(doc => doc.data());
   expect(data[0].name).toBe('Binh');
 })
-
+/*
 test('get all position documents', async () => {
   const data = await PositionAPI.getAllPosition();
   expect(typeof data).toBe('object');
@@ -45,16 +46,37 @@ test('login user', async () => {
 
 test('get posts', async () => {
   const data = await PostAPI.getPosts('test_uid');
-  console.log(data)
   expect(data.length).toBe(1);
 });
-/*
+
 test('upload posts', async () => {
   const doc = await PostAPI.createPost({
-    owner_id: 'test_uid',
+    ownerId: 'test_uid',
     text: 'test title',
     images: []
   });
   expect(doc.type).toBe('document');
 });
 */
+
+test('user interact with a post', async () => {
+  const userId = 'test_uid';
+  const postId = 'test_post_id';
+  const interactions = {
+    hidden: true
+  };
+  const userPostRef = await UserPostAPI.interactPost(userId, postId, interactions);
+  const updatedDoc = await getDoc(userPostRef)
+  expect(updatedDoc.data().hidden).toBe(true);
+})
+
+test('user update the interaction with a post', async () => {
+  const userId = 'test_uid';
+  const postId = 'test_post_id';
+  const interactions = {
+    hidden: false
+  };
+  const userPostRef = await UserPostAPI.interactPost(userId, postId, interactions);
+  const updatedDoc = await getDoc(userPostRef)
+  expect(updatedDoc.data().hidden).toBe(false);
+})
