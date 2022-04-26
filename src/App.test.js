@@ -1,8 +1,17 @@
 /* eslint-disable jest/no-conditional-expect */
-import { collection, getDoc, getDocs } from 'firebase/firestore/lite';
-import { firestoreDB } from './API/firebase';
+import {
+  collection,
+  getDoc,
+  getDocs
+} from 'firebase/firestore/lite';
+import {
+  firestoreDB
+} from './API/firebase';
 import PositionAPI from './API/positionAPI';
-import { logInWithEmail, registerWithEmail } from './API/authentication';
+import {
+  logInWithEmail,
+  registerWithEmail
+} from './API/authentication';
 import PostAPI from './API/postAPI';
 import UserPostAPI from './API/userPostAPI';
 

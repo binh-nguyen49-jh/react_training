@@ -1,5 +1,8 @@
 import './App.css';
-import {Routes, Route} from 'react-router-dom';
+import {
+  Routes,
+  Route
+} from 'react-router-dom';
 import AuthenticationPage from './components/AuthenticationPage/AuthenticationPage';
 import HomePage from './components/HomePage/HomePage';
 import ProtectedRoute from './components/HOC/ProtectedRoute';

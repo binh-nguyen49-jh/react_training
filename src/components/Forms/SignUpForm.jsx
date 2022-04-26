@@ -30,7 +30,6 @@ class SignUpForm extends Component {
       name: required,
       position: required,
     };
-
   }
 
   componentDidMount = async () => {
@@ -67,7 +66,7 @@ class SignUpForm extends Component {
       registerInfo[field] = this.state[field].value;
       const error = this.onValidateInput(field, this.state[field].value);
       if (error) {
-        errorFlag=true;
+        errorFlag = true;
       }
     }
     if (errorFlag) {
@@ -78,14 +77,14 @@ class SignUpForm extends Component {
       console.log(userProfile);
       this.props.toggleState();
     } catch (error) {
-      if(!error.code) {
+      if (!error.code) {
         this.setState({
-          loginError: error.message
-        })
+          loginError: error.message,
+        });
       } else {
         this.setState({
-          loginError: error.code.split('/')[1].split('-').join(" ")
-        })
+          loginError: error.code.split("/")[1].split("-").join(" "),
+        });
       }
     }
   };
@@ -154,4 +153,4 @@ class SignUpForm extends Component {
   }
 }
 
-export default withRouter(React.memo(SignUpForm))
+export default withRouter(React.memo(SignUpForm));

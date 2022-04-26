@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 class HomePage extends Component {
   render() {
     return (
-      <main className='homepage'>
+      <main className="homepage">
         <div className="container">
           <div>HomePage</div>
         </div>
       </main>
-    )
+    );
   }
 }
 

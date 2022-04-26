@@ -5,4 +5,4 @@ export const maxLength = max => value =>
     value.length <= max ? undefined : `The length should be lower than ${max} characters`
 
 export const composeValidators = (...validators) => value =>
-    validators.reduce((error, validator) => error || validator(value), undefined)
+    validators.reduce((error, validator) => error || validator(value), undefined);

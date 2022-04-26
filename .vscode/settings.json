@@ -1,0 +1,9 @@
+{
+  "editor.tabSize": 2,
+  "diffEditor.codeLens": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnType": true,
+  "css.format.spaceAroundSelectorSeparator": true,
+  "css.lint.duplicateProperties": "warning",
+  "editor.fontLigatures": false
+}

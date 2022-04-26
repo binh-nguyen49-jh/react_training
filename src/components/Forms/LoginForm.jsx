@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import { logInWithEmail } from "../../API/authentication";
-import { composeValidators, maxLength, minLength, required } from "../../utils/formValidate";
+import {
+  composeValidators,
+  maxLength,
+  minLength,
+  required,
+} from "../../utils/formValidate";
 import FormButton from "../FormButton/FormButton";
 import withRouter from "../HOC/withRouter";
 import InputField from "../InputField/InputField";
-import './Form.scss';
+import "./Form.scss";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -12,12 +17,12 @@ class LoginForm extends Component {
     this.state = {
       email: {},
       password: {},
-      loginError: null
+      loginError: null,
     };
 
     this.validators = {
-      'email':required,
-      'password': composeValidators(required, minLength(8), maxLength(10))
+      email: required,
+      password: composeValidators(required, minLength(8), maxLength(10)),
     };
   }
 
@@ -34,16 +39,16 @@ class LoginForm extends Component {
     newForm[field].error = error;
     this.setState(newForm);
     return error;
-  }
+  };
 
   handleSubmit = async (event) => {
     event.preventDefault();
 
     let errorFlag = false;
     for (let field in this.validators) {
-      const error = this.onValidateInput(field, this.state[field].value)
+      const error = this.onValidateInput(field, this.state[field].value);
       if (error) {
-        errorFlag=true;
+        errorFlag = true;
       }
     }
     if (errorFlag) {
@@ -51,45 +56,62 @@ class LoginForm extends Component {
     }
 
     try {
-      const userProfile = await logInWithEmail(this.state.email.value, this.state.password.value);
+      const userProfile = await logInWithEmail(
+        this.state.email.value,
+        this.state.password.value
+      );
       console.log(userProfile);
     } catch (error) {
-      if(!error.code) {
+      if (!error.code) {
         this.setState({
-          loginError: error.message
-        })
+          loginError: error.message,
+        });
       } else {
         this.setState({
-          loginError: error.code.split('/')[1].split('-').join(" ")
-        })
+          loginError: error.code.split("/")[1].split("-").join(" "),
+        });
       }
     }
   };
   render() {
-    return (<>
+    return (
+      <>
         <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
-          <InputField 
-          onValidate={this.onValidateInput} 
-          type="email" 
-          name="email" 
-          label="Email"
-          placeholder="example@abc.xyz" 
-          error={this.state.email.error}
-          onChange={this.onChangeForm} />
+          <InputField
+            onValidate={this.onValidateInput}
+            type="email"
+            name="email"
+            label="Email"
+            placeholder="example@abc.xyz"
+            error={this.state.email.error}
+            onChange={this.onChangeForm}
+          />
 
-          <InputField 
-          onValidate={this.onValidateInput} 
-          type="password" 
-          name="password" 
-          label="Password"
-          placeholder="Type your password" 
-          error={this.state.password.error}
-          onChange={this.onChangeForm} />
-          {this.state.loginError && <p className="form-error">{this.state.loginError}</p>}
-          <FormButton className="btn-login" handleOnClick = {this.handleSubmit} type="submit"  text="Login"/>
+          <InputField
+            onValidate={this.onValidateInput}
+            type="password"
+            name="password"
+            label="Password"
+            placeholder="Type your password"
+            error={this.state.password.error}
+            onChange={this.onChangeForm}
+          />
+          {this.state.loginError && (
+            <p className="form-error">{this.state.loginError}</p>
+          )}
+          <FormButton
+            className="btn-login"
+            handleOnClick={this.handleSubmit}
+            type="submit"
+            text="Login"
+          />
           <hr />
-          <FormButton className="btn-signUp" handleOnClick = {this.props.toggleState}  text="Sign up"/>
+          <FormButton
+            className="btn-signUp"
+            handleOnClick={this.props.toggleState}
+            text="Sign up"
+          />
         </form>
       </>
     );
