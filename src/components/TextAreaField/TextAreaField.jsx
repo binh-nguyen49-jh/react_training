@@ -1,10 +1,10 @@
 import Picker from "emoji-picker-react";
-import React, { useState } from "react";
-
-export default function TextAreaField(props) {
-  const [text, setText] = useState("");
+import React, { useEffect, useRef, useState } from "react";
+import './TextAreaField.scss'
+const TextAreaField = React.forwardRef((props, ref) => {
   const [choosingEmoji, setChoosingEmoji] = useState(false);
-
+  const [text, setText] = useState("");
+  const emojiWindow = useRef(null);
   const onEmojiClick = (event, emojiObject) => {
     setText((oldMessage) => oldMessage + emojiObject.emoji);
   };
@@ -14,23 +14,24 @@ export default function TextAreaField(props) {
   };
   const onChangingText = (event) => {
     setText(event.target.value);
-    props.onChange(props.name, event.target.value, "");
   };
 
   return (
     <div
-      className={props.className}
+      className={`${props.className ? props.className : ''} textarea-container`}
       style={{
         ...props.style,
       }}
     >
-      <textarea
+      <textarea 
+        ref={ref}
         className="textarea-field"
         placeholder={props.placeholder}
         maxLength={3000}
         name=""
         id=""
         cols="30"
+        rows="10"
         value={text}
         onChange={onChangingText}
       ></textarea>
@@ -66,6 +67,7 @@ export default function TextAreaField(props) {
         </svg>
       </button>
       <div
+        ref={emojiWindow}
         className="emoji-window"
         style={{
           display: choosingEmoji ? "block" : "none",
@@ -79,4 +81,6 @@ export default function TextAreaField(props) {
       </div>
     </div>
   );
-}
+});
+
+export default React.memo(TextAreaField);
