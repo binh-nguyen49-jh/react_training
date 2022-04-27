@@ -5,5 +5,7 @@
   "editor.formatOnType": true,
   "css.format.spaceAroundSelectorSeparator": true,
   "css.lint.duplicateProperties": "warning",
-  "editor.fontLigatures": false
+  "editor.fontLigatures": false,
+  "prettier.jsxBracketSameLine": true,
+  "prettier.jsxSingleQuote": true
 }

@@ -8,11 +8,16 @@ import {
   required,
 } from "../../utils/formValidate";
 import DropdownField from "../DropdownField/DropdownField";
-import FormButton from "../FormButton/FormButton";
+import LoadingButton from "../LoadingButton/LoadingButton";
 import withRouter from "../HOC/withRouter";
 import InputField from "../InputField/InputField";
+import PropTypes from 'prop-types';
 
 class SignUpForm extends Component {
+  static propTypes = {
+    toggleState: PropTypes.func.isRequired,
+  };
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -43,6 +48,7 @@ class SignUpForm extends Component {
       });
     } catch (error) {}
   };
+
   onChangeForm = (field, value, errorMessage) => {
     const newForm = this.state;
     newForm[field].value = value;
@@ -73,8 +79,7 @@ class SignUpForm extends Component {
       return;
     }
     try {
-      const userProfile = await registerWithEmail(registerInfo);
-      console.log(userProfile);
+      await registerWithEmail(registerInfo);
       this.props.toggleState();
     } catch (error) {
       if (!error.code) {
@@ -88,6 +93,7 @@ class SignUpForm extends Component {
       }
     }
   };
+
   render() {
     return (
       <>
@@ -135,13 +141,13 @@ class SignUpForm extends Component {
           {this.state.loginError && (
             <p className="form-error">{this.state.loginError}</p>
           )}
-          <FormButton
+          <LoadingButton
             className="btn-signUp"
             handleOnClick={this.handleSubmit}
             text="Sign up"
           />
           <hr />
-          <FormButton
+          <LoadingButton
             className="btn-login"
             handleOnClick={this.props.toggleState}
             type="submit"

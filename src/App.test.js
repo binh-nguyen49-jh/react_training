@@ -1,26 +1,17 @@
 /* eslint-disable jest/no-conditional-expect */
-import {
-  collection,
-  getDoc,
-  getDocs
-} from 'firebase/firestore/lite';
-import {
-  firestoreDB
-} from './API/firebase';
+import { collection, getDoc, getDocs } from 'firebase/firestore/lite';
+import { firestoreDB } from './API/firebase';
 import PositionAPI from './API/positionAPI';
-import {
-  logInWithEmail,
-  registerWithEmail
-} from './API/authentication';
+import { logInWithEmail, registerWithEmail } from './API/authentication';
 import PostAPI from './API/postAPI';
 import UserPostAPI from './API/userPostAPI';
 
 test('connect to fire store', async () => {
   const testCollection = collection(firestoreDB, 'testCollection'); // get collection created for testing
   const documents = await getDocs(testCollection);
-  const data = documents.docs.map(doc => doc.data());
+  const data = documents.docs.map((doc) => doc.data());
   expect(data[0].name).toBe('Binh');
-})
+});
 /*
 test('get all position documents', async () => {
   const data = await PositionAPI.getAllPosition();
@@ -72,20 +63,28 @@ test('user interact with a post', async () => {
   const userId = 'test_uid';
   const postId = 'test_post_id';
   const interactions = {
-    hidden: true
+    hidden: true,
   };
-  const userPostRef = await UserPostAPI.interactPost(userId, postId, interactions);
-  const updatedDoc = await getDoc(userPostRef)
+  const userPostRef = await UserPostAPI.interactPost(
+    userId,
+    postId,
+    interactions
+  );
+  const updatedDoc = await getDoc(userPostRef);
   expect(updatedDoc.data().hidden).toBe(true);
-})
+});
 
 test('user update the interaction with a post', async () => {
   const userId = 'test_uid';
   const postId = 'test_post_id';
   const interactions = {
-    hidden: false
+    hidden: false,
   };
-  const userPostRef = await UserPostAPI.interactPost(userId, postId, interactions);
-  const updatedDoc = await getDoc(userPostRef)
+  const userPostRef = await UserPostAPI.interactPost(
+    userId,
+    postId,
+    interactions
+  );
+  const updatedDoc = await getDoc(userPostRef);
   expect(updatedDoc.data().hidden).toBe(false);
-})
+});

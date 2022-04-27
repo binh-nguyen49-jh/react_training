@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import "./InputField.scss";
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import './InputField.scss';
 
 class InputField extends Component {
   static propTypes = {
@@ -12,10 +12,11 @@ class InputField extends Component {
     validate: PropTypes.func,
     onChange: PropTypes.func,
   };
+  
   constructor(props) {
     super(props);
     this.state = {
-      value: "",
+      value: '',
     };
   }
 
@@ -23,7 +24,7 @@ class InputField extends Component {
     this.setState({
       value: event.target.value,
     });
-    this.props.onChange(this.props.name, event.target.value, "");
+    this.props.onChange(this.props.name, event.target.value, '');
   };
 
   validate = () => {
@@ -33,7 +34,7 @@ class InputField extends Component {
   render = () => {
     const { type, name, label, placeholder, className } = this.props;
     return (
-      <div className="form__input">
+      <div className='form__input'>
         <input
           placeholder={placeholder}
           onBlur={this.validate}
@@ -42,10 +43,10 @@ class InputField extends Component {
           name={name}
           id={name}
           value={this.state.value}
-          className={className ? className : ""}
+          className={className ? className : ''}
         />
         <label htmlFor={name}>{label}</label>
-        <span className="form__error">{this.props.error}</span>
+        <span className='form__error'>{this.props.error}</span>
       </div>
     );
   };

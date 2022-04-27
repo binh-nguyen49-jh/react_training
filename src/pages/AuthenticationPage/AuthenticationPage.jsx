@@ -1,12 +1,16 @@
-import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
-import LoginForm from "../../components/Forms/LoginForm";
-import SignUpForm from "../../components/Forms/SignUpForm";
-import withFirebaseAuth from "../../components/HOC/withFirebaseAuth";
-
-import "./AuthenticationPage.scss";
+import React, { Component } from 'react';
+import { Navigate } from 'react-router-dom';
+import LoginForm from '../../components/Forms/LoginForm';
+import SignUpForm from '../../components/Forms/SignUpForm';
+import withFirebaseAuth from '../../components/HOC/withFirebaseAuth';
+import './AuthenticationPage.scss';
+import PropTypes from 'prop-types';
 
 class AuthenticationPage extends Component {
+  static propTypes = {
+    user: PropTypes.object,
+  };
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -18,19 +22,19 @@ class AuthenticationPage extends Component {
     this.setState((prevState) => ({
       isSigningUp: !prevState.isSigningUp,
     }));
-  }
+  };
 
   render() {
-    return (
-      (this.props.user)?
+    return this.props.user ? (
       <Navigate to='/'></Navigate>
-      :<main>
-        <div className="container">
-          <div className="logo">
-            <img src="journeyh.png" alt="" />
+    ) : (
+      <main>
+        <div className='container'>
+          <div className='logo'>
+            <img src='journeyh.png' alt='' />
             <h1>journey horizon</h1>
           </div>
-          <div className="form-container">
+          <div className='form-container'>
             {this.state.isSigningUp ? (
               <SignUpForm toggleState={this.toggleState} />
             ) : (

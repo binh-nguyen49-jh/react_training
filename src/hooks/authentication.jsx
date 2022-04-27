@@ -1,26 +1,11 @@
-import {
-  firebaseAuth,
-} from "../API/firebase";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState
-} from "react";
+import { firebaseAuth } from '../API/firebase';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const authContext = createContext();
 
-export function AuthProvider({
-  children
-}) {
+export function AuthProvider({ children }) {
   const auth = useFirebaseAuth();
-  return (
-    <authContext.Provider value={
-      auth
-    } > {
-      children
-    } </authContext.Provider>
-  );
+  return <authContext.Provider value={auth}> {children} </authContext.Provider>;
 }
 // For children to use authContext
 export const useAuth = () => {
@@ -31,8 +16,8 @@ function useFirebaseAuth() {
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    const updateUser = firebaseAuth.onAuthStateChanged(async user => {
-      console.log("update: ", user)
+    const updateUser = firebaseAuth.onAuthStateChanged(async (user) => {
+      console.log('update: ', user);
       if (user) {
         setUser(user);
       } else {
@@ -49,6 +34,6 @@ function useFirebaseAuth() {
 
   return {
     user,
-    logOut
+    logOut,
   };
 }

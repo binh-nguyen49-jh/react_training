@@ -6,12 +6,17 @@ import {
   minLength,
   required,
 } from "../../utils/formValidate";
-import FormButton from "../FormButton/FormButton";
+import LoadingButton from "../LoadingButton/LoadingButton";
 import withRouter from "../HOC/withRouter";
 import InputField from "../InputField/InputField";
+import PropTypes from "prop-types";
 import "./Form.scss";
 
 class LoginForm extends Component {
+  static propTypes = {
+    toggleState: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -73,6 +78,7 @@ class LoginForm extends Component {
       }
     }
   };
+
   render() {
     return (
       <>
@@ -100,14 +106,14 @@ class LoginForm extends Component {
           {this.state.loginError && (
             <p className="form-error">{this.state.loginError}</p>
           )}
-          <FormButton
+          <LoadingButton
             className="btn-login"
             handleOnClick={this.handleSubmit}
             type="submit"
             text="Login"
           />
           <hr />
-          <FormButton
+          <LoadingButton
             className="btn-signUp"
             handleOnClick={this.props.toggleState}
             text="Sign up"
