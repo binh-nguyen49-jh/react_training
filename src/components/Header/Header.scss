@@ -11,7 +11,6 @@ header {
 header .container {
   height: 100%;
   padding: 0 30px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,19 +18,17 @@ header .container {
 
 nav>ul {
   display: flex;
-  height: 100%;
-
   align-items: center;
+  height: 100%;
   gap: 10px;
   list-style-type: none;
 }
 
 .nav__item {
   display: flex;
-  gap: 5px;
   align-items: center;
+  gap: 5px;
   height: 100%;
-
   cursor: pointer;
 }
 
@@ -46,22 +43,20 @@ header .logo img {
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) {
   header {
+    position: fixed;
     height: 100vh;
     width: var(--sidebar-width);
     background-color: transparent;
-    position: fixed;
     top: 0;
     left: 0;
     box-shadow: 2px 0 15px rgba($color: #000000, $alpha: .2);
   }
 
   header .container {
-
     flex-flow: column;
     align-items: center;
     justify-content: flex-start;
     padding: 20px 0 0 0;
-
     gap: 40px;
   }
 
@@ -75,6 +70,4 @@ header .logo img {
     flex-flow: column;
     gap: 20px;
   }
-
-
 }
