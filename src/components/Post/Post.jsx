@@ -4,6 +4,7 @@ import Avatar from "../Avatar/Avatar";
 import TextAreaField from "../TextAreaField/TextAreaField";
 import PropTypes from 'prop-types';
 import './Post.scss';
+import Modal from "../HOC/Modal";
 
 export default function Post(props) {
   
@@ -12,6 +13,8 @@ export default function Post(props) {
   const [showingComment, setShowingComment] = useState(false);
   const commentRef = useRef(null);
   const likeRef = useRef(null);
+  const [showModal, setShowModal] = useState(false);
+  const [internalShowModal, setInternalShowModal] = useState(false);
 
   const onClickLike = (isLiked) => {
     likeRef.current.animate(
@@ -56,10 +59,22 @@ export default function Post(props) {
 
   return (
     <div className="post">
+      {(internalShowModal || showModal) && (
+        <Modal
+          onMouseOverModal={() => setInternalShowModal(true)}
+          onMouseOutModal={() => setInternalShowModal(false)}
+        >
+
+        </Modal>
+      )}
       <div className="post__header">
-        <div className="user-info">
+        <div
+          className="user-info"
+          onMouseOver={() => setShowModal(true)}
+          onMouseOut={() => setShowModal(false)}
+        >
           <Avatar
-            img_url="https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg"
+            img_url={props.userAvatar}
             style={{
               width: "32px",
               height: "32px",
@@ -68,6 +83,9 @@ export default function Post(props) {
           <Link className="username" to={"/profile"}>
             {props.userName}
           </Link>
+          <div className="badge">
+            <p>{props.position}</p>
+          </div>
         </div>
         <div className="action">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -154,11 +172,7 @@ export default function Post(props) {
               className="comments__button"
               onClick={() => setShowingComment(!showingComment)}
             >
-              {
-                showingComment ? 
-                'Ẩn tất cả bình luận':
-                'Xem tất cả bình luận'
-              }
+              {showingComment ? "Ẩn tất cả bình luận" : "Xem tất cả bình luận"}
             </div>
             <ul className={`comments__list ${showingComment ? "show" : ""}`}>
               <li className="comment">
@@ -184,8 +198,10 @@ export default function Post(props) {
       </div>
       <div className="post__footer">
         <form>
-          <TextAreaField ref={commentRef}/>
-          <button onClick={onSubmitComment} type="submit">Đăng</button>
+          <TextAreaField ref={commentRef} />
+          <button onClick={onSubmitComment} type="submit">
+            Đăng
+          </button>
         </form>
       </div>
     </div>
