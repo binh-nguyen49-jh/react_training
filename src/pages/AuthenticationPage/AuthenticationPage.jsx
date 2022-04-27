@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Navigate } from "react-router-dom";
-import LoginForm from "../Forms/LoginForm";
-import SignUpForm from "../Forms/SignUpForm";
-import withFirebaseAuth from "../HOC/withFirebaseAuth";
+import LoginForm from "../../components/Forms/LoginForm";
+import SignUpForm from "../../components/Forms/SignUpForm";
+import withFirebaseAuth from "../../components/HOC/withFirebaseAuth";
 
 import "./AuthenticationPage.scss";
 

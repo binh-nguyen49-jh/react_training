@@ -3,10 +3,10 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
-import AuthenticationPage from './components/AuthenticationPage/AuthenticationPage';
-import HomePage from './components/HomePage/HomePage';
+import AuthenticationPage from './pages/AuthenticationPage/AuthenticationPage';
+import HomePage from './pages/HomePage/HomePage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
-import ProfilePage from './components/ProfilePage/ProfilePage';
 import Header from './components/Header/Header';
 import waves from "./waves.svg";
 
