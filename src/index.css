@@ -20,6 +20,7 @@ ol {
   --disabled-btn-bg: var(--gray-3-cl);
   --disabled-btn-cl: #ffffff;
   --max-width-container: 1200px;
+  --action-modal-bg: #ffffff;
 }
 
 body {

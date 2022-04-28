@@ -12,14 +12,18 @@ class HomePage extends Component {
               user={{
                 name: 'huubinh49',
                 position: 'Frontend Developer',
-                avatar: 'https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg'
+                avatar:
+                  'https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg',
               }}
-              status='Lorem qwe qwe qwe qwe qw eq weq we qwe qwe q we qwe q we qw e qwe qw e'
-              createdAt='14:30pm'
-              images={[
-                'https://techkalzen.com/wp-content/uploads/2020/02/tron-bo-nhung-hinh-anh-dep-buon-mang-tam-trang-suy-tu-1.jpg',
-                'https://techkalzen.com/wp-content/uploads/2020/02/tron-bo-nhung-hinh-anh-dep-buon-mang-tam-trang-suy-tu-3.jpg',
-              ]}
+              post={{
+                status:
+                  'Lorem qwe qwe qwe qwe qw eq weq we qwe qwe q we qwe q we qw e qwe qw e',
+                createdAt: '14:30pm',
+                images: [
+                  'https://techkalzen.com/wp-content/uploads/2020/02/tron-bo-nhung-hinh-anh-dep-buon-mang-tam-trang-suy-tu-1.jpg',
+                  'https://techkalzen.com/wp-content/uploads/2020/02/tron-bo-nhung-hinh-anh-dep-buon-mang-tam-trang-suy-tu-3.jpg',
+                ],
+              }}
             />
           </div>
         </div>
@@ -28,4 +32,4 @@ class HomePage extends Component {
   }
 }
 
-export default React.memo(HomePage);
+export default HomePage;
