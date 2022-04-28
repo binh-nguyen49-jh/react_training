@@ -6,6 +6,8 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
 import Header from './components/Header/Header';
 import waves from './waves.svg';
+import LoginForm from './components/Forms/LoginForm';
+import SignUpForm from './components/Forms/SignUpForm';
 
 function App() {
   return (
@@ -21,7 +23,20 @@ function App() {
           path='/'
           exact
         />
-        <Route element={<AuthenticationPage />} path='/authentication' />
+        <Route
+          element={
+            <AuthenticationPage>
+              <SignUpForm />
+            </AuthenticationPage>
+          }
+          path='/authentication/signup'></Route>
+        <Route
+          element={
+            <AuthenticationPage>
+              <LoginForm />
+            </AuthenticationPage>
+          }
+          path='/authentication/login'></Route>
 
         <Route
           element={

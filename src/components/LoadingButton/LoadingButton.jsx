@@ -8,11 +8,13 @@ class LoadingButton extends Component {
     className: PropTypes.string,
     type: PropTypes.string,
     handleOnClick: PropTypes.func,
+    disabled: PropTypes.bool,
   };
 
   static defaultProps = {
     className: '',
     type: 'button',
+    disabled: false,
   };
 
   constructor(props) {
@@ -50,11 +52,12 @@ class LoadingButton extends Component {
   };
 
   render() {
-    const { text, type } = this.props;
+    const { text, type, disabled } = this.props;
     return (
       <button
         type={type}
         className={this.className}
+        disabled={disabled}
         onClick={this.handleOnClick}>
         <div className='spinner' />
         <p className='text'>{text}</p>

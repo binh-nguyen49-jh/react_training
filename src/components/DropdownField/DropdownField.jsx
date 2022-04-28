@@ -43,7 +43,7 @@ class DropdownField extends Component {
           ))}
         </select>
         <label htmlFor={name}>{label}</label>
-        <span className='formError'>{error}</span>
+        <span className='inputError'>{error}</span>
       </div>
     );
   };

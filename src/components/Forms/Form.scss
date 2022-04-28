@@ -44,6 +44,16 @@ h2 {
   }
 }
 
+.btnLogin {
+  background-color: var(--primary-cl);
+  color: #fff;
+
+}
+
+.btnSignUp {
+  background-color: #fff;
+  color: var(--primary-cl);   
+}
 
 @media only screen and (min-width: 481px) {
   h2 {

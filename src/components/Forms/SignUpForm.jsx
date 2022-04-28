@@ -1,31 +1,28 @@
-import React, { Component } from "react";
-import { registerWithEmail } from "../../API/authentication";
-import PositionAPI from "../../API/positionAPI";
+import React from 'react';
+import { registerWithEmail } from '../../API/authentication';
+import PositionAPI from '../../API/positionAPI';
 import {
   composeValidators,
   maxLength,
   minLength,
   required,
-} from "../../utils/formValidate";
-import DropdownField from "../DropdownField/DropdownField";
-import LoadingButton from "../LoadingButton/LoadingButton";
-import withRouter from "../HOC/withRouter";
-import InputField from "../InputField/InputField";
-import PropTypes from 'prop-types';
+} from '../../utils/formValidate';
+import DropdownField from '../DropdownField/DropdownField';
+import LoadingButton from '../LoadingButton/LoadingButton';
+import withRouter from '../HOC/withRouter';
+import InputField from '../InputField/InputField';
+import { Link } from 'react-router-dom';
+import Form from './Form';
 
-class SignUpForm extends Component {
-  static propTypes = {
-    toggleState: PropTypes.func.isRequired,
-  };
-  
+class SignUpForm extends Form {
   constructor(props) {
     super(props);
     this.state = {
+      ...super.state,
       email: {},
       password: {},
       name: {},
       position: {},
-      loginError: null,
       positions: [],
     };
 
@@ -49,50 +46,13 @@ class SignUpForm extends Component {
     } catch (error) {}
   };
 
-  onChangeForm = (field, value, errorMessage) => {
-    const newForm = this.state;
-    newForm[field].value = value;
-    newForm[field].error = errorMessage;
-    this.setState(newForm);
-  };
-
-  onValidateInput = (field, value) => {
-    const error = this.validators[field](value);
-    const newForm = this.state;
-    newForm[field].error = error;
-    this.setState(newForm);
-    return error;
-  };
-
-  handleSubmit = async (event) => {
-    event.preventDefault();
+  handleSubmit = this.handleSubmitTemplate(async () => {
     const registerInfo = {};
-    let errorFlag = false;
     for (let field in this.validators) {
       registerInfo[field] = this.state[field].value;
-      const error = this.onValidateInput(field, this.state[field].value);
-      if (error) {
-        errorFlag = true;
-      }
     }
-    if (errorFlag) {
-      return;
-    }
-    try {
-      await registerWithEmail(registerInfo);
-      this.props.toggleState();
-    } catch (error) {
-      if (!error.code) {
-        this.setState({
-          loginError: error.message,
-        });
-      } else {
-        this.setState({
-          loginError: error.code.split("/")[1].split("-").join(" "),
-        });
-      }
-    }
-  };
+    await registerWithEmail(registerInfo);
+  });
 
   render() {
     return (
@@ -101,58 +61,58 @@ class SignUpForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <InputField
             onValidate={this.onValidateInput}
-            type="name"
-            name="name"
-            label="Name"
-            placeholder="Type your name"
+            type='name'
+            name='name'
+            label='Name'
+            placeholder='Type your name'
             error={this.state.name.error}
             onChange={this.onChangeForm}
           />
 
           <InputField
             onValidate={this.onValidateInput}
-            type="email"
-            name="email"
-            label="Email"
-            placeholder="example@abc.xyz"
+            type='email'
+            name='email'
+            label='Email'
+            placeholder='example@abc.xyz'
             error={this.state.email.error}
             onChange={this.onChangeForm}
           />
 
           <InputField
             onValidate={this.onValidateInput}
-            type="password"
-            name="password"
-            label="Password"
-            placeholder="Type your password"
+            type='password'
+            name='password'
+            label='Password'
+            placeholder='Type your password'
             error={this.state.password.error}
             onChange={this.onChangeForm}
           />
 
           <DropdownField
             onValidate={this.onValidateInput}
-            name="position"
-            label="Position"
-            placeholder="Select your position"
+            name='position'
+            label='Position'
+            placeholder='Select your position'
             options={this.state.positions}
             error={this.state.position.error}
             onChange={this.onChangeForm}
           />
-          {this.state.loginError && (
-            <p className="formError">{this.state.loginError}</p>
+          {this.state.formError && (
+            <p className='formError'>{this.state.formError}</p>
           )}
           <LoadingButton
-            className="btnSignUp"
+            className='btnSignUp'
             handleOnClick={this.handleSubmit}
-            text="Sign up"
+            disabled={this.state.isSubmittable}
+            text='Sign up'
+            type='submit'
           />
           <hr />
-          <LoadingButton
-            className="btnLogin"
-            handleOnClick={this.props.toggleState}
-            type="submit"
-            text="Login"
-          />
+          <p>
+            Already have an account?{' '}
+            <Link to='/authentication/login'>Log in</Link>
+          </p>
         </form>
       </>
     );

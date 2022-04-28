@@ -1,28 +1,25 @@
-import React, { Component } from "react";
-import { logInWithEmail } from "../../API/authentication";
+import React from 'react';
+import { logInWithEmail } from '../../API/authentication';
 import {
   composeValidators,
   maxLength,
   minLength,
   required,
-} from "../../utils/formValidate";
-import LoadingButton from "../LoadingButton/LoadingButton";
-import withRouter from "../HOC/withRouter";
-import InputField from "../InputField/InputField";
-import PropTypes from "prop-types";
-import "./Form.scss";
+} from '../../utils/formValidate';
+import LoadingButton from '../LoadingButton/LoadingButton';
+import withRouter from '../HOC/withRouter';
+import InputField from '../InputField/InputField';
+import './Form.scss';
+import { Link } from 'react-router-dom';
+import Form from './Form';
 
-class LoginForm extends Component {
-  static propTypes = {
-    toggleState: PropTypes.func.isRequired,
-  };
-
+class LoginForm extends Form {
   constructor(props) {
     super(props);
     this.state = {
+      ...super.state,
       email: {},
       password: {},
-      loginError: null,
     };
 
     this.validators = {
@@ -31,53 +28,9 @@ class LoginForm extends Component {
     };
   }
 
-  onChangeForm = (field, value, errorMessage) => {
-    const newForm = this.state;
-    newForm[field].value = value;
-    newForm[field].error = errorMessage;
-    this.setState(newForm);
-  };
-
-  onValidateInput = (field, value) => {
-    const error = this.validators[field](value);
-    const newForm = this.state;
-    newForm[field].error = error;
-    this.setState(newForm);
-    return error;
-  };
-
-  handleSubmit = async (event) => {
-    event.preventDefault();
-
-    let errorFlag = false;
-    for (let field in this.validators) {
-      const error = this.onValidateInput(field, this.state[field].value);
-      if (error) {
-        errorFlag = true;
-      }
-    }
-    if (errorFlag) {
-      return;
-    }
-
-    try {
-      const userProfile = await logInWithEmail(
-        this.state.email.value,
-        this.state.password.value
-      );
-      console.log(userProfile);
-    } catch (error) {
-      if (!error.code) {
-        this.setState({
-          loginError: error.message,
-        });
-      } else {
-        this.setState({
-          loginError: error.code.split("/")[1].split("-").join(" "),
-        });
-      }
-    }
-  };
+  handleSubmit = this.handleSubmitTemplate(async () => {
+    await logInWithEmail(this.state.email.value, this.state.password.value);
+  });
 
   render() {
     return (
@@ -86,38 +39,38 @@ class LoginForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <InputField
             onValidate={this.onValidateInput}
-            type="email"
-            name="email"
-            label="Email"
-            placeholder="example@abc.xyz"
+            type='email'
+            name='email'
+            label='Email'
+            placeholder='example@abc.xyz'
             error={this.state.email.error}
             onChange={this.onChangeForm}
           />
 
           <InputField
             onValidate={this.onValidateInput}
-            type="password"
-            name="password"
-            label="Password"
-            placeholder="Type your password"
+            type='password'
+            name='password'
+            label='Password'
+            placeholder='Type your password'
             error={this.state.password.error}
             onChange={this.onChangeForm}
           />
-          {this.state.loginError && (
-            <p className="formError">{this.state.loginError}</p>
+          {this.state.formError && (
+            <p className='formError'>{this.state.formError}</p>
           )}
           <LoadingButton
-            className="btnLogin"
+            className='btnLogin'
             handleOnClick={this.handleSubmit}
-            type="submit"
-            text="Login"
+            type='submit'
+            text='Login'
+            disabled={this.state.isSubmittable}
           />
           <hr />
-          <LoadingButton
-            className="btnSignUp"
-            handleOnClick={this.props.toggleState}
-            text="Sign up"
-          />
+          <p>
+            Don't have an account?{' '}
+            <Link to='/authentication/signup'>Sign up</Link>
+          </p>
         </form>
       </>
     );

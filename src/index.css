@@ -11,10 +11,14 @@ ol {
 
 :root {
   --primary-cl: #029AA8;
-  --gray-cl: #C4C4C4;
+  --gray-1-cl: #C4C4C4;
+  --gray-2-cl: #B6B6B6;
+  --gray-3-cl: #959595;
   --pink-cl: #ee4a57;
   --sidebar-width: 75px;
   --topbar-height: 60px;
+  --disabled-btn-bg: var(--gray-3-cl);
+  --disabled-btn-cl: #ffffff;
 }
 
 body {

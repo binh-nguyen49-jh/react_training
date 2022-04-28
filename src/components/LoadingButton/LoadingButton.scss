@@ -9,17 +9,13 @@
   border: 3px solid var(--primary-cl);
   box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
   cursor: pointer;
-}
 
-.btnLogin {
-  background-color: var(--primary-cl);
-  color: #fff;
-
-}
-
-.btnSignUp {
-  background-color: #fff;
-  color: var(--primary-cl);   
+  &:disabled {
+    border: none;
+    background-color: var(--disabled-btn-bg);
+    color: var(--disabled-btn-cl);
+    cursor: not-allowed;
+  }
 }
 
 .text {
