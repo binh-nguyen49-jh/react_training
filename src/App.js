@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import waves from './waves.svg';
 import LoginForm from './components/Forms/LoginForm';
 import SignUpForm from './components/Forms/SignUpForm';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <img src={waves} alt='waves background' />
         <div className='backgroundWater'></div>
       </div>
+      <ToastContainer />
     </>
   );
 }

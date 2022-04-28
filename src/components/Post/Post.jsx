@@ -9,9 +9,10 @@ import Badge from './Badge';
 import UserPopover from './UserPopover';
 import Modal from '../HOC/Modal';
 import UserPostAPI from '../../API/userPostAPI';
+import { toast } from 'react-toastify';
 
 function Post(props) {
-  const { user, status, createdAt, images } = props;
+  const { user, post } = props;
   const [currentImage, setCurrentImage] = useState(0);
   const [liked, setLiked] = useState(props.liked || false);
   const [showingComment, setShowingComment] = useState(false);
@@ -52,7 +53,7 @@ function Post(props) {
     const direction =
       event.clientX - postRect.left > postRect.width / 2 ? 1 : -1;
     const newIdxImage = currentImage + direction;
-    if (newIdxImage >= 0 && newIdxImage < images.length) {
+    if (newIdxImage >= 0 && newIdxImage < post.images.length) {
       setCurrentImage(newIdxImage);
     }
   };
@@ -64,9 +65,13 @@ function Post(props) {
 
   const onHidePost = () => {
     setShowActionModal(false);
-
-    UserPostAPI.interactPost(user.id, props.id, 'hide').then((res) => {
-      console.log(res);
+    UserPostAPI.interactPost(user.id, post.id, {
+      hidden: true
+    }).then((res) => {
+      toast.success('Post hidden successfully');
+    }).catch((err) => {
+      console.log(err)
+      toast.error('Error hiding post');
     });
   };
 
@@ -124,7 +129,7 @@ function Post(props) {
             className='carouselScreen'
             onClick={onClickCarousel}
             style={{
-              backgroundImage: `url(${images[currentImage]})`,
+              backgroundImage: `url(${post.images[currentImage]})`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
             }}>
@@ -144,7 +149,7 @@ function Post(props) {
             </div>
           </div>
           <div className='carouselIndicator'>
-            {images.map((val, idx) => (
+            {post.images.map((val, idx) => (
               <div
                 className={`indicator ${idx === currentImage ? 'active' : ''}`}
                 onClick={(e) => setCurrentImage(idx)}
@@ -185,7 +190,7 @@ function Post(props) {
             <Link className='username' to='/profile'>
               {user.name}
             </Link>
-            {status}
+            {post.status}
           </p>
           <div className='comments'>
             <div
@@ -212,7 +217,7 @@ function Post(props) {
               </li>
             </ul>
           </div>
-          <p className='timestamp'>{createdAt}</p>
+          <p className='timestamp'>{post.createdAt}</p>
         </div>
       </div>
       <div className='postFooter'>
@@ -228,10 +233,8 @@ function Post(props) {
 }
 
 Post.propTypes = {
-  user: PropTypes.object,
-  status: PropTypes.string,
-  createdAt: PropTypes.string,
-  images: PropTypes.array,
+  user: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
   liked: PropTypes.bool,
 };
 

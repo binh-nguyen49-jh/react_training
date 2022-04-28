@@ -10,12 +10,14 @@ class HomePage extends Component {
           <div>
             <Post
               user={{
+                id: 'test',
                 name: 'huubinh49',
                 position: 'Frontend Developer',
                 avatar:
                   'https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg',
               }}
               post={{
+                id: 'test',
                 status:
                   'Lorem qwe qwe qwe qwe qw eq weq we qwe qwe q we qwe q we qw e qwe qw e',
                 createdAt: '14:30pm',
