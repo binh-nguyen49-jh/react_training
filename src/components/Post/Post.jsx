@@ -12,7 +12,7 @@ import UserPostAPI from '../../API/userPostAPI';
 import { toast } from 'react-toastify';
 
 function Post(props) {
-  const { user, post } = props;
+  const { user, post, hidePost } = props;
   const [currentImage, setCurrentImage] = useState(0);
   const [liked, setLiked] = useState(props.liked || false);
   const [showingComment, setShowingComment] = useState(false);
@@ -68,7 +68,8 @@ function Post(props) {
     UserPostAPI.interactPost(user.id, post.id, {
       hidden: true
     }).then((res) => {
-      toast.success('Post hidden successfully');
+      toast.success('Hide post successfully');
+      hidePost();
     }).catch((err) => {
       console.log(err)
       toast.error('Error hiding post');
@@ -236,6 +237,7 @@ Post.propTypes = {
   user: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   liked: PropTypes.bool,
+  hidePost: PropTypes.func.isRequired,
 };
 
 export default React.memo(Post);

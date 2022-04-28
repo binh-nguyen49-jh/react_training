@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Post from '../../components/Post/Post';
+import PostFactory from '../../components/Post/PostFactory';
 import './HomePage.scss';
 
 class HomePage extends Component {
@@ -7,8 +8,11 @@ class HomePage extends Component {
     return (
       <main className='homepage'>
         <div className='container'>
-          <div>
-            <Post
+          <div className='postList' style={{
+            width: '100%'
+          }}>
+            <PostFactory
+              isHidden={false}
               user={{
                 id: 'test',
                 name: 'huubinh49',

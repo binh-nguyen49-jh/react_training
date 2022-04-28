@@ -2,11 +2,19 @@
   display: flex;
   justify-content: center;
 }
-.homepage > .container{
-  max-width: var(--max-width-container);
+
+.postList {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+}
+
+.homepage>.container {
+  max-width: var(--max-width-container);
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) {

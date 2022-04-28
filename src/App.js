@@ -52,7 +52,7 @@ function App() {
         <img src={waves} alt='waves background' />
         <div className='backgroundWater'></div>
       </div>
-      <ToastContainer />
+      <ToastContainer autoClose={3000} pauseOnFocusLoss={false} />
     </>
   );
 }

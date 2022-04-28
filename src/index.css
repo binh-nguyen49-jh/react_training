@@ -21,6 +21,9 @@ ol {
   --disabled-btn-cl: #ffffff;
   --max-width-container: 1200px;
   --action-modal-bg: #ffffff;
+  --action-modal-dark-bg: #404040;
+  --hidden-post-bg: #737373;
+  --hidden-post-text-cl: #ffffff;
 }
 
 body {
@@ -32,14 +35,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-main > .container {
+main>.container {
   min-height: calc(100vh - var(--topbar-height));
   width: 100%;
 }
 
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) {
-  main > .container {
+  main>.container {
     width: calc(100% - var(--sidebar-width));
   }
 }
