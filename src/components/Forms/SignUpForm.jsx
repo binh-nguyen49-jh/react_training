@@ -2,6 +2,7 @@ import React from 'react';
 import { registerWithEmail } from '../../API/authentication';
 import {
   composeValidators,
+  emailFormat,
   maxLength,
   minLength,
   required,
@@ -26,7 +27,7 @@ class SignUpForm extends Form {
     };
 
     this.validators = {
-      email: required,
+      email: composeValidators(required, emailFormat),
       password: composeValidators(required, minLength(8), maxLength(10)),
       name: required,
       position: required,
