@@ -15,11 +15,14 @@ ol {
   --gray-2-cl: #B6B6B6;
   --gray-3-cl: #959595;
   --pink-cl: #ee4a57;
+  --white-cl: #ffffff;
   --sidebar-width: 75px;
   --topbar-height: 60px;
   --disabled-btn-bg: var(--gray-3-cl);
   --disabled-btn-cl: #ffffff;
   --max-width-container: 1200px;
+  --max-width-post: 550px;
+  --min-width-post: 330px;
   --action-modal-bg: #ffffff;
   --action-modal-dark-bg: #404040;
   --hidden-post-bg: #737373;

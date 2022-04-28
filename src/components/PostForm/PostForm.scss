@@ -1,0 +1,115 @@
+.postForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: var(--max-width-post);
+  min-width: var(--min-width-post);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #fafafa;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .formContainer {
+    width: 100%;
+    max-width: inherit;
+    padding: 20px;
+
+    .formTop {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .textareaContainer {
+        min-height: 40px;
+        flex-grow: 1;
+        padding: 10px;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+
+        .emojiWindow {
+          right: 0;
+          transform: translate(0, 0);
+        }
+      }
+
+      .textareaField {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: justify;
+      }
+    }
+
+    hr {
+      height: 3px;
+      background-color: var(--gray-1-cl);
+    }
+
+    .formBottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      button {
+        cursor: pointer;
+      }
+    }
+
+    .formImages {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-template-rows: auto;
+      column-gap: 10px;
+      padding: 20px 0 0;
+
+      .formImage {
+        width: 100%;
+        max-width: 400px;
+        aspect-ratio: 5 / 6;
+        border-radius: 5px;
+        background-color: #fafafa;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        overflow: visible;
+        position: relative;
+
+        svg {
+          position: absolute;
+          top: 0;
+          right: 0;
+          transform: translate(50%, -50%);
+          z-index: 10;
+          fill: var(--pink-cl);
+          width: 20px;
+          height: 20px;
+          background-color: var(--white-cl);
+          border-radius: 50%;
+          transition: all 0.2s ease-in-out;
+          &:hover {
+            transform: translate(50%, -50%) scale(1.15) ;
+          }
+        }
+      }
+    }
+
+    .fileInput {
+      input {
+        display: none;
+      }
+
+      label {
+        cursor: pointer;
+        display: flex;
+        gap: 10px;
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}

@@ -9,3 +9,5 @@ export const POSITIONS = [
   'PM',
   'Testers',
 ];
+
+export const MAX_IMAGE_INPUTS = 4;

@@ -223,7 +223,7 @@ function Post(props) {
       </div>
       <div className='postFooter'>
         <form>
-          <TextAreaField ref={commentRef} />
+          <TextAreaField placeholder={'Type your comment'} ref={commentRef} />
           <button onClick={onSubmitComment} type='submit'>
             Đăng
           </button>

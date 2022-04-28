@@ -1,20 +1,28 @@
+import {
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
 import { firebaseStorage } from '../API/firebase';
 
 export default function uploadSingleFile(file) {
   return new Promise(function (resolve, reject) {
-    const storageRef = firebaseStorage.ref(
+    const storageRef = ref(
+      firebaseStorage,
       `${process.env.REACT_APP_FIREBASE_IMAGE_STORAGE}/${file.name}`
     );
-
-    //Upload file
-    return storageRef
-      .put(file)
-      .then((snapshot) => {
-        console.log('Uploaded a blob or file!', snapshot);
-        resolve(storageRef.getDownloadURL());
-      })
-      .catch((error) => {
+    const uploadTask = uploadBytesResumable(storageRef, file, 'data_url');
+    uploadTask.on(
+      'state_changed',
+      null,
+      (error) => {
         reject(error);
-      });
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((URL) => {
+          resolve(URL);
+        });
+      }
+    );
   });
 }

@@ -1,15 +1,17 @@
 import Picker from 'emoji-picker-react';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import './TextAreaField.scss';
 
 const TextAreaField = React.forwardRef((props, ref) => {
   const [choosingEmoji, setChoosingEmoji] = useState(false);
-  const [text, setText] = useState('');
+  const containerRef = useRef(null);
   const emojiWindow = useRef(null);
   
   const onEmojiClick = (event, emojiObject) => {
-    setText((oldMessage) => oldMessage + emojiObject.emoji);
+    if (ref.current) {
+      ref.current.value += emojiObject.emoji;
+    }
   };
 
   const handleEmojiButton = (event) => {
@@ -17,13 +19,28 @@ const TextAreaField = React.forwardRef((props, ref) => {
     setChoosingEmoji((oldState) => !oldState);
   };
 
+  const responsiveHeight = useCallback(() => {
+    if (containerRef.current) {
+      containerRef.current.style.height = "0"; // To get full of scrollHeight
+      containerRef.current.style.height = parseInt(ref.current.scrollHeight) + 16 + "px";
+    }
+  }, [ref, containerRef]);
+  
   const onChangingText = (event) => {
-    setText(event.target.value);
+    responsiveHeight();
   };
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.height = '0px';
+    }
+  }, [])
+  
 
   return (
     <div
       className={`${props.className} textareaContainer`}
+      ref={containerRef}
       style={{
         ...props.style,
       }}>
@@ -34,8 +51,7 @@ const TextAreaField = React.forwardRef((props, ref) => {
         maxLength={3000}
         cols='30'
         rows='10'
-        value={text}
-        onChange={onChangingText}></textarea>
+        onInput={onChangingText}></textarea>
       <button
         className='emojiButton'
         onClick={handleEmojiButton}

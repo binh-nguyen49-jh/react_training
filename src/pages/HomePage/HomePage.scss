@@ -12,9 +12,9 @@
 .homepage>.container {
   max-width: var(--max-width-container);
   display: flex;
-  flex-flow: row;
-  align-items: flex-start;
-  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) {

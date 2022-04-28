@@ -1,8 +1,8 @@
 .post {
   $post-pd: 20px;
   background-color: #fff;
-  min-width: 350px;
-  max-width: 550px;
+  min-width: var(--min-width-post);
+  max-width: var(--max-width-post);
   width: 100%;
   border: 2px solid #fafafa;
   border-radius: 10px;
@@ -48,8 +48,9 @@
       align-items: center;
 
       .textareaContainer {
-        height: 40px;
         flex-grow: 1;
+        min-height: 40px;
+        padding: 10px 0;
 
         .textareaField {
           text-indent: 0px;
