@@ -33,7 +33,9 @@ nav>ul {
 }
 
 .navItem:hover {
-  transform: scale(1.1);
+  svg, .avatar {
+    transform: scale(1.1);
+  }
 }
 
 header .logo img {

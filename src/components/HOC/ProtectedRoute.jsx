@@ -6,6 +6,6 @@ export default function ProtectedRoute({ children }) {
   if (user) {
     return children;
   } else {
-    return <Navigate to='/authentication'></Navigate>;
+    return <Navigate to='/authentication/login'></Navigate>;
   }
 }

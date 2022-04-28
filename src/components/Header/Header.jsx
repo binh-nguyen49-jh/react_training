@@ -9,7 +9,7 @@ export default function Header(props) {
   const navigate = useNavigate();
   const handleLogout = () => {
     logOut();
-    navigate('/authentication');
+    navigate('/authentication/login');
   };
 
   return (
@@ -78,7 +78,7 @@ export default function Header(props) {
               </>
             ) : (
               <li>
-                <Link className='navItem' to={'/authentication'}>
+                <p className='navItem '>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     width='30'
@@ -94,9 +94,14 @@ export default function Header(props) {
                       fill='black'
                     />
                   </svg>
-
-                  <span className='topbarElement'>Signup / Login</span>
-                </Link>
+                  <Link className='topbarElement' to={'/authentication/signup'}>
+                    Signup
+                  </Link>
+                    <span className='topbarElement'>{ ' / ' }</span>
+                  <Link className='topbarElement' to={'/authentication/login'}>
+                    Login
+                  </Link>
+                </p>
               </li>
             )}
           </ul>
