@@ -28,8 +28,8 @@ class LoginForm extends Form {
     };
   }
 
-  handleSubmit = this.handleSubmitTemplate(async () => {
-    await logInWithEmail(this.state.email.value, this.state.password.value);
+  handleSubmit = this.handleSubmitTemplate(() => {
+    return logInWithEmail(this.state.email.value, this.state.password.value);
   });
 
   render() {

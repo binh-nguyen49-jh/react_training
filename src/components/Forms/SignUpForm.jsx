@@ -1,12 +1,12 @@
 import React from 'react';
 import { registerWithEmail } from '../../API/authentication';
-import PositionAPI from '../../API/positionAPI';
 import {
   composeValidators,
   maxLength,
   minLength,
   required,
 } from '../../utils/formValidate';
+import { POSITIONS } from '../../config/constants';
 import DropdownField from '../DropdownField/DropdownField';
 import LoadingButton from '../LoadingButton/LoadingButton';
 import withRouter from '../HOC/withRouter';
@@ -23,7 +23,6 @@ class SignUpForm extends Form {
       password: {},
       name: {},
       position: {},
-      positions: [],
     };
 
     this.validators = {
@@ -34,24 +33,12 @@ class SignUpForm extends Form {
     };
   }
 
-  componentDidMount = async () => {
-    try {
-      const positions = await PositionAPI.getAllPosition();
-      this.setState({
-        positions: positions.map((position) => ({
-          value: position.positionId,
-          label: position.name,
-        })),
-      });
-    } catch (error) {}
-  };
-
-  handleSubmit = this.handleSubmitTemplate(async () => {
+  handleSubmit = this.handleSubmitTemplate(() => {
     const registerInfo = {};
     for (let field in this.validators) {
       registerInfo[field] = this.state[field].value;
     }
-    await registerWithEmail(registerInfo);
+    return registerWithEmail(registerInfo);
   });
 
   render() {
@@ -94,7 +81,7 @@ class SignUpForm extends Form {
             name='position'
             label='Position'
             placeholder='Select your position'
-            options={this.state.positions}
+            options={POSITIONS}
             error={this.state.position.error}
             onChange={this.onChangeForm}
           />

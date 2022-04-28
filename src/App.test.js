@@ -1,7 +1,6 @@
 /* eslint-disable jest/no-conditional-expect */
 import { collection, getDoc, getDocs } from 'firebase/firestore/lite';
 import { firestoreDB } from './API/firebase';
-import PositionAPI from './API/positionAPI';
 import { logInWithEmail, registerWithEmail } from './API/authentication';
 import PostAPI from './API/postAPI';
 import UserPostAPI from './API/userPostAPI';
@@ -13,17 +12,6 @@ test('connect to fire store', async () => {
   expect(data[0].name).toBe('Binh');
 });
 /*
-test('get all position documents', async () => {
-  const data = await PositionAPI.getAllPosition();
-  expect(typeof data).toBe('object');
-})
-
-
-test('get a position', async () => {
-  const data = await PositionAPI.getPosition(1);
-  expect(data.name).toBe('FE Developer');
-})
-
 test('register user', async () => {
   try {
     const userInfo = await registerWithEmail({

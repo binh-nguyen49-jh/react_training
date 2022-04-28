@@ -40,7 +40,7 @@ class Form extends Component {
     return validFlag;
   };
 
-  handleSubmitTemplate = (callback) => (event) => {
+  handleSubmitTemplate = (callback) => async (event) => {
     event.preventDefault();
 
     const isValid = this.checkValidateForm();
@@ -49,7 +49,7 @@ class Form extends Component {
     }
 
     try {
-      callback();
+      await callback();
     } catch (error) {
       if (!error.code) {
         this.setState({
