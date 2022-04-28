@@ -139,16 +139,16 @@ class SignUpForm extends Component {
             onChange={this.onChangeForm}
           />
           {this.state.loginError && (
-            <p className="form-error">{this.state.loginError}</p>
+            <p className="formError">{this.state.loginError}</p>
           )}
           <LoadingButton
-            className="btn-signUp"
+            className="btnSignUp"
             handleOnClick={this.handleSubmit}
             text="Sign up"
           />
           <hr />
           <LoadingButton
-            className="btn-login"
+            className="btnLogin"
             handleOnClick={this.props.toggleState}
             type="submit"
             text="Login"

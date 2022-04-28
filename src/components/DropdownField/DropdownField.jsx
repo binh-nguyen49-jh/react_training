@@ -25,7 +25,7 @@ class DropdownField extends Component {
   render = () => {
     const { name, label, placeholder, options, className, error } = this.props;
     return (
-      <div className='form__input select'>
+      <div className='formInput select'>
         <select
           placeholder={placeholder}
           onBlur={this.validate}
@@ -33,7 +33,7 @@ class DropdownField extends Component {
           name={name}
           id={name}
           className={className}>
-          <option value={''} checked>
+          <option value={''}>
             {placeholder}
           </option>
           {options.map((option) => (
@@ -43,7 +43,7 @@ class DropdownField extends Component {
           ))}
         </select>
         <label htmlFor={name}>{label}</label>
-        <span className='form__error'>{error}</span>
+        <span className='formError'>{error}</span>
       </div>
     );
   };

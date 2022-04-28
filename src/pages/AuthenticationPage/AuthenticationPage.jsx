@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 class AuthenticationPage extends Component {
   static propTypes = {
-    user: PropTypes.object,
+    user: PropTypes.any,
   };
   
   constructor(props) {
@@ -34,7 +34,7 @@ class AuthenticationPage extends Component {
             <img src='journeyh.png' alt='' />
             <h1>journey horizon</h1>
           </div>
-          <div className='form-container'>
+          <div className='formContainer'>
             {this.state.isSigningUp ? (
               <SignUpForm toggleState={this.toggleState} />
             ) : (

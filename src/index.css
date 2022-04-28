@@ -28,16 +28,17 @@ body {
 
 main .container {
   min-height: calc(100vh - var(--topbar-height));
+  width: 100%;
 }
 
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) {
   main .container {
-    width: calc(100vw - var(--sidebar-width));
+    width: calc(100% - var(--sidebar-width));
   }
 }
 
-@media screen and (min-width: 481px) {
+@media screen and (min-width: 1025px) {
   :root {
     --topbar-height: 100px
   }

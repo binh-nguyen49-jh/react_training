@@ -26,7 +26,7 @@ export default function Header(props) {
         <nav>
           <ul>
             <li>
-              <Link className='nav__item' to={'/'}>
+              <Link className='navItem' to={'/'}>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='25'
@@ -43,7 +43,7 @@ export default function Header(props) {
             {user ? (
               <>
                 <li>
-                  <Link className='nav__item' to={'/profile'}>
+                  <Link className='navItem' to={'/profile'}>
                     <Avatar
                       imgUrl={
                         'https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg'
@@ -58,7 +58,7 @@ export default function Header(props) {
                 <li>
                   <Link
                     onClick={handleLogout}
-                    className='nav__item'
+                    className='navItem'
                     to={'/profile'}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -72,13 +72,13 @@ export default function Header(props) {
                       />
                     </svg>
 
-                    <span className='topbar__element'>Logout</span>
+                    <span className='topbarElement'>Logout</span>
                   </Link>
                 </li>
               </>
             ) : (
               <li>
-                <Link className='nav__item' to={'/authentication'}>
+                <Link className='navItem' to={'/authentication'}>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     width='30'
@@ -95,7 +95,7 @@ export default function Header(props) {
                     />
                   </svg>
 
-                  <span className='topbar__element'>Signup / Login</span>
+                  <span className='topbarElement'>Signup / Login</span>
                 </Link>
               </li>
             )}

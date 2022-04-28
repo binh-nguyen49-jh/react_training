@@ -34,7 +34,7 @@ class InputField extends Component {
   render = () => {
     const { type, name, label, placeholder, className } = this.props;
     return (
-      <div className='form__input'>
+      <div className='formInput'>
         <input
           placeholder={placeholder}
           onBlur={this.validate}
@@ -46,7 +46,7 @@ class InputField extends Component {
           className={className ? className : ''}
         />
         <label htmlFor={name}>{label}</label>
-        <span className='form__error'>{this.props.error}</span>
+        <span className='inputError'>{this.props.error}</span>
       </div>
     );
   };

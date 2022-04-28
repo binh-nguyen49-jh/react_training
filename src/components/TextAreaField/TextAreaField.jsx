@@ -23,13 +23,13 @@ const TextAreaField = React.forwardRef((props, ref) => {
 
   return (
     <div
-      className={`${props.className} textarea-container`}
+      className={`${props.className} textareaContainer`}
       style={{
         ...props.style,
       }}>
       <textarea
         ref={ref}
-        className='textarea-field'
+        className='textareaField'
         placeholder={props.placeholder}
         maxLength={3000}
         cols='30'
@@ -37,20 +37,20 @@ const TextAreaField = React.forwardRef((props, ref) => {
         value={text}
         onChange={onChangingText}></textarea>
       <button
-        className='emoji-button'
+        className='emojiButton'
         onClick={handleEmojiButton}
         style={{
           border: choosingEmoji ? '2px solid #f8a81f' : 'none',
         }}>
         <svg
-          class='Sq(40px) My(8px)'
+          className='Sq(40px) My(8px)'
           viewBox='0 0 24 24'
           width='24px'
           height='24px'
           focusable='false'
           aria-hidden='true'
           role='presentation'>
-          <g fill='none' fill-rule='nonzero'>
+          <g fill='none' fillRule='nonzero'>
             <circle
               cx='10'
               cy='10'
@@ -65,7 +65,7 @@ const TextAreaField = React.forwardRef((props, ref) => {
       </button>
       <div
         ref={emojiWindow}
-        className='emoji-window'
+        className='emojiWindow'
         style={{
           display: choosingEmoji ? 'block' : 'none',
         }}>

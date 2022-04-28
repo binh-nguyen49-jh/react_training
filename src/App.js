@@ -34,7 +34,7 @@ function App() {
       </Routes>
       <div className='background'>
         <img src={waves} alt='waves background' />
-        <div className='background__water'></div>
+        <div className='backgroundWater'></div>
       </div>
     </>
   );

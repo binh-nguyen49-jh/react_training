@@ -12,7 +12,7 @@ export default class UserPopup extends Component {
   render() {
     const { userAvatar, position } = this.props;
     return (
-      <div className='user-popup'>
+      <div className='userPopup'>
         <div className='container'>
           <Avatar
             imgUrl={userAvatar}

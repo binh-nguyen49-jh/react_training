@@ -64,9 +64,9 @@ function Post(props) {
           onMouseOverModal={() => setInternalShowModal(true)}
           onMouseOutModal={() => setInternalShowModal(false)}></Modal>
       )}
-      <div className='post__header'>
+      <div className='postHeader'>
         <div
-          className='user-info'
+          className='userInfo'
           onMouseOver={() => setShowModal(true)}
           onMouseOut={() => setShowModal(false)}>
           <Avatar
@@ -85,32 +85,32 @@ function Post(props) {
           </svg>
         </div>
       </div>
-      <div className='post__body'>
-        <div className='post__carousel'>
+      <div className='postBody'>
+        <div className='postCarousel'>
           <div
-            className='carousel__screen'
+            className='carouselScreen'
             onClick={onClickCarousel}
             style={{
               backgroundImage: `url(${images[currentImage]})`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
             }}>
-            <div className='carousel__buttons'>
+            <div className='carouselButtons'>
               <svg
-                className='carousel__button'
+                className='carouselButton'
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 256 512'>
                 <path d='M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z' />
               </svg>
               <svg
-                className='carousel__button'
+                className='carouselButton'
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 256 512'>
                 <path d='M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z' />
               </svg>
             </div>
           </div>
-          <div className='carousel__indicator'>
+          <div className='carouselIndicator'>
             {images.map((val, idx) => (
               <div
                 className={`indicator ${idx === currentImage ? 'active' : ''}`}
@@ -120,11 +120,11 @@ function Post(props) {
             ))}
           </div>
         </div>
-        <div className='post__reaction'>
+        <div className='postReaction'>
           <div className='like' ref={likeRef}>
             {liked ? (
               <svg
-                className='like-icon'
+                className='likeIcon'
                 onClick={() => onClickLike(false)}
                 fill='#ed4956'
                 height='24'
@@ -134,7 +134,7 @@ function Post(props) {
               </svg>
             ) : (
               <svg
-                className='like-icon'
+                className='likeIcon'
                 onClick={() => onClickLike(true)}
                 fill='#262626'
                 height='24'
@@ -146,7 +146,7 @@ function Post(props) {
           </div>
         </div>
 
-        <div className='text-body'>
+        <div className='textBody'>
           <p className='likes'>1,275 lượt thích</p>
           <p className='status'>
             <Link className='username' to='/profile'>
@@ -156,22 +156,22 @@ function Post(props) {
           </p>
           <div className='comments'>
             <div
-              className='comments__button'
+              className='commentsButton'
               onClick={() => setShowingComment(!showingComment)}>
               {showingComment ? 'Ẩn tất cả bình luận' : 'Xem tất cả bình luận'}
             </div>
-            <ul className={`comments__list ${showingComment ? 'show' : ''}`}>
+            <ul className={`commentsList ${showingComment ? 'show' : ''}`}>
               <li className='comment'>
-                <p className='comment__content'>
-                  <Link className='username comment__owner' to='/profile'>
+                <p className='commentContent'>
+                  <Link className='username commentOwner' to='/profile'>
                     ihney__
                   </Link>
                   @dnnhatvy bạn ơi!!
                 </p>
               </li>
               <li className='comment'>
-                <p className='comment__content'>
-                  <Link className='username comment__owner' to='/profile'>
+                <p className='commentContent'>
+                  <Link className='username commentOwner' to='/profile'>
                     neymar389
                   </Link>
                   @diauhq bạn à!!
@@ -182,7 +182,7 @@ function Post(props) {
           <p className='timestamp'>{createdAt}</p>
         </div>
       </div>
-      <div className='post__footer'>
+      <div className='postFooter'>
         <form>
           <TextAreaField ref={commentRef} />
           <button onClick={onSubmitComment} type='submit'>

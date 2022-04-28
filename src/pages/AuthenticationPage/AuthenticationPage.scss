@@ -1,7 +1,9 @@
 main .container {
-  height: fit-content;
   display: flex;
+  height: fit-content;
+  flex-flow: column;
   align-items: center;
+  gap: 50px;
   padding: 50px;
 }
 
@@ -22,7 +24,7 @@ main .logo {
   }
 }
 
-.form-container {
+.formContainer {
   flex-basis: 50%;
 }
 
@@ -39,29 +41,25 @@ main .logo {
   img {
     width: 150%;
     height: 50%;
-
     transform: translate(-30%, 0);
   }
 
-  &__water {
+  &Water {
     background-color: var(--primary-cl);
     width: 100%;
     flex-grow: 1;
   }
 }
 
-@media only screen and (max-width: 1201px) {
-  main .container {
-    flex-flow: column;
-    align-items: center;
-    gap: 50px;
-  }
-}
-
-@media only screen and (min-width: 480px) and (max-width: 1024px) {
+@media only screen and (min-width: 480px) {
   main {
     display: flex;
     justify-content: flex-end;
   }
+}
 
+@media only screen and (min-width: 1025px) {
+  main .container {
+    flex-flow: row nowrap;
+  }
 }

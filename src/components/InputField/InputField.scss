@@ -1,4 +1,4 @@
-.form__input {
+.formInput {
   width: 100%;
   display: flex;
   flex-flow: column;
@@ -41,7 +41,7 @@
     margin: 0;
   }
 
-  .form__error {
+  .inputError {
     order: 3;
     color: red;
   }

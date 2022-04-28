@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './FormButton.scss';
+import './LoadingButton.scss';
 
-class FormButton extends Component {
+class LoadingButton extends Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
     className: PropTypes.string,
     type: PropTypes.string,
     handleOnClick: PropTypes.func,
   };
-  
+
   static defaultProps = {
     className: '',
     type: 'button',
@@ -36,14 +36,14 @@ class FormButton extends Component {
       700
     );
 
-  handleOnClick = async () => {
+  handleOnClick = async (event) => {
     if (this.state.isLoading) return;
 
     this.setState({
       isLoading: true,
     });
     try {
-      await this.props.handleOnClick();
+      await this.props.handleOnClick(event);
     } finally {
       this.doneLoading();
     }
@@ -63,4 +63,4 @@ class FormButton extends Component {
   }
 }
 
-export default React.memo(FormButton);
+export default React.memo(LoadingButton);
