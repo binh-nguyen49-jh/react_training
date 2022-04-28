@@ -20,7 +20,6 @@ function HiddenPost(props) {
         showPost();
       })
       .catch((err) => {
-        console.log(err);
         toast.error('Error showing post');
       });
   };

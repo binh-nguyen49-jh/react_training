@@ -71,7 +71,6 @@ function Post(props) {
       toast.success('Hide post successfully');
       hidePost();
     }).catch((err) => {
-      console.log(err)
       toast.error('Error hiding post');
     });
   };

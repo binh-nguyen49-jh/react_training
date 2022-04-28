@@ -20,7 +20,6 @@ test('register user', async () => {
       password: 'testTestTest',
       position: '1'
     });
-    console.log(userInfo)
     expect(userInfo.name).toBe('Binh');  
   } catch (error) {
     expect(error.code).toBe('auth/email-already-in-use');
