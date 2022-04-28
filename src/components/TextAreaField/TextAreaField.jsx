@@ -43,7 +43,6 @@ const TextAreaField = React.forwardRef((props, ref) => {
           border: choosingEmoji ? '2px solid #f8a81f' : 'none',
         }}>
         <svg
-          className='Sq(40px) My(8px)'
           viewBox='0 0 24 24'
           width='24px'
           height='24px'

@@ -19,6 +19,7 @@ ol {
   --topbar-height: 60px;
   --disabled-btn-bg: var(--gray-3-cl);
   --disabled-btn-cl: #ffffff;
+  --max-width-container: 1200px;
 }
 
 body {
@@ -30,14 +31,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-main .container {
+main > .container {
   min-height: calc(100vh - var(--topbar-height));
   width: 100%;
 }
 
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) {
-  main .container {
+  main > .container {
     width: calc(100% - var(--sidebar-width));
   }
 }

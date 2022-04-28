@@ -4,17 +4,19 @@ import Avatar from '../Avatar/Avatar';
 import TextAreaField from '../TextAreaField/TextAreaField';
 import PropTypes from 'prop-types';
 import './Post.scss';
-import Modal from '../HOC/Modal';
+import Popover from '../HOC/Popover';
+import Badge from './Badge';
+import UserPopover from './UserPopover';
 
 function Post(props) {
-  const { userName, status, createdAt, images, userAvatar } = props;
+  const { user, status, createdAt, images } = props;
   const [currentImage, setCurrentImage] = useState(0);
   const [liked, setLiked] = useState(props.liked || false);
   const [showingComment, setShowingComment] = useState(false);
   const commentRef = useRef(null);
   const likeRef = useRef(null);
-  const [showModal, setShowModal] = useState(false);
-  const [internalShowModal, setInternalShowModal] = useState(false);
+  const [showPopover, setShowPopover] = useState(false);
+  const [internalShowPopover, setInternalShowPopover] = useState(false);
 
   const onClickLike = (isLiked) => {
     likeRef.current.animate(
@@ -59,25 +61,28 @@ function Post(props) {
 
   return (
     <div className='post'>
-      {(internalShowModal || showModal) && (
-        <Modal
-          onMouseOverModal={() => setInternalShowModal(true)}
-          onMouseOutModal={() => setInternalShowModal(false)}></Modal>
-      )}
       <div className='postHeader'>
         <div
           className='userInfo'
-          onMouseOver={() => setShowModal(true)}
-          onMouseOut={() => setShowModal(false)}>
+          onMouseOver={() => setShowPopover(true)}
+          onMouseOut={() => setShowPopover(false)}>
+          {(internalShowPopover || showPopover) && (
+            <Popover
+              onMouseOverPopover={() => setInternalShowPopover(true)}
+              onMouseOutPopover={() => setInternalShowPopover(false)}>
+              <UserPopover user={user} />
+            </Popover>
+          )}
           <Avatar
-            imgUrl={userAvatar}
+            imgUrl={user.avatar}
             style={{
               width: '32px',
               height: '32px',
             }}></Avatar>
           <Link className='username' to={'/profile'}>
-            {userName}
+            {user.name}
           </Link>
+          <Badge text={user.position}></Badge>
         </div>
         <div className='action'>
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'>
@@ -150,7 +155,7 @@ function Post(props) {
           <p className='likes'>1,275 lượt thích</p>
           <p className='status'>
             <Link className='username' to='/profile'>
-              {userName}
+              {user.name}
             </Link>
             {status}
           </p>
@@ -195,12 +200,11 @@ function Post(props) {
 }
 
 Post.propTypes = {
-  userName: PropTypes.string,
+  user: PropTypes.object,
   status: PropTypes.string,
   createdAt: PropTypes.string,
   images: PropTypes.array,
   liked: PropTypes.bool,
-  userAvatar: PropTypes.string,
 };
 
 export default React.memo(Post);

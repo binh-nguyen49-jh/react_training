@@ -2,6 +2,7 @@
   $post-pd: 20px;
   background-color: #fff;
   min-width: 350px;
+  max-width: 550px;
   border: 2px solid #fafafa;
 
   &Header {
@@ -15,6 +16,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      position: relative;
     }
 
     .action {
@@ -26,11 +28,11 @@
   }
 
   &Footer {
-    height: 55px;
+    min-height: 55px;
     padding: 0 $post-pd;
     display: flex;
     align-items: center;
-    border-top: 2px solid #949494;
+    border-top: 1px solid var(--gray-1-cl);
 
     form {
       width: 100%;
@@ -42,7 +44,7 @@
         flex-grow: 1;
 
         .textareaField {
-          text-indent: 5px;
+          text-indent: 0px;
           font-size: 1rem;
         }
 
@@ -136,7 +138,7 @@
   }
 
   .textBody {
-    padding: 0 $post-pd;
+    padding: 0 $post-pd $post-pd;
 
     .username {
       margin: 0 8px 0 0;

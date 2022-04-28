@@ -1,4 +1,4 @@
-main .container {
+main > .container {
   display: flex;
   height: fit-content;
   flex-flow: column;
@@ -59,7 +59,7 @@ main .logo {
 }
 
 @media only screen and (min-width: 1025px) {
-  main .container {
+  main > .container {
     flex-flow: row nowrap;
   }
 }
