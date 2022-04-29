@@ -13,7 +13,7 @@ import RoleIcon from './RoleIcon';
 import { POSITIONS } from '../../config/constants';
 
 function Post(props) {
-  const { user, post, hidePost } = props;
+  const { owner, post, hidePost, user } = props;
   const [currentImage, setCurrentImage] = useState(0);
   const [liked, setLiked] = useState(props.liked || false);
   const [showingComment, setShowingComment] = useState(false);
@@ -89,20 +89,20 @@ function Post(props) {
             <Popover
               onMouseOverPopover={() => setInternalShowPopover(true)}
               onMouseOutPopover={() => setInternalShowPopover(false)}>
-              <UserPopover user={user} />
+              <UserPopover user={owner} />
             </Popover>
           )}
           <Avatar
-            imgUrl={user.avatar}
+            imgUrl={owner.avatar}
             style={{
               width: '32px',
               height: '32px',
             }}></Avatar>
           <Link className='username' to={'/profile'}>
-            {user.name}
+            {owner.name}
           </Link>
           <div className='badges'>
-            {user.position
+            {owner.position
               .slice(0, 3)
               .map(
                 (position, idx) =>
@@ -203,7 +203,7 @@ function Post(props) {
         <div className='textBody'>
           <p className='status'>
             <Link className='username' to='/profile'>
-              {user.name}
+              {owner.name}
             </Link>
             {post.content}
           </p>

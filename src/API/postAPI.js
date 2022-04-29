@@ -6,7 +6,6 @@ import {
   query,
   limit,
   startAfter,
-  
   Timestamp,
   where,
 } from 'firebase/firestore/lite';

@@ -56,7 +56,7 @@ function PostList(props) {
           <PostFactory
             key={post.id}
             post={post}
-            user={post.owner}
+            owner={post.owner}
             isHidden={post.hidden}
           />
         ))}
