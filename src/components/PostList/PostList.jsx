@@ -14,7 +14,10 @@ function PostList(props) {
       setIsLoading(true);
       const newPosts = await PostAPI.getPosts(user.uid);
       if (newPosts.length === 0) return;
-      setPosts((oldPosts) =>  [...oldPosts, ...newPosts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds)]);
+      setPosts((oldPosts) => [
+        ...oldPosts,
+        ...newPosts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds),
+      ]);
       setIsLoading(false);
       window.scrollTo(0, window.scrollY - 100);
     }
@@ -23,11 +26,12 @@ function PostList(props) {
   useEffect(() => {
     const handleScroll = () => {
       if (
-        window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight
+        window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight
       )
-      return;
+        return;
       getPosts();
-    }
+    };
     // Reset cursor to the top of the database
     PostAPI.lastQueryPosition = null;
     getPosts();

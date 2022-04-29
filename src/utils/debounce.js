@@ -1,6 +1,6 @@
-export default function debounced (func, wait) {
+export default function debounced(func, wait) {
   let timeout;
-  return function(...args) {
+  return function (...args) {
     clearTimeout(timeout);
     const later = () => {
       func(...args);
