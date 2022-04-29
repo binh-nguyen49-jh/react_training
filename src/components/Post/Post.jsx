@@ -10,6 +10,8 @@ import UserPopover from './UserPopover';
 import Modal from '../HOC/Modal';
 import UserPostAPI from '../../API/userPostAPI';
 import { toast } from 'react-toastify';
+import RoleIcon from './RoleIcon';
+import { POSITIONS } from '../../config/constants';
 
 function Post(props) {
   const { user, post, hidePost } = props;
@@ -98,7 +100,11 @@ function Post(props) {
           <Link className='username' to={'/profile'}>
             {user.name}
           </Link>
-          <Badge text={user.position}></Badge>
+          <div className='badges'>
+            {user.position.slice(0, 3).map((position, idx) => (
+              POSITIONS[position] && <RoleIcon key={idx} role={POSITIONS[position]} />
+            ))}
+          </div>
         </div>
         <div
           className='action'

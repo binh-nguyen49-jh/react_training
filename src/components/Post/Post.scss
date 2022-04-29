@@ -33,6 +33,11 @@
         height: 16px;
       }
     }
+    .badges {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      column-gap: 5px;
+    }
   }
 
   &Footer {

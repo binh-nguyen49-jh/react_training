@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { POSITIONS } from '../../config/constants';
 import Avatar from '../Avatar/Avatar';
 import Badge from './Badge';
 
@@ -19,7 +20,8 @@ export default class UserPopover extends Component {
           backgroundColor: '#fff',
           boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
           height: 'fit-content',
-          width: '300px',
+          width: 'auto',
+          minWidth: '300px',
           padding: '20px',
           ...style,
         }}>
@@ -40,13 +42,23 @@ export default class UserPopover extends Component {
               height: '60px',
             }}
           />
+          <h3>{user.name}</h3>
           <div
             style={{
               gridArea: '1 / 2 / 2 / 3',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              columnGap: '10px',
+              rowGap: '10px',
             }}>
-            <Badge text={user.position} />
+            {
+              user.position.map(
+                (position, idx) => <Badge key={idx} text={position} style={{
+                  backgroundColor: `${POSITIONS[position].color}`,
+                }} />
+              )
+            }
           </div>
-          <h3>{user.name}</h3>
         </div>
       </div>
     );

@@ -34,7 +34,7 @@ function HomePage(props) {
             user={{
               id: 'test',
               name: 'huubinh49',
-              position: 'Frontend Developer',
+              position: ['FE developer', 'FE developer', 'FE developer', 'FE developer'],
               avatar:
                 'https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg',
             }}

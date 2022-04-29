@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Badge({ text }) {
+function Badge({ text, style }) {
   return (
     <div
       className='badge'
@@ -17,6 +17,7 @@ function Badge({ text }) {
         borderRadius: '0.25rem',
         backgroundColor: '#f8a81f',
         color: '#fff',
+        ...style
       }}>
       <p>{text}</p>
     </div>
@@ -25,6 +26,7 @@ function Badge({ text }) {
 
 Badge.propTypes = {
   text: PropTypes.string.isRequired,
+  style: PropTypes.object,
 };
 
 export default React.memo(Badge);

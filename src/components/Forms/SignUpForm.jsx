@@ -32,6 +32,7 @@ class SignUpForm extends Form {
       name: required,
       position: required,
     };
+    this.positions = Object.keys(POSITIONS);
   }
 
   handleSubmit = this.handleSubmitTemplate(() => {
@@ -82,7 +83,7 @@ class SignUpForm extends Form {
             name='position'
             label='Position'
             placeholder='Select your position'
-            options={POSITIONS}
+            options={this.positions}
             error={this.state.position.error}
             onChange={this.onChangeForm}
           />
