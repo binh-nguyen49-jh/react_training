@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import TextAreaField from '../TextAreaField/TextAreaField';
@@ -55,7 +55,7 @@ function Post(props) {
     const direction =
       event.clientX - postRect.left > postRect.width / 2 ? 1 : -1;
     const newIdxImage = currentImage + direction;
-    if (newIdxImage >= 0 && newIdxImage < post.images.length) {
+    if (newIdxImage >= 0 && newIdxImage < post.imageUrls.length) {
       setCurrentImage(newIdxImage);
     }
   };
@@ -67,14 +67,16 @@ function Post(props) {
 
   const onHidePost = () => {
     setShowActionModal(false);
-    UserPostAPI.interactPost(user.id, post.id, {
-      hidden: true
-    }).then((res) => {
-      toast.success('Hide post successfully');
-      hidePost();
-    }).catch((err) => {
-      toast.error('Error hiding post');
-    });
+    UserPostAPI.interactPost(user.uid, post.id, {
+      hidden: true,
+    })
+      .then((res) => {
+        toast.success('Hide post successfully');
+        hidePost();
+      })
+      .catch((err) => {
+        toast.error('Error hiding post');
+      });
   };
 
   return (
@@ -101,9 +103,14 @@ function Post(props) {
             {user.name}
           </Link>
           <div className='badges'>
-            {user.position.slice(0, 3).map((position, idx) => (
-              POSITIONS[position] && <RoleIcon key={idx} role={POSITIONS[position]} />
-            ))}
+            {user.position
+              .slice(0, 3)
+              .map(
+                (position, idx) =>
+                  POSITIONS[position] && (
+                    <RoleIcon key={idx} role={POSITIONS[position]} />
+                  )
+              )}
           </div>
         </div>
         <div
@@ -111,59 +118,62 @@ function Post(props) {
           onClick={() => setShowActionModal(!showActionModal)}
           style={{
             position: 'relative',
-            cursor: 'pointer'
-          }}
-        >
+            cursor: 'pointer',
+          }}>
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'>
             <path d='M120 256C120 286.9 94.93 312 64 312C33.07 312 8 286.9 8 256C8 225.1 33.07 200 64 200C94.93 200 120 225.1 120 256zM280 256C280 286.9 254.9 312 224 312C193.1 312 168 286.9 168 256C168 225.1 193.1 200 224 200C254.9 200 280 225.1 280 256zM328 256C328 225.1 353.1 200 384 200C414.9 200 440 225.1 440 256C440 286.9 414.9 312 384 312C353.1 312 328 286.9 328 256z' />
           </svg>
 
-          {
-            showActionModal && (
-              <Modal position='bottom-right'>
-                <ul className='modalContent'>
-                  <li onClick={onHidePost} className='modalItem'>Hide post</li>
-                </ul>
-              </Modal>
-            )
-          }
+          {showActionModal && (
+            <Modal position='bottom-right'>
+              <ul className='modalContent'>
+                <li onClick={onHidePost} className='modalItem'>
+                  Hide post
+                </li>
+              </ul>
+            </Modal>
+          )}
         </div>
       </div>
       <div className='postBody'>
-        <div className='postCarousel'>
-          <div
-            className='carouselScreen'
-            onClick={onClickCarousel}
-            style={{
-              backgroundImage: `url(${post.images[currentImage]})`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-            }}>
-            <div className='carouselButtons'>
-              <svg
-                className='carouselButton'
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 256 512'>
-                <path d='M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z' />
-              </svg>
-              <svg
-                className='carouselButton'
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 256 512'>
-                <path d='M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z' />
-              </svg>
+        {post.imageUrls.length > 0 && (
+          <div className='postCarousel'>
+            <div
+              className='carouselScreen'
+              onClick={onClickCarousel}
+              style={{
+                backgroundImage: `url(${post.imageUrls[currentImage]})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+              }}>
+              <div className='carouselButtons'>
+                <svg
+                  className='carouselButton'
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 256 512'>
+                  <path d='M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z' />
+                </svg>
+                <svg
+                  className='carouselButton'
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 256 512'>
+                  <path d='M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z' />
+                </svg>
+              </div>
+            </div>
+            <div className='carouselIndicator'>
+              {post.imageUrls.map((val, idx) => (
+                <div
+                  className={`indicator ${
+                    idx === currentImage ? 'active' : ''
+                  }`}
+                  onClick={(e) => setCurrentImage(idx)}
+                  key={idx}
+                />
+              ))}
             </div>
           </div>
-          <div className='carouselIndicator'>
-            {post.images.map((val, idx) => (
-              <div
-                className={`indicator ${idx === currentImage ? 'active' : ''}`}
-                onClick={(e) => setCurrentImage(idx)}
-                key={idx}
-              />
-            ))}
-          </div>
-        </div>
+        )}
         <div className='postReaction'>
           <div className='like' ref={likeRef}>
             {liked ? (
@@ -188,15 +198,15 @@ function Post(props) {
               </svg>
             )}
           </div>
+          <p className='likes'>1,275 lượt thích</p>
         </div>
 
         <div className='textBody'>
-          <p className='likes'>1,275 lượt thích</p>
           <p className='status'>
             <Link className='username' to='/profile'>
               {user.name}
             </Link>
-            {post.status}
+            {post.content}
           </p>
           <div className='comments'>
             <div
@@ -223,7 +233,9 @@ function Post(props) {
               </li>
             </ul>
           </div>
-          <p className='timestamp'>{post.createdAt}</p>
+          <p className='timestamp'>
+            {post.createdAt && post.createdAt.toDate().toDateString()}
+          </p>
         </div>
       </div>
       <div className='postFooter'>

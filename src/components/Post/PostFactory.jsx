@@ -6,9 +6,13 @@ import HiddenPost from './HiddenPost';
 function PostFactory(props) {
   const [isHidden, setIsHidden] = useState(props.isHidden);
   return isHidden ? (
-    <HiddenPost {...props} showPost={() => setIsHidden(false)} />
+    <HiddenPost
+      key={props.key}
+      {...props}
+      showPost={() => setIsHidden(false)}
+    />
   ) : (
-    <Post {...props} hidePost={() => setIsHidden(true)} />
+    <Post key={props.key} {...props} hidePost={() => setIsHidden(true)} />
   );
 }
 

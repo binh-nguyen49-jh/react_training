@@ -31,7 +31,6 @@
 
         .emojiWindow {
           right: 0;
-          transform: translate(0, 0);
         }
       }
 
@@ -53,6 +52,11 @@
       justify-content: space-between;
       button {
         cursor: pointer;
+        background-color: var(--primary-cl);
+        &:disabled {
+          cursor: not-allowed;
+          background-color: var(--gray-3-cl);
+        }
       }
     }
 

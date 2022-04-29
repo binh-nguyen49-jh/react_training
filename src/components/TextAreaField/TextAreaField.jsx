@@ -7,7 +7,7 @@ const TextAreaField = React.forwardRef((props, ref) => {
   const [choosingEmoji, setChoosingEmoji] = useState(false);
   const containerRef = useRef(null);
   const emojiWindow = useRef(null);
-  
+
   const onEmojiClick = (event, emojiObject) => {
     if (ref.current) {
       ref.current.value += emojiObject.emoji;
@@ -21,21 +21,22 @@ const TextAreaField = React.forwardRef((props, ref) => {
 
   const responsiveHeight = useCallback(() => {
     if (containerRef.current) {
-      containerRef.current.style.height = "0"; // To get full of scrollHeight
-      containerRef.current.style.height = parseInt(ref.current.scrollHeight) + 16 + "px";
+      containerRef.current.style.height = '0'; // To get full of scrollHeight
+      containerRef.current.style.height =
+        parseInt(ref.current.scrollHeight) + 16 + 'px';
     }
   }, [ref, containerRef]);
-  
+
   const onChangingText = (event) => {
     responsiveHeight();
+    props.onChange(event.target.value);
   };
 
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.style.height = '0px';
     }
-  }, [])
-  
+  }, []);
 
   return (
     <div
@@ -97,11 +98,13 @@ const TextAreaField = React.forwardRef((props, ref) => {
 TextAreaField.defaultProps = {
   className: '',
   placeholder: '',
+  onChange: () => {},
 };
 
 TextAreaField.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default React.memo(TextAreaField);

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PostAPI from '../../API/postAPI';
 import { MAX_IMAGE_INPUTS } from '../../config/constants';
 import Avatar from '../Avatar/Avatar';
@@ -10,6 +10,7 @@ import './PostForm.scss';
 function PostForm(props) {
   const {userProfile} = props;
   const textAreaRef = useRef(null);
+  const [postText, setPostText] = useState('');
   const [photos, setPhotos] = useState(new Array(MAX_IMAGE_INPUTS).fill(null));
   const [photoUrls, setPhotoUrls] = useState(
     new Array(MAX_IMAGE_INPUTS).fill(null)
@@ -21,7 +22,7 @@ function PostForm(props) {
       const uploadedImages = photos.filter((photo) => photo !== null);
       PostAPI.createPost({
         images: [...uploadedImages],
-        content: textAreaRef.current.value,
+        content: postText,
         ownerId: userProfile.uid
       });
       textAreaRef.current.value = '';
@@ -64,6 +65,10 @@ function PostForm(props) {
     });
   }
 
+  const onChangePostText = useCallback((value) => {
+    setPostText(value);
+  }, []);
+
   return (
     <div className='postForm'>
       <div className='formContainer'>
@@ -74,7 +79,7 @@ function PostForm(props) {
               height: '36px',
             }}
           />
-          <TextAreaField ref={textAreaRef} placeholder={"What's happening?"} />
+          <TextAreaField onChange={onChangePostText} ref={textAreaRef} placeholder={"What's happening?"} />
         </div>
         <div className='formImages'>
           {photoUrls.map(
@@ -114,7 +119,6 @@ function PostForm(props) {
 
           <button
             style={{
-              backgroundColor: 'var(--primary-cl)',
               color: 'var(--white-cl)',
               borderRadius: '4px',
               outline: 'none',
@@ -123,6 +127,9 @@ function PostForm(props) {
               fontSize: '1rem',
             }}
             type='submit'
+            disabled={ 
+              postText.length === 0
+            }
             onClick={onSubmitForm}>
             Post
           </button>

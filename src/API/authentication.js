@@ -8,6 +8,7 @@ import UserAPI from './userAPI';
 
 export const AUTHENTICATION_ERRORS = {
   NotExistProfile: 'User profile does not exist',
+  UserNotFound: 'User not found',
 };
 
 export const logInWithEmail = (email, password) => {

@@ -7,9 +7,13 @@ import {
   where,
   limit,
   startAfter,
+  Timestamp,
+  doc,
 } from 'firebase/firestore/lite';
 import uploadSingleFile from '../utils/uploadImage';
 import { firestoreDB } from './firebase';
+import UserAPI from './userAPI';
+import UserPostAPI from './userPostAPI';
 
 export default class PostAPI {
   static async createPost(postData) {
@@ -19,6 +23,7 @@ export default class PostAPI {
     );
     const post = {
       imageUrls: image_urls,
+      createdAt: Timestamp.fromDate(new Date()),
       ...postData,
     };
     delete post['images'];
@@ -27,19 +32,34 @@ export default class PostAPI {
   }
 
   // retrieve others posts
-  static async getPosts(userId, perPage = 10, page = 0) {
+  static async getPosts(userId, skip = 0, limitPerRequest = 10) {
     const q = query(
       collection(firestoreDB, 'posts'),
-      where('ownerId', '!=', userId),
+      // where('ownerId', '!=', userId),
       orderBy('ownerId', 'createdAt'),
-      limit(perPage),
-      startAfter(page * perPage)
+      limit(limitPerRequest),
+      startAfter(skip)
     );
 
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      throw new Error('Post not found');
+      throw new Error('Posts not found');
     }
-    return docs.docs.map((doc) => doc.data());
+    const posts = await Promise.all(
+      docs.docs.map(async (postDoc) => {
+        const post = postDoc.data();
+        const userProfile = await UserAPI.getUser(post.ownerId);
+        post.owner = userProfile;
+        post.id = postDoc.id;
+        const interaction = await UserPostAPI.getInteractPost(userId, postDoc.id);
+        if (interaction) {
+          Object.assign(post, interaction);
+        } else {
+          post.hidden = false;
+        }
+        return post;
+      })
+    );
+    return posts;
   }
 }

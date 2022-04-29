@@ -33,6 +33,7 @@
         height: 16px;
       }
     }
+
     .badges {
       display: grid;
       grid-template-columns: repeat(3, auto);
@@ -138,6 +139,9 @@
 
   &Reaction {
     padding: 0 $post-pd;
+    display: flex;
+    gap: 5px;
+    align-items: center;
 
     .like {
       width: 24px;
@@ -149,6 +153,8 @@
         height: 100%;
       }
     }
+
+    margin: 0 0 8px 0;
   }
 
   .modalContent {
@@ -175,10 +181,6 @@
 
     .username {
       margin: 0 8px 0 0;
-    }
-
-    .likes {
-      margin: 4px 0 8px 0;
     }
 
     .comments {
@@ -208,7 +210,11 @@
 }
 
 .post.hidden {
+  border: none;
+  background-color: transparent;
+
   .postHeader {
+    width: 100%;
     border-radius: 10px;
     background-color: var(--hidden-post-bg);
 

@@ -10,6 +10,9 @@ import { firestoreDB } from './firebase';
 
 export default class UserAPI {
   static async getUser(userId) {
+    if (!userId) {
+      throw new Error(AUTHENTICATION_ERRORS.UserNotFound);
+    }
     const q = query(
       collection(firestoreDB, 'users'),
       where('uid', '==', userId)

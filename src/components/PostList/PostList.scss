@@ -1,0 +1,18 @@
+@import '../LoadingButton/Spinner.scss';
+
+.infinite-load {
+  gap: 10px;
+  visibility: hidden;
+
+  &.show {
+    display: flex;
+    visibility: visible;
+  }
+
+  .spinner {
+    opacity: 1;
+    position: static;
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -12,7 +12,7 @@ function HiddenPost(props) {
 
   const onShowPost = () => {
     setShowActionModal(false);
-    UserPostAPI.interactPost(user.id, post.id, {
+    UserPostAPI.interactPost(user.uid, post.id, {
       hidden: false,
     })
       .then((res) => {

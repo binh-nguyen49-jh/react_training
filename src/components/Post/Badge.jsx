@@ -17,7 +17,7 @@ function Badge({ text, style }) {
         borderRadius: '0.25rem',
         backgroundColor: '#f8a81f',
         color: '#fff',
-        ...style
+        ...style,
       }}>
       <p>{text}</p>
     </div>

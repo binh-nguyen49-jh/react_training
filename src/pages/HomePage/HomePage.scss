@@ -3,12 +3,6 @@
   justify-content: center;
 }
 
-.postList {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-}
-
 .homepage>.container {
   max-width: var(--max-width-container);
   display: flex;

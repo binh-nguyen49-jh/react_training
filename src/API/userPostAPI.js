@@ -17,6 +17,7 @@ export default class UserPostAPI {
       ...interactions,
     });
   }
+  
   static async interactPost(userId, postId, interactions) {
     const q = query(
       collection(firestoreDB, 'userPosts'),
@@ -39,5 +40,19 @@ export default class UserPostAPI {
       ...interactions,
     });
     return userPostRef;
+  }
+
+  static async getInteractPost(userId, postId) {
+    const q = query(
+      collection(firestoreDB, 'userPosts'),
+      where('userId', '==', userId),
+      where('postId', '==', postId)
+    );
+
+    const userPostDoc = await getDocs(q);
+    if (userPostDoc.docs.length === 0) {
+      return null;
+    }
+    return userPostDoc.docs[0].data();
   }
 }

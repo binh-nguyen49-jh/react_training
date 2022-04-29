@@ -16,11 +16,14 @@ function RoleIcon({ role }) {
         backgroundColor: `${role.color}`,
         color: '#fff',
       }}>
-      <p style={{
-        fontSize: '14px',
-        fontWeight: '700',
-        lineHeight: '14px',
-      }}>{ role.icon }</p>
+      <p
+        style={{
+          fontSize: '14px',
+          fontWeight: '700',
+          lineHeight: '14px',
+        }}>
+        {role.icon}
+      </p>
     </div>
   );
 }

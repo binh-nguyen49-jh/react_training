@@ -51,13 +51,15 @@ export default class UserPopover extends Component {
               columnGap: '10px',
               rowGap: '10px',
             }}>
-            {
-              user.position.map(
-                (position, idx) => <Badge key={idx} text={position} style={{
+            {user.position.map((position, idx) => (
+              <Badge
+                key={idx}
+                text={position}
+                style={{
                   backgroundColor: `${POSITIONS[position].color}`,
-                }} />
-              )
-            }
+                }}
+              />
+            ))}
           </div>
         </div>
       </div>
