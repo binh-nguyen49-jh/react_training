@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostAPI from '../../API/postAPI';
+import debounced from '../../utils/debounce';
 import PostFactory from '../Post/PostFactory';
 import './PostList.scss';
 
@@ -8,28 +9,29 @@ function PostList(props) {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = props;
 
-  const getPosts = async () => {
+  const getPosts = debounced(async () => {
     if (user) {
       setIsLoading(true);
-      const newPosts = await PostAPI.getPosts(user.uid, posts.length);
-      setPosts([...posts, ...newPosts]);
+      const newPosts = await PostAPI.getPosts(user.uid);
+      if (newPosts.length === 0) return;
+      setPosts((oldPosts) =>  [...oldPosts, ...newPosts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds)]);
       setIsLoading(false);
-      // scroll back small amount
-      window.scrollTo(0, window.scrollY - 10);
+      window.scrollTo(0, window.scrollY - 100);
     }
-  };
+  }, 1200);
 
   useEffect(() => {
     const handleScroll = () => {
       if (
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
+        window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight
       )
-        return;
+      return;
       getPosts();
-    };
-    window.addEventListener('scroll', handleScroll);
+    }
+    // Reset cursor to the top of the database
+    PostAPI.lastQueryPosition = null;
     getPosts();
+    window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Modal extends React.Component {
+export default class Modal extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node,
     style: PropTypes.object,

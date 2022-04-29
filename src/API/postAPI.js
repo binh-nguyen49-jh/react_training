@@ -4,11 +4,11 @@ import {
   getDocs,
   orderBy,
   query,
-  where,
   limit,
   startAfter,
+  
   Timestamp,
-  doc,
+  where,
 } from 'firebase/firestore/lite';
 import uploadSingleFile from '../utils/uploadImage';
 import { firestoreDB } from './firebase';
@@ -31,20 +31,22 @@ export default class PostAPI {
     return addDoc(collection(firestoreDB, 'posts'), post);
   }
 
+  static lastQueryPosition = null;
   // retrieve others posts
-  static async getPosts(userId, skip = 0, limitPerRequest = 10) {
+  static async getPosts(userId, limitPerRequest = 10) {
     const q = query(
       collection(firestoreDB, 'posts'),
-      // where('ownerId', '!=', userId),
+      where('ownerId', '!=', userId),
       orderBy('ownerId', 'createdAt'),
+      startAfter(PostAPI.lastQueryPosition),
       limit(limitPerRequest),
-      startAfter(skip)
     );
 
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      throw new Error('Posts not found');
+      return [];
     }
+    PostAPI.lastQueryPosition = docs.docs[docs.docs.length - 1];
     const posts = await Promise.all(
       docs.docs.map(async (postDoc) => {
         const post = postDoc.data();

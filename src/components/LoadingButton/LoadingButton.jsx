@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import './LoadingButton.scss';
 import './Spinner.scss';
+import './LoadingButton.scss';
 
-class LoadingButton extends Component {
+class LoadingButton extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,
     className: PropTypes.string,
@@ -23,11 +23,6 @@ class LoadingButton extends Component {
     this.state = {
       isLoading: false,
     };
-
-    this.className = `btn
-      ${this.props.className} 
-      ${this.state.isLoading ? 'loading' : ''}
-    `;
   }
 
   doneLoading = () =>
@@ -36,7 +31,7 @@ class LoadingButton extends Component {
         this.setState({
           isLoading: false,
         }),
-      700
+      200
     );
 
   handleOnClick = async (event) => {
@@ -47,7 +42,8 @@ class LoadingButton extends Component {
     });
     try {
       await this.props.handleOnClick(event);
-    } finally {
+      this.doneLoading();
+    } catch (error) {
       this.doneLoading();
     }
   };
@@ -57,7 +53,10 @@ class LoadingButton extends Component {
     return (
       <button
         type={type}
-        className={this.className}
+        className={`btn
+          ${this.props.className} 
+          ${this.state.isLoading ? 'loading' : ''}
+       `}
         disabled={disabled}
         onClick={this.handleOnClick}>
         <div className='spinner' />

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Popover extends React.Component {
+export default class Popover extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node,
     onMouseOverPopover: PropTypes.func,

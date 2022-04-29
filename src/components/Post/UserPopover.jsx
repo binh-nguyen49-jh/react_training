@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { POSITIONS } from '../../config/constants';
 import Avatar from '../Avatar/Avatar';
 import Badge from './Badge';
 
-export default class UserPopover extends Component {
+export default class UserPopover extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
     style: PropTypes.object,

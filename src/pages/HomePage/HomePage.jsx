@@ -1,6 +1,5 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserAPI from '../../API/userAPI';
-import PostFactory from '../../components/Post/PostFactory';
 import PostForm from '../../components/PostForm/PostForm';
 import PostList from '../../components/PostList/PostList';
 import { useAuth } from '../../hooks/authentication';

@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar/Avatar';
 import TextAreaField from '../TextAreaField/TextAreaField';
 import PropTypes from 'prop-types';
 import './Post.scss';
 import Popover from '../HOC/Popover';
-import Badge from './Badge';
 import UserPopover from './UserPopover';
 import Modal from '../HOC/Modal';
 import UserPostAPI from '../../API/userPostAPI';

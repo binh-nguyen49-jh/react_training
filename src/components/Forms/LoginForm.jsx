@@ -3,8 +3,6 @@ import { logInWithEmail } from '../../API/authentication';
 import {
   composeValidators,
   emailFormat,
-  maxLength,
-  minLength,
   required,
 } from '../../utils/formValidate';
 import LoadingButton from '../LoadingButton/LoadingButton';
@@ -65,7 +63,7 @@ class LoginForm extends Form {
             handleOnClick={this.handleSubmit}
             type='submit'
             text='Login'
-            disabled={this.state.isSubmittable}
+            disabled={!this.state.isSubmittable}
           />
           <hr />
           <p>
@@ -78,4 +76,4 @@ class LoginForm extends Form {
   }
 }
 
-export default withRouter(React.memo(LoginForm));
+export default withRouter(LoginForm);

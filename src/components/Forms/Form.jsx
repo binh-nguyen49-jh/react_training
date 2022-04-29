@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './Form.scss';
 
 class Form extends Component {
@@ -15,24 +15,30 @@ class Form extends Component {
     newForm[field].value = value;
     newForm[field].error = errorMessage;
     this.setState(newForm);
-    const isValidForm = !this.checkValidateForm();
+
+    let isValidForm = this.checkValidateForm(false);
+    
+    this.onValidateInput(field, value, true);
+    console.log(isValidForm);
     this.setState({
       isSubmittable: isValidForm,
     });
   };
 
-  onValidateInput = (field, value) => {
+  onValidateInput = (field, value, updateError=true) => {
     const error = this.validators[field](value);
     const newForm = this.state;
-    newForm[field].error = error;
-    this.setState(newForm);
+    if (updateError) {
+      newForm[field].error = error;
+      this.setState(newForm);
+    }
     return error;
   };
 
-  checkValidateForm = () => {
+  checkValidateForm = (updateErrors=true) => {
     let validFlag = true;
     for (let field in this.validators) {
-      const error = this.onValidateInput(field, this.state[field].value);
+      const error = this.onValidateInput(field, this.state[field].value, updateErrors);
       if (error) {
         validFlag = false;
       }

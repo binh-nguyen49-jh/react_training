@@ -106,7 +106,6 @@ function PostForm(props) {
         </div>
         <hr />
         <div className='formBottom'>
-          {/* file input */}
           <div className='fileInput'>
             <input onChange={onSelectImage} type='file' id='file' name='file' />
             <label htmlFor='file'>
@@ -140,7 +139,7 @@ function PostForm(props) {
 }
 
 PostForm.propTypes = {
-  userProfile: PropTypes.object.isRequired,
+  userProfile: PropTypes.object,
 };
 
 export default React.memo(PostForm);

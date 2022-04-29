@@ -93,7 +93,7 @@ class SignUpForm extends Form {
           <LoadingButton
             className='btnSignUp'
             handleOnClick={this.handleSubmit}
-            disabled={this.state.isSubmittable}
+            disabled={!this.state.isSubmittable}
             text='Sign up'
             type='submit'
           />
@@ -108,4 +108,4 @@ class SignUpForm extends Form {
   }
 }
 
-export default withRouter(React.memo(SignUpForm));
+export default withRouter(SignUpForm);

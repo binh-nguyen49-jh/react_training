@@ -30,7 +30,7 @@ export default class UserAPI {
       name,
       authProvider,
       email,
-      position,
+      position: [...position.split(",")],
     });
   }
 }
