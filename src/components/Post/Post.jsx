@@ -11,12 +11,12 @@ import UserPostAPI from '../../API/userPostAPI';
 import { toast } from 'react-toastify';
 import RoleIcon from './RoleIcon';
 import { POSITIONS } from '../../config/constants';
+import PostCarousel from './PostCarousel';
+import Comments from './Comments';
 
 function Post(props) {
   const { owner, post, hidePost, user } = props;
-  const [currentImage, setCurrentImage] = useState(0);
   const [liked, setLiked] = useState(props.liked || false);
-  const [showingComment, setShowingComment] = useState(false);
   const commentRef = useRef(null);
   const likeRef = useRef(null);
   const [showPopover, setShowPopover] = useState(false);
@@ -47,16 +47,6 @@ function Post(props) {
     );
 
     setLiked(isLiked);
-  };
-
-  const onClickCarousel = (event) => {
-    const postRect = event.target.getBoundingClientRect();
-    const direction =
-      event.clientX - postRect.left > postRect.width / 2 ? 1 : -1;
-    const newIdxImage = currentImage + direction;
-    if (newIdxImage >= 0 && newIdxImage < post.imageUrls.length) {
-      setCurrentImage(newIdxImage);
-    }
   };
 
   const onSubmitComment = (event) => {
@@ -92,14 +82,14 @@ function Post(props) {
               <UserPopover user={owner} />
             </Popover>
           )}
-          <Avatar
-            imgUrl={owner.avatar}
-            style={{
-              width: '32px',
-              height: '32px',
-            }}></Avatar>
-          <Link className='username' to={'/profile'}>
-            {owner.name}
+          <Link className='profileLink' to={`/profile/${owner.uid}`}>
+            <Avatar
+              imgUrl={owner.avatar}
+              style={{
+                width: '32px',
+                height: '32px',
+              }}></Avatar>
+            <h3 className='username'>{owner.name}</h3>
           </Link>
           <div className='badges'>
             {owner.position
@@ -135,44 +125,7 @@ function Post(props) {
         </div>
       </div>
       <div className='postBody'>
-        {post.imageUrls.length > 0 && (
-          <div className='postCarousel'>
-            <div
-              className='carouselScreen'
-              onClick={onClickCarousel}
-              style={{
-                backgroundImage: `url(${post.imageUrls[currentImage]})`,
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-              }}>
-              <div className='carouselButtons'>
-                <svg
-                  className='carouselButton'
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 256 512'>
-                  <path d='M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z' />
-                </svg>
-                <svg
-                  className='carouselButton'
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 256 512'>
-                  <path d='M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z' />
-                </svg>
-              </div>
-            </div>
-            <div className='carouselIndicator'>
-              {post.imageUrls.map((val, idx) => (
-                <div
-                  className={`indicator ${
-                    idx === currentImage ? 'active' : ''
-                  }`}
-                  onClick={(e) => setCurrentImage(idx)}
-                  key={idx}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        {post.imageUrls.length > 0 && <PostCarousel post={post} />}
         <div className='postReaction'>
           <div className='like' ref={likeRef}>
             {liked ? (
@@ -207,31 +160,20 @@ function Post(props) {
             </Link>
             {post.content}
           </p>
-          <div className='comments'>
-            <div
-              className='commentsButton'
-              onClick={() => setShowingComment(!showingComment)}>
-              {showingComment ? 'Ẩn tất cả bình luận' : 'Xem tất cả bình luận'}
-            </div>
-            <ul className={`commentsList ${showingComment ? 'show' : ''}`}>
-              <li className='comment'>
-                <p className='commentContent'>
-                  <Link className='username commentOwner' to='/profile'>
-                    ihney__
-                  </Link>
-                  @dnnhatvy bạn ơi!!
-                </p>
-              </li>
-              <li className='comment'>
-                <p className='commentContent'>
-                  <Link className='username commentOwner' to='/profile'>
-                    neymar389
-                  </Link>
-                  @diauhq bạn à!!
-                </p>
-              </li>
-            </ul>
-          </div>
+          <Comments
+            comments={[
+              {
+                username: 'Nguyễn Văn A',
+                content: 'Nice post!',
+                uid: '1',
+              },
+              {
+                username: 'Nguyễn Văn B',
+                content: 'Nice post!',
+                uid: '2',
+              },
+            ]}
+          />
           <p className='timestamp'>
             {post.createdAt && post.createdAt.toDate().toDateString()}
           </p>
