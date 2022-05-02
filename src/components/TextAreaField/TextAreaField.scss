@@ -14,7 +14,7 @@
 }
 
 .emojiButton {
-  border: 2px solid #f8a81f;
+  border: 2px solid var(--emoji-btn-bg);
   box-shadow: none;
   background-color: transparent;
   position: absolute;
@@ -41,7 +41,7 @@
   width: 300px;
   height: 300px;
   top: 100%;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 10px var(--box-shadow-cl);
   z-index: 10;
 
   .emoji-picker-react {

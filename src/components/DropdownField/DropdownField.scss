@@ -8,7 +8,7 @@
     width: 100%;
     border: none;
     background-color: var(--white-cl);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px var(--box-shadow-cl);
     z-index: 10;
     height: 0;
     transition: 0.2s ease-in-out;
@@ -63,7 +63,7 @@
     }
 
     &>label {
-      color: #B6B6B6;
+      color: var(--focused-label-cl);
       font-size: 1rem;
       margin: 0;
     }
