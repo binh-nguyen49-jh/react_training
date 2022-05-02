@@ -30,6 +30,7 @@ function App() {
               <SignUpForm />
             </AuthenticationPage>
           }
+          exact
           path='/authentication/signup'></Route>
         <Route
           element={
@@ -37,8 +38,8 @@ function App() {
               <LoginForm />
             </AuthenticationPage>
           }
+          exact
           path='/authentication/login'></Route>
-
         <Route
           element={
             <ProtectedRoute>

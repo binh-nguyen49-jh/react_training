@@ -8,7 +8,7 @@ import './Post.scss';
 
 function HiddenPost(props) {
   const [showActionModal, setShowActionModal] = useState(false);
-  const { user, post, showPost } = props;
+  const { user, post, showPost, postRef } = props;
 
   const onShowPost = () => {
     setShowActionModal(false);
@@ -25,7 +25,7 @@ function HiddenPost(props) {
   };
 
   return (
-    <div className='post hidden'>
+    <div className='post hidden' ref={postRef}>
       <div className='postHeader'>
         <div className='userInfo'>
           <Avatar
@@ -67,6 +67,7 @@ HiddenPost.propTypes = {
   user: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   showPost: PropTypes.func.isRequired,
+  postRef: PropTypes.func,
 };
 
 export default React.memo(HiddenPost);

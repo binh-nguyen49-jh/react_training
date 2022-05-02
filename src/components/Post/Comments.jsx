@@ -11,8 +11,8 @@ export default function Comments({ comments }) {
         {showingComment ? 'Ẩn tất cả bình luận' : 'Xem tất cả bình luận'}
       </div>
       <ul className={`commentsList ${showingComment ? 'show' : ''}`}>
-        {comments.map((comment) => (
-          <li className='comment'>
+        {comments.map((comment, idx) => (
+          <li key={idx} className='comment'>
             <p className='commentContent'>
               <Link
                 className='username commentOwner'
