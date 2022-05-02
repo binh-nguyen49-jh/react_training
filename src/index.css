@@ -14,8 +14,12 @@ ol {
   --gray-1-cl: #C4C4C4;
   --gray-2-cl: #B6B6B6;
   --gray-3-cl: #959595;
+  --gray-4-cl: #949494;
   --pink-cl: #ee4a57;
   --white-cl: #ffffff;
+  --blue-cl: #006eff;
+  --bg-cl: #ffffff;
+  --box-shadow-cl: rgba($color: #000000, $alpha: 0.1);
   --sidebar-width: 75px;
   --topbar-height: 60px;
   --disabled-btn-bg: var(--gray-3-cl);
@@ -27,6 +31,13 @@ ol {
   --action-modal-dark-bg: #404040;
   --hidden-post-bg: #737373;
   --hidden-post-text-cl: #ffffff;
+  --post-border-cl: #fafafa;
+  --text-danger-cl: #ee4a57;
+  --signup-btn-bg: #ffffff;
+  --login-btn-bg: var(--primary-cl);
+  --focused-label-cl: #B6B6B6;
+  --post-username-cl: #000000;
+  --emoji-btn-bg: var(--primary-cl);
 }
 
 body {

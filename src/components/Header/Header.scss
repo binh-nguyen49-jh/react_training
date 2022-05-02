@@ -2,10 +2,10 @@ header {
   position: sticky;
   left: 0;
   top: 0;
-  background-color: white;
+  background-color: var(--bg-cl);
   width: 100%;
   height: var(--topbar-height);
-  box-shadow: 0 0 15px rgba($color: #000000, $alpha: .2);
+  box-shadow: 0 0 15px var(--box-shadow-cl);
   z-index: 10;
 }
 
@@ -52,7 +52,7 @@ header .logo img {
     background-color: transparent;
     top: 0;
     left: 0;
-    box-shadow: 2px 0 15px rgba($color: #000000, $alpha: .2);
+    box-shadow: 2px 0 15px var(--box-shadow-cl);
   }
 
   header .container {

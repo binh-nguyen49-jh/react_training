@@ -1,11 +1,14 @@
 {
   "editor.tabSize": 2,
   "diffEditor.codeLens": false,
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "css.format.spaceAroundSelectorSeparator": true,
   "css.lint.duplicateProperties": "warning",
   "editor.fontLigatures": false,
   "prettier.jsxBracketSameLine": true,
-  "prettier.jsxSingleQuote": true
+  "prettier.jsxSingleQuote": true,
+  "beautify.config": "",
+  "scss.format.spaceAroundSelectorSeparator": false,
+  "scss.lint.duplicateProperties": "warning"
 }
