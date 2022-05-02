@@ -15,7 +15,7 @@ import PostCarousel from './PostCarousel';
 import Comments from './Comments';
 
 function Post(props) {
-  const { owner, post, hidePost, user } = props;
+  const { owner, post, hidePost, user, postRef } = props;
   const [liked, setLiked] = useState(props.liked || false);
   const commentRef = useRef(null);
   const likeRef = useRef(null);
@@ -69,7 +69,7 @@ function Post(props) {
   };
 
   return (
-    <div className='post'>
+    <div className='post' ref={postRef}>
       <div className='postHeader'>
         <div
           className='userInfo'
@@ -196,6 +196,7 @@ Post.propTypes = {
   post: PropTypes.object.isRequired,
   liked: PropTypes.bool,
   hidePost: PropTypes.func.isRequired,
+  postRef: PropTypes.func,
 };
 
 export default React.memo(Post);

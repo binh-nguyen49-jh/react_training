@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PostAPI from '../../API/postAPI';
-import debounced from '../../utils/debounce';
+import { useAuth } from '../../hooks/authentication';
+import useInViewport from '../../hooks/useInViewport';
 import PostFactory from '../Post/PostFactory';
 import './PostList.scss';
 
 function PostList(props) {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = props;
+  const {
+    entryRef: lastSentinelRef,
+    isIntersecting,
+    observer,
+  } = useInViewport();
+  const isFirstRender = useRef(true);
+  const { user } = useAuth();
 
-  const getPosts = debounced(async () => {
+  const getPosts = useCallback(async () => {
     if (user) {
+      if (isLoading) return;
       setIsLoading(true);
       const newPosts = await PostAPI.getPosts(user.uid);
       if (newPosts.length === 0) return;
@@ -19,27 +27,27 @@ function PostList(props) {
         ...newPosts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds),
       ]);
       setIsLoading(false);
-      window.scrollTo(0, window.scrollY - 100);
     }
-  }, 1200);
+  }, [user]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
-      )
-        return;
+    if (isIntersecting) {
       getPosts();
-    };
-    // Reset cursor to the top of the database
-    PostAPI.lastQueryPosition = null;
-    getPosts();
-    window.addEventListener('scroll', handleScroll);
+      // Just trigger loading posts on the first time the component is in viewport
+      observer.disconnect();
+    }
+  }, [isIntersecting, observer, getPosts]);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      getPosts();
+    }
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      // Reset cursor to the top of the database
+      PostAPI.lastQueryPosition = null;
     };
-  }, []);
+  }, [getPosts]);
 
   return (
     <>
@@ -52,14 +60,24 @@ function PostList(props) {
           alignItems: 'center',
           gap: '3rem',
         }}>
-        {posts.map((post) => (
-          <PostFactory
-            key={post.id}
-            post={post}
-            owner={post.owner}
-            isHidden={post.hidden}
-          />
-        ))}
+        {posts.map((post, idx) =>
+          idx === posts.length - 1 ? (
+            <PostFactory
+              ref={lastSentinelRef}
+              key={post.id}
+              post={post}
+              owner={post.owner}
+              isHidden={post.hidden}
+            />
+          ) : (
+            <PostFactory
+              key={post.id}
+              post={post}
+              owner={post.owner}
+              isHidden={post.hidden}
+            />
+          )
+        )}
       </div>
       <div className={`infinite-load ${isLoading ? 'show' : ''}`}>
         <div className='spinner' />

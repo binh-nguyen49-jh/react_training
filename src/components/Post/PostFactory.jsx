@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Post from './Post';
 import HiddenPost from './HiddenPost';
 import { useAuth } from '../../hooks/authentication';
-function PostFactory(props) {
+const PostFactory = forwardRef((props, ref) => {
   const { user } = useAuth();
   const [isHidden, setIsHidden] = useState(props.isHidden);
   return isHidden ? (
     <HiddenPost
-      key={props.key}
+      postRef={ref}
       {...props}
       user={user}
       showPost={() => setIsHidden(false)}
     />
   ) : (
     <Post
-      key={props.key}
+      postRef={ref}
       user={user}
       {...props}
       hidePost={() => setIsHidden(true)}
     />
   );
-}
+});
 
 PostFactory.propTypes = {
   isHidden: PropTypes.bool,

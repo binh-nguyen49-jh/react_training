@@ -43,7 +43,7 @@ export default function Header(props) {
             {user ? (
               <>
                 <li>
-                  <Link className='navItem' to={'/profile'}>
+                  <Link className='navItem' to={`/profile/${user.uid}`}>
                     <Avatar
                       imgUrl={
                         'https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg'
@@ -59,7 +59,7 @@ export default function Header(props) {
                   <Link
                     onClick={handleLogout}
                     className='navItem'
-                    to={'/profile'}>
+                    to={'/authentication/login'}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='24'
@@ -97,7 +97,7 @@ export default function Header(props) {
                   <Link className='topbarElement' to={'/authentication/signup'}>
                     Signup
                   </Link>
-                    <span className='topbarElement'>{ ' / ' }</span>
+                  <span className='topbarElement'>{' / '}</span>
                   <Link className='topbarElement' to={'/authentication/login'}>
                     Login
                   </Link>
