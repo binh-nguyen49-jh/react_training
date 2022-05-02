@@ -14,7 +14,6 @@
 }
 
 .emojiButton {
-  border: 2px solid var(--emoji-btn-bg);
   box-shadow: none;
   background-color: transparent;
   position: absolute;
@@ -30,9 +29,11 @@
   padding: 0;
   cursor: pointer;
 
-  svg {
+  svg,
+  path {
     width: 36px;
     height: 36px;
+    fill: var(--emoji-btn-bg);
   }
 }
 

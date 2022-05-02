@@ -16,6 +16,13 @@
     align-items: center;
     justify-content: space-between;
 
+    .profileLink {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 5px;
+    }
+
     .userInfo {
       display: flex;
       align-items: center;

@@ -45,7 +45,7 @@ function App() {
               <ProfilePage />
             </ProtectedRoute>
           }
-          path='/profile'
+          path='/profile/:uid'
         />
       </Routes>
       <div className='background'>
