@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Comments({ comments }) {
+function Comments({ comments }) {
   const [showingComment, setShowingComment] = useState(false);
   return (
     <div className='comments'>
@@ -27,3 +28,9 @@ export default function Comments({ comments }) {
     </div>
   );
 }
+
+Comments.typeProps = {
+  comments: PropTypes.array,
+};
+
+export default React.memo(Comments);

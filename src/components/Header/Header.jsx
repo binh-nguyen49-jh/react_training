@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/authentication';
 import Avatar from '../Avatar/Avatar';
 import './Header.scss';
 
-export default function Header(props) {
+function Header(props) {
   const { logOut, user } = useAuth();
   const navigate = useNavigate();
-  const handleLogout = () => {
+
+  const handleLogout = useCallback(() => {
     logOut();
     navigate('/authentication/login');
-  };
+  }, [navigate, logOut]);
 
   return (
     <header>
@@ -110,3 +111,5 @@ export default function Header(props) {
     </header>
   );
 }
+
+export default React.memo(Header);

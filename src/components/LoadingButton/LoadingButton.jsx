@@ -66,4 +66,4 @@ class LoadingButton extends PureComponent {
   }
 }
 
-export default React.memo(LoadingButton);
+export default LoadingButton;
