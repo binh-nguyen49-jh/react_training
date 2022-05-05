@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function PostCarousel({ post }) {
   const [currentImage, setCurrentImage] = useState(0);
@@ -50,3 +51,7 @@ export default function PostCarousel({ post }) {
     </div>
   );
 }
+
+PostCarousel.propTypes = {
+  post: PropTypes.object,
+};

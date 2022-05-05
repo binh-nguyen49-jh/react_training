@@ -1,5 +1,6 @@
 import { firebaseAuth } from '../API/firebase';
 import { createContext, useContext, useEffect, useState } from 'react';
+import UserAPI from '../API/userAPI';
 
 const authContext = createContext();
 
@@ -17,9 +18,10 @@ function useFirebaseAuth() {
 
   useEffect(() => {
     const updateUser = firebaseAuth.onAuthStateChanged(async (user) => {
-      console.log('update: ', user);
       if (user) {
-        setUser(user);
+        const userProfile = await UserAPI.getUser(user.uid);
+        console.log('update profile: ', userProfile);
+        setUser(userProfile);
       } else {
         setUser(false);
       }

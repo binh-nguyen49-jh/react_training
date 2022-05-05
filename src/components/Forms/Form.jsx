@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { AUTH_ERROR_MESSAGES } from '../../config/constants';
 import './Form.scss';
 
 class Form extends Component {
@@ -17,7 +18,7 @@ class Form extends Component {
     this.setState(newForm);
 
     let isValidForm = this.checkValidateForm(false);
-    
+
     this.onValidateInput(field, value, true);
     console.log(isValidForm);
     this.setState({
@@ -25,7 +26,7 @@ class Form extends Component {
     });
   };
 
-  onValidateInput = (field, value, updateError=true) => {
+  onValidateInput = (field, value, updateError = true) => {
     const error = this.validators[field](value);
     const newForm = this.state;
     if (updateError) {
@@ -35,10 +36,14 @@ class Form extends Component {
     return error;
   };
 
-  checkValidateForm = (updateErrors=true) => {
+  checkValidateForm = (updateErrors = true) => {
     let validFlag = true;
     for (let field in this.validators) {
-      const error = this.onValidateInput(field, this.state[field].value, updateErrors);
+      const error = this.onValidateInput(
+        field,
+        this.state[field].value,
+        updateErrors
+      );
       if (error) {
         validFlag = false;
       }
@@ -62,9 +67,15 @@ class Form extends Component {
           formError: error.message,
         });
       } else {
-        this.setState({
-          formError: error.code.split('/')[1].split('-').join(' '),
-        });
+        if (AUTH_ERROR_MESSAGES[error.code]) {
+          this.setState({
+            formError: AUTH_ERROR_MESSAGES[error.code],
+          });
+        } else {
+          this.setState({
+            formError: error.code.split('/')[1].split('-').join(' '),
+          });
+        }
       }
     }
   };

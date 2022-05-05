@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Navigate } from 'react-router-dom';
 import withFirebaseAuth from '../../components/HOC/withFirebaseAuth';
 import './AuthenticationPage.scss';
 import PropTypes from 'prop-types';
 
-class AuthenticationPage extends Component {
+class AuthenticationPage extends PureComponent {
   static propTypes = {
     user: PropTypes.any,
   };
@@ -26,4 +26,4 @@ class AuthenticationPage extends Component {
   }
 }
 
-export default withFirebaseAuth(React.memo(AuthenticationPage));
+export default withFirebaseAuth(AuthenticationPage);

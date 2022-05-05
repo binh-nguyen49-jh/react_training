@@ -1,32 +1,20 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import PostAPI from '../../API/postAPI';
 import { MAX_IMAGE_INPUTS } from '../../config/constants';
 import Avatar from '../Avatar/Avatar';
 import TextAreaField from '../TextAreaField/TextAreaField';
-import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import './PostForm.scss';
-import UserAPI from '../../API/userAPI';
 import { useAuth } from '../../hooks/authentication';
+import './PostForm.scss';
 
 function PostForm(props) {
   const { user } = useAuth();
-  const [userProfile, setUserProfile] = useState(null);
   const textAreaRef = useRef(null);
   const [postText, setPostText] = useState('');
   const [photos, setPhotos] = useState(new Array(MAX_IMAGE_INPUTS).fill(null));
   const [photoUrls, setPhotoUrls] = useState(
     new Array(MAX_IMAGE_INPUTS).fill(null)
   );
-  useEffect(() => {
-    async function getUserProfile() {
-      if (user) {
-        const userProfile = await UserAPI.getUser(user.uid);
-        setUserProfile(userProfile);
-      }
-    }
-    getUserProfile();
-  }, [user]);
 
   const onSubmitForm = (event) => {
     event.preventDefault();
@@ -35,7 +23,7 @@ function PostForm(props) {
       PostAPI.createPost({
         images: [...uploadedImages],
         content: postText,
-        ownerId: userProfile.uid,
+        ownerId: user.uid,
       });
       textAreaRef.current.value = '';
       setPhotos(new Array(MAX_IMAGE_INPUTS).fill(null));
@@ -150,9 +138,5 @@ function PostForm(props) {
     </div>
   );
 }
-
-PostForm.propTypes = {
-  userProfile: PropTypes.object,
-};
 
 export default React.memo(PostForm);

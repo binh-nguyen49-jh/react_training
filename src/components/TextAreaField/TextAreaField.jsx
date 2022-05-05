@@ -8,11 +8,14 @@ const TextAreaField = React.forwardRef((props, ref) => {
   const containerRef = useRef(null);
   const emojiWindow = useRef(null);
 
-  const onEmojiClick = (event, emojiObject) => {
-    if (ref.current) {
-      ref.current.value += emojiObject.emoji;
-    }
-  };
+  const onEmojiClick = useCallback(
+    (event, emojiObject) => {
+      if (ref.current) {
+        ref.current.value += emojiObject.emoji;
+      }
+    },
+    [ref]
+  );
 
   const handleEmojiButton = (event) => {
     event.preventDefault();

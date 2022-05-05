@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import '../InputField/InputField.scss';
 import './DropdownField.scss';
 import PropTypes from 'prop-types';
 
-class DropdownField extends PureComponent {
+class DropdownField extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,6 +107,7 @@ DropdownField.propTypes = {
   label: PropTypes.string,
   options: PropTypes.array,
   className: PropTypes.string,
+  error: PropTypes.string,
 };
 
 DropdownField.defaultProps = {
