@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { MODAL_POSITION_STYLES } from '../../config/constants';
 
 export default class Modal extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node,
     style: PropTypes.object,
-    position: PropTypes.oneOf(['top-left', 'bottom-left', 'top-right', 'bottom-right']),
+    position: PropTypes.oneOf(Object.keys(MODAL_POSITION_STYLES)),
     space: PropTypes.string,
   };
 
@@ -14,42 +15,10 @@ export default class Modal extends React.PureComponent {
     space: '10px',
   };
 
-  static positionStyles = {
-    'top-left': (space) => ({
-      top: '0',
-      left: '0',
-      transform: 'translate(0, -100%)',
-      paddingBottom: space,
-    }),
-    'top-right': (space) => ({
-      top: '0',
-      right: '0',
-      transform: 'translate(0, -100%)',
-      paddingBottom: space,
-    }),
-    'bottom-left': (space) => ({
-      bottom: '0',
-      left: '0',
-      transform: 'translate(0, 100%)',
-      paddingTop: space,
-    }),
-    'bottom-right': (space) => ({
-      bottom: '0',
-      right: '0',
-      transform: 'translate(0, 100%)',
-      paddingTop: space,
-    }),
-  };
-
   render() {
-    const {
-      children,
-      style,
-      position,
-      space
-    } = this.props;
-    const positionStyle = Modal.positionStyles[position]
-      ? Modal.positionStyles[position](space)
+    const { children, style, position, space } = this.props;
+    const positionStyle = MODAL_POSITION_STYLES[position]
+      ? MODAL_POSITION_STYLES[position](space)
       : {};
 
     return (
@@ -65,8 +34,7 @@ export default class Modal extends React.PureComponent {
           backgroundColor: 'transparent',
           ...positionStyle,
           ...style,
-        }}
-      >
+        }}>
         {children}
       </div>
     );

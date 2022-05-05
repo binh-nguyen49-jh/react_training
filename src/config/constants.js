@@ -114,3 +114,36 @@ export const AUTH_ERROR_MESSAGES = {
   'auth/already-initialized':
     'The Firebase Auth instance has already been initialized.',
 };
+
+export const MODAL_POSITION_STYLES = {
+  'top-left': (space) => ({
+    top: '0',
+    left: '0',
+    transform: 'translate(0, -100%)',
+    paddingBottom: space,
+  }),
+  'top-right': (space) => ({
+    top: '0',
+    right: '0',
+    transform: 'translate(0, -100%)',
+    paddingBottom: space,
+  }),
+  'bottom-left': (space) => ({
+    bottom: '0',
+    left: '0',
+    transform: 'translate(0, 100%)',
+    paddingTop: space,
+  }),
+  'bottom-right': (space) => ({
+    bottom: '0',
+    right: '0',
+    transform: 'translate(0, 100%)',
+    paddingTop: space,
+  }),
+  center: (space) => ({
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    padding: space,
+  }),
+};
