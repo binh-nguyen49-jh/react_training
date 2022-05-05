@@ -13,14 +13,21 @@ import RoleIcon from './RoleIcon';
 import { POSITIONS } from '../../config/constants';
 import PostCarousel from './PostCarousel';
 import Comments from './Comments';
+import usePopover from '../../hooks/usePopover';
 
 function Post(props) {
   const { owner, post, hidePost, user, postRef } = props;
   const [liked, setLiked] = useState(props.liked || false);
   const commentRef = useRef(null);
   const likeRef = useRef(null);
-  const [showPopover, setShowPopover] = useState(false);
-  const [internalShowPopover, setInternalShowPopover] = useState(false);
+  const {
+    showPopover,
+    internalShowPopover,
+    onMouseOverPopover,
+    onMouseOutPopover,
+    onMouseOverInternalPopover,
+    onMouseOutInternalPopover,
+  } = usePopover();
   const [showActionModal, setShowActionModal] = useState(false);
 
   const onClickLike = (isLiked) => {
@@ -73,12 +80,12 @@ function Post(props) {
       <div className='postHeader'>
         <div
           className='userInfo'
-          onMouseOver={() => setShowPopover(true)}
-          onMouseOut={() => setShowPopover(false)}>
+          onMouseOver={onMouseOverPopover}
+          onMouseOut={onMouseOutPopover}>
           {(internalShowPopover || showPopover) && (
             <Popover
-              onMouseOverPopover={() => setInternalShowPopover(true)}
-              onMouseOutPopover={() => setInternalShowPopover(false)}>
+              onMouseOverPopover={onMouseOverInternalPopover}
+              onMouseOutPopover={onMouseOutInternalPopover}>
               <UserPopover user={owner} />
             </Popover>
           )}
