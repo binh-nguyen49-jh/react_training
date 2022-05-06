@@ -16,11 +16,8 @@ class Form extends Component {
     newForm[field].value = value;
     newForm[field].error = errorMessage;
     this.setState(newForm);
-
-    let isValidForm = this.checkValidateForm(false);
-
+    const isValidForm = this.checkValidateForm(false);
     this.onValidateInput(field, value, true);
-    console.log(isValidForm);
     this.setState({
       isSubmittable: isValidForm,
     });

@@ -58,7 +58,6 @@ function Post(props) {
 
   const onSubmitComment = (event) => {
     event.preventDefault();
-    console.log(commentRef.current.value);
   };
 
   const onHidePost = () => {
