@@ -11,33 +11,38 @@ ol {
 
 :root {
   --primary-cl: #029AA8;
+  --secondary-cl: white;
   --gray-1-cl: #C4C4C4;
   --gray-2-cl: #B6B6B6;
   --gray-3-cl: #959595;
   --gray-4-cl: #949494;
   --pink-cl: #ee4a57;
-  --white-cl: #ffffff;
   --blue-cl: #006eff;
-  --bg-cl: #ffffff;
+  --bg-cl: white;
   --box-shadow-cl: rgba(0, 0, 0, 0.1);
   --sidebar-width: 75px;
   --topbar-height: 60px;
   --disabled-btn-bg: var(--gray-3-cl);
-  --disabled-btn-cl: #ffffff;
+  --disabled-btn-cl: white;
   --max-width-container: 1200px;
   --max-width-post: 550px;
   --min-width-post: 330px;
-  --action-modal-bg: #ffffff;
+  --action-modal-bg: white;
   --action-modal-dark-bg: #404040;
   --hidden-post-bg: #737373;
-  --hidden-post-text-cl: #ffffff;
+  --hidden-post-text-cl: white;
   --post-border-cl: #fafafa;
   --text-danger-cl: #ee4a57;
-  --signup-btn-bg: #ffffff;
+  --signup-btn-bg: white;
   --login-btn-bg: var(--primary-cl);
   --focused-label-cl: #B6B6B6;
   --post-username-cl: #000000;
   --emoji-btn-bg: var(--primary-cl);
+  --badge-text-cl: white;
+  --badge-default-bg: #f8a81f;
+  --role-icon-text-cl: white;
+  --carousel-btn-bg: black;
+  --post-form-bg: #fafafa;
 }
 
 body {

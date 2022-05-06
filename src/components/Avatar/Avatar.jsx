@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Avatar.scss';
 
 const Avatar = ({ imgUrl, style }) => (
   <div
     className='avatar'
     style={{
       backgroundImage: imgUrl ? `url('${imgUrl}')` : 'none',
-      backgroundColor: '#000000',
-      backgroundPosition: '50% 50%',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      borderRadius: '50%',
       ...style,
     }}
   />

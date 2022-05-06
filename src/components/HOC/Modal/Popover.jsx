@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MODAL_POSITION_STYLES } from '../../config/constants';
+import { MODAL_POSITION_STYLES } from '../../../config/constants';
 
-export default class Modal extends React.PureComponent {
+export default class Popover extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node,
+    onMouseOverPopover: PropTypes.func,
+    onMouseOutPopover: PropTypes.func,
     style: PropTypes.object,
     position: PropTypes.oneOf(Object.keys(MODAL_POSITION_STYLES)),
     space: PropTypes.string,
@@ -16,25 +18,28 @@ export default class Modal extends React.PureComponent {
   };
 
   render() {
-    const { children, style, position, space } = this.props;
+    const {
+      children,
+      onMouseOverPopover,
+      onMouseOutPopover,
+      style,
+      position,
+      space,
+    } = this.props;
     const positionStyle = MODAL_POSITION_STYLES[position]
       ? MODAL_POSITION_STYLES[position](space)
       : {};
 
     return (
       <div
+        className='modal popover'
         style={{
-          position: 'absolute',
-          zIndex: '10',
-          width: 'fit-content',
-          height: 'fit-content',
-          display: 'grid',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'transparent',
           ...positionStyle,
           ...style,
-        }}>
+        }}
+        onMouseOver={onMouseOverPopover}
+        onMouseEnter={onMouseOverPopover}
+        onMouseOut={onMouseOutPopover}>
         {children}
       </div>
     );

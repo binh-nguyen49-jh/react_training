@@ -71,12 +71,7 @@ function PostForm(props) {
     <div className='postForm'>
       <div className='formContainer'>
         <div className='formTop'>
-          <Avatar
-            style={{
-              width: '36px',
-              height: '36px',
-            }}
-          />
+          <Avatar />
           <TextAreaField
             onChange={onChangePostText}
             ref={textAreaRef}
@@ -92,9 +87,6 @@ function PostForm(props) {
                   className='formImage'
                   style={{
                     backgroundImage: photoUrl ? `url('${photoUrl}')` : '',
-                    backgroundPosition: '50% 0%',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
                   }}>
                   <svg
                     onClick={() => onRemoveImage(idx)}
@@ -119,14 +111,6 @@ function PostForm(props) {
           </div>
 
           <button
-            style={{
-              color: 'var(--white-cl)',
-              borderRadius: '4px',
-              outline: 'none',
-              border: 'none',
-              padding: '8px 25px',
-              fontSize: '1rem',
-            }}
             type='submit'
             disabled={postText.length === 0}
             onClick={onSubmitForm}>

@@ -21,8 +21,6 @@ export default function PostCarousel({ post }) {
         onClick={onClickCarousel}
         style={{
           backgroundImage: `url(${post.imageUrls[currentImage]})`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
         }}>
         <div className='carouselButtons'>
           <svg
