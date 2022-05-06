@@ -1,3 +1,5 @@
+import { EMAIL_REGEX } from '../config/constants';
+
 export const required = (value) =>
   value ? undefined : 'This field is required';
 
@@ -12,9 +14,7 @@ export const maxLength = (max) => (value) =>
     : `The length should be lower than ${max} characters`;
 
 export const emailFormat = (value) =>
-  value && !/^\w+([._-]?\w+)*@\w+([._-]?\w+)*([.]\w{2,3})+$/i.test(value)
-    ? 'Invalid email address'
-    : undefined;
+  value && !EMAIL_REGEX.test(value) ? 'Invalid email address' : undefined;
 
 export const composeValidators =
   (...validators) =>

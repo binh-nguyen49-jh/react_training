@@ -149,3 +149,5 @@ export const MODAL_POSITION_STYLES = {
 };
 
 export const LOGO_URI = '/journeyh.png';
+
+export const EMAIL_REGEX = /^\w+([._-]?\w+)*@\w+([._-]?\w+)*([.]\w{2,3})+$/i;
