@@ -38,16 +38,15 @@ function PostForm(props) {
     const file = event.target.files[0];
     if (file) {
       const fileUrl = await URL.createObjectURL(file);
-      // Fill image
-      let missingImageUrl = photoUrls.findIndex((url) => url == null);
-      missingImageUrl =
-        missingImageUrl === -1 ? MAX_IMAGE_INPUTS - 1 : missingImageUrl;
+      // Fill image to empty slots
+      let emptySlot = photoUrls.findIndex((url) => url == null);
+      emptySlot = emptySlot === -1 ? MAX_IMAGE_INPUTS - 1 : emptySlot;
       setPhotoUrls((oldPhotoUrls) => {
-        oldPhotoUrls[missingImageUrl] = fileUrl;
+        oldPhotoUrls[emptySlot] = fileUrl;
         return [...oldPhotoUrls];
       });
       setPhotos((oldPhotos) => {
-        oldPhotos[missingImageUrl] = file;
+        oldPhotos[emptySlot] = file;
         return [...oldPhotos];
       });
     }

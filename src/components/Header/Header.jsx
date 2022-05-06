@@ -46,9 +46,6 @@ function Header(props) {
                 <li>
                   <Link className='navItem' to={`/profile/${user.uid}`}>
                     <Avatar
-                      imgUrl={
-                        'https://res.cloudinary.com/daten/image/upload/v1650819174/avatar_mlwjsm.jpg'
-                      }
                       style={{
                         width: '30px',
                         height: '30px',

@@ -20,7 +20,7 @@ function useFirebaseAuth() {
     const updateUser = firebaseAuth.onAuthStateChanged(async (user) => {
       if (user) {
         const userProfile = await UserAPI.getUser(user.uid);
-        setUser(userProfile);
+        setUser(userProfile || false);
       } else {
         setUser(false);
       }

@@ -31,7 +31,21 @@ export default class PostAPI {
   }
 
   static lastQueryPosition = null;
-  // retrieve others posts
+
+  static async getPostDetails(postDoc, userId) {
+    const post = postDoc.data();
+    const userProfile = await UserAPI.getUser(post.ownerId);
+    post.owner = userProfile;
+    post.id = postDoc.id;
+    const interaction = await UserPostAPI.getInteractPost(userId, postDoc.id);
+    if (interaction) {
+      Object.assign(post, interaction);
+    } else {
+      post.hidden = false;
+    }
+    return post;
+  }
+
   static async getPosts(userId, limitPerRequest = 10) {
     const q = PostAPI.lastQueryPosition
       ? query(
@@ -52,22 +66,7 @@ export default class PostAPI {
     }
     PostAPI.lastQueryPosition = docs.docs[docs.docs.length - 1];
     const posts = await Promise.all(
-      docs.docs.map(async (postDoc) => {
-        const post = postDoc.data();
-        const userProfile = await UserAPI.getUser(post.ownerId);
-        post.owner = userProfile;
-        post.id = postDoc.id;
-        const interaction = await UserPostAPI.getInteractPost(
-          userId,
-          postDoc.id
-        );
-        if (interaction) {
-          Object.assign(post, interaction);
-        } else {
-          post.hidden = false;
-        }
-        return post;
-      })
+      docs.docs.map((postDoc) => PostAPI.getPostDetails(postDoc, userId))
     );
     return posts;
   }

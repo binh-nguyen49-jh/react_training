@@ -1,4 +1,4 @@
-export default function debounced(func, wait) {
+export default function debounce(func, wait) {
   let timeout;
   return function (...args) {
     clearTimeout(timeout);

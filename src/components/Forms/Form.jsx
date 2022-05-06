@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { AUTH_ERROR_MESSAGES } from '../../config/constants';
+import { formatErrorCode } from '../../utils/firebaseUtils';
 import './Form.scss';
 
 class Form extends Component {
@@ -42,7 +43,7 @@ class Form extends Component {
     return error;
   };
 
-  checkValidateForm = (updateErrors) => {
+  checkValidateForm = (updateErrors = true) => {
     let validFlag = true;
     for (let field in this.validators) {
       const error = this.onValidateInput(
@@ -52,6 +53,9 @@ class Form extends Component {
       );
       if (error) {
         validFlag = false;
+        if (!updateErrors) {
+          break;
+        }
       }
     }
     return validFlag;
@@ -73,15 +77,10 @@ class Form extends Component {
           formError: error.message,
         });
       } else {
-        if (AUTH_ERROR_MESSAGES[error.code]) {
-          this.setState({
-            formError: AUTH_ERROR_MESSAGES[error.code],
-          });
-        } else {
-          this.setState({
-            formError: error.code.split('/')[1].split('-').join(' '),
-          });
-        }
+        this.setState({
+          formError:
+            AUTH_ERROR_MESSAGES[error.code] || formatErrorCode(error.code),
+        });
       }
     }
   };

@@ -19,7 +19,7 @@ export default class UserAPI {
     );
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      throw new Error(AUTHENTICATION_ERRORS.NotExistProfile);
+      return null;
     }
     return docs.docs[0].data();
   }
@@ -30,7 +30,7 @@ export default class UserAPI {
       name,
       authProvider,
       email,
-      position: [...position.split(",")],
+      position: [...position.split(',')],
     });
   }
 }
