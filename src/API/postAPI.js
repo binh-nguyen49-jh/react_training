@@ -17,11 +17,11 @@ import UserPostAPI from './userPostAPI';
 export default class PostAPI {
   static async createPost(postData) {
     const images = postData['images'];
-    const image_urls = await Promise.all(
+    const imageUrls = await Promise.all(
       images.map((image) => uploadSingleFile(image))
     );
     const post = {
-      imageUrls: image_urls,
+      imageUrls: imageUrls,
       createdAt: Timestamp.fromDate(new Date()),
       ...postData,
     };
@@ -38,7 +38,7 @@ export default class PostAPI {
       where('ownerId', '!=', userId),
       orderBy('ownerId', 'createdAt'),
       startAfter(PostAPI.lastQueryPosition),
-      limit(limitPerRequest),
+      limit(limitPerRequest)
     );
 
     const docs = await getDocs(q);
@@ -52,7 +52,10 @@ export default class PostAPI {
         const userProfile = await UserAPI.getUser(post.ownerId);
         post.owner = userProfile;
         post.id = postDoc.id;
-        const interaction = await UserPostAPI.getInteractPost(userId, postDoc.id);
+        const interaction = await UserPostAPI.getInteractPost(
+          userId,
+          postDoc.id
+        );
         if (interaction) {
           Object.assign(post, interaction);
         } else {
