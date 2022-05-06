@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import './Post.scss';
 import Popover from '../HOC/Modal/Popover';
 import UserPopover from './UserPopover';
-import Modal from '../HOC/Modal/Modal';
 import UserPostAPI from '../../API/userPostAPI';
 import { toast } from 'react-toastify';
 import RoleIcon from './RoleIcon';
@@ -14,15 +13,17 @@ import { POSITIONS } from '../../config/constants';
 import PostCarousel from './PostCarousel';
 import Comments from './Comments';
 import usePopover from '../../hooks/usePopover';
-import { ReactComponent as DotsIcon } from '../SVGs/DotsIcon.svg';
 import { ReactComponent as FilledHeartIcon } from '../SVGs/FilledHeartIcon.svg';
 import { ReactComponent as EmptyHeartIcon } from '../SVGs/EmptyHeartIcon.svg';
+import PostAction from './PostAction';
 
 function Post(props) {
   const { owner, post, hidePost, user, postRef } = props;
   const [liked, setLiked] = useState(props.liked || false);
   const commentRef = useRef(null);
   const likeRef = useRef(null);
+  const [showActionModal, setShowActionModal] = useState(false);
+
   const {
     showPopover,
     internalShowPopover,
@@ -31,7 +32,6 @@ function Post(props) {
     onMouseOverInternalPopover,
     onMouseOutInternalPopover,
   } = usePopover();
-  const [showActionModal, setShowActionModal] = useState(false);
 
   const onClickLike = (isLiked) => {
     likeRef.current.animate(
@@ -106,21 +106,14 @@ function Post(props) {
               )}
           </div>
         </div>
-        <div
-          className='action'
-          onClick={() => setShowActionModal(!showActionModal)}>
-          <DotsIcon />
-
-          {showActionModal && (
-            <Modal position='bottom-right'>
-              <ul className='modalContent'>
-                <li onClick={onHidePost} className='modalItem'>
-                  Hide post
-                </li>
-              </ul>
-            </Modal>
-          )}
-        </div>
+        <PostAction
+          showActionModal={showActionModal}
+          setShowActionModal={setShowActionModal}
+          position={'bottom-right'}>
+          <li onClick={onHidePost} className='modalItem'>
+            Hide post
+          </li>
+        </PostAction>
       </div>
       <div className='postBody'>
         {post.imageUrls.length > 0 && <PostCarousel post={post} />}

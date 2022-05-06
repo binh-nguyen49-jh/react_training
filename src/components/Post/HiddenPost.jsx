@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import UserPostAPI from '../../API/userPostAPI';
 import Avatar from '../Avatar/Avatar';
 import { toast } from 'react-toastify';
-import Modal from '../HOC/Modal/Modal';
 import { PropTypes } from 'prop-types';
-import { ReactComponent as DotsIcon } from '../SVGs/DotsIcon.svg';
 import './Post.scss';
+import PostAction from './PostAction';
 
 function HiddenPost(props) {
   const [showActionModal, setShowActionModal] = useState(false);
@@ -32,20 +31,14 @@ function HiddenPost(props) {
           <Avatar />
           <p className='username'>This post has been hidden</p>
         </div>
-        <div
-          className='action'
-          onClick={() => setShowActionModal(!showActionModal)}>
-          <DotsIcon />
-          {showActionModal && (
-            <Modal position='bottom-right'>
-              <ul className='modalContent'>
-                <li onClick={onShowPost} className='modalItem'>
-                  Show post
-                </li>
-              </ul>
-            </Modal>
-          )}
-        </div>
+        <PostAction
+          showActionModal={showActionModal}
+          setShowActionModal={setShowActionModal}
+          position={'bottom-right'}>
+          <li onClick={onShowPost} className='modalItem'>
+            Show post
+          </li>
+        </PostAction>
       </div>
     </div>
   );
