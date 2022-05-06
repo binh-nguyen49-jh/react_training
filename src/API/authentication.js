@@ -11,46 +11,35 @@ export const AUTHENTICATION_ERRORS = {
   UserNotFound: 'User not found',
 };
 
-export const logInWithEmail = (email, password) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const res = await signInWithEmailAndPassword(
-        firebaseAuth,
-        email,
-        password
-      );
-      const user = res.user;
-      const userProfile = UserAPI.getUser(user.uid);
-      resolve(userProfile);
-    } catch (err) {
-      reject(err);
-    }
-  });
+export const logInWithEmail = async (email, password) => {
+  const res = await signInWithEmailAndPassword(firebaseAuth, email, password);
+  const user = res.user;
+  const userProfile = await UserAPI.getUser(user.uid);
+  return userProfile;
 };
 
-export const registerWithEmail = ({ name, email, password, position }) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const res = await createUserWithEmailAndPassword(
-        firebaseAuth,
-        email,
-        password
-      );
-      const user = res.user;
-      await UserAPI.createUser({
-        uid: res.user.uid,
-        name,
-        email,
-        position,
-      });
-      resolve({
-        uid: user.uid,
-        name,
-        email,
-        position,
-      });
-    } catch (err) {
-      reject(err);
-    }
+export const registerWithEmail = async ({
+  name,
+  email,
+  password,
+  position,
+}) => {
+  const res = await createUserWithEmailAndPassword(
+    firebaseAuth,
+    email,
+    password
+  );
+  const user = res.user;
+  await UserAPI.createUser({
+    uid: res.user.uid,
+    name,
+    email,
+    position,
   });
+  return {
+    uid: user.uid,
+    name,
+    email,
+    position,
+  };
 };
