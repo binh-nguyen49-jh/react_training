@@ -36,12 +36,7 @@ function Header(props) {
               <>
                 <li>
                   <Link className='navItem' to={`/profile/${user.uid}`}>
-                    <Avatar
-                      style={{
-                        width: '30px',
-                        height: '30px',
-                      }}
-                    />
+                    <Avatar />
                   </Link>
                 </li>
                 <li>

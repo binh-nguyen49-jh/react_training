@@ -44,6 +44,8 @@ class SignUpForm extends Form {
   });
 
   render() {
+    const { name, email, password, position, formError, isSubmittable } =
+      this.state;
     return (
       <>
         <h2>Sign Up</h2>
@@ -54,46 +56,41 @@ class SignUpForm extends Form {
             name='name'
             label='Name'
             placeholder='Type your name'
-            error={this.state.name.error}
+            error={name.error}
             onChange={this.onChangeForm}
           />
-
           <InputField
             onValidate={this.onValidateInput}
             type='email'
             name='email'
             label='Email'
             placeholder='example@abc.xyz'
-            error={this.state.email.error}
+            error={email.error}
             onChange={this.onChangeForm}
           />
-
           <InputField
             onValidate={this.onValidateInput}
             type='password'
             name='password'
             label='Password'
             placeholder='Type your password'
-            error={this.state.password.error}
+            error={password.error}
             onChange={this.onChangeForm}
           />
-
           <DropdownField
             onValidate={this.onValidateInput}
             name='position'
             label='Position'
             placeholder='Select your position'
             options={this.positions}
-            error={this.state.position.error}
+            error={position.error}
             onChange={this.onChangeForm}
           />
-          {this.state.formError && (
-            <p className='formError'>{this.state.formError}</p>
-          )}
+          {formError && <p className='formError'>{formError}</p>}
           <LoadingButton
             className='btnSignUp'
             handleOnClick={this.handleSubmit}
-            disabled={!this.state.isSubmittable}
+            disabled={!isSubmittable}
             text='Sign up'
             type='submit'
           />

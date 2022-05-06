@@ -44,6 +44,11 @@ nav>ul {
   height: 100%;
   cursor: pointer;
 
+  .avatar {
+    width: 30px;
+    height: 30px;
+  }
+
   &:hover {
 
     img,
