@@ -20,12 +20,13 @@ export default class PostAPI {
     const imageUrls = await Promise.all(
       images.map((image) => uploadSingleFile(image))
     );
+
+    const { images: uploadedImages, ...postDataWithoutImages } = postData;
     const post = {
       imageUrls: imageUrls,
       createdAt: Timestamp.fromDate(new Date()),
-      ...postData,
+      ...postDataWithoutImages,
     };
-    delete post['images'];
 
     return addDoc(collection(firestoreDB, 'posts'), post);
   }

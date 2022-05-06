@@ -28,10 +28,12 @@ class LoginForm extends Form {
   }
 
   handleSubmit = this.handleSubmitTemplate(() => {
-    return logInWithEmail(this.state.email.value, this.state.password.value);
+    const { email, password } = this.state;
+    return logInWithEmail(email.value, password.value);
   });
 
   render() {
+    const { email, password, formError, isSubmittable } = this.state;
     return (
       <>
         <h2>Login</h2>
@@ -42,7 +44,7 @@ class LoginForm extends Form {
             name='email'
             label='Email'
             placeholder='example@abc.xyz'
-            error={this.state.email.error}
+            error={email.error}
             onChange={this.onChangeForm}
           />
 
@@ -52,18 +54,16 @@ class LoginForm extends Form {
             name='password'
             label='Password'
             placeholder='Type your password'
-            error={this.state.password.error}
+            error={password.error}
             onChange={this.onChangeForm}
           />
-          {this.state.formError && (
-            <p className='formError'>{this.state.formError}</p>
-          )}
+          {formError && <p className='formError'>{formError}</p>}
           <LoadingButton
             className='btnLogin'
             handleOnClick={this.handleSubmit}
             type='submit'
             text='Login'
-            disabled={!this.state.isSubmittable}
+            disabled={!isSubmittable}
           />
           <hr />
           <p>

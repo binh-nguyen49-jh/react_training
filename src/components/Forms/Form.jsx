@@ -12,9 +12,13 @@ class Form extends Component {
   }
 
   onChangeForm = (field, value, errorMessage) => {
-    const newForm = this.state;
-    newForm[field].value = value;
-    newForm[field].error = errorMessage;
+    const newForm = {
+      ...this.state,
+      [field]: {
+        value,
+        error: errorMessage,
+      },
+    };
     this.setState(newForm);
     const isValidForm = this.checkValidateForm(false);
     this.onValidateInput(field, value, true);
@@ -25,15 +29,20 @@ class Form extends Component {
 
   onValidateInput = (field, value, updateError = true) => {
     const error = this.validators[field](value);
-    const newForm = this.state;
     if (updateError) {
-      newForm[field].error = error;
+      const newForm = {
+        ...this.state,
+        [field]: {
+          ...this.state[field],
+          error,
+        },
+      };
       this.setState(newForm);
     }
     return error;
   };
 
-  checkValidateForm = (updateErrors = true) => {
+  checkValidateForm = (updateErrors) => {
     let validFlag = true;
     for (let field in this.validators) {
       const error = this.onValidateInput(
