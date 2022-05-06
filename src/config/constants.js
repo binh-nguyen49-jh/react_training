@@ -147,3 +147,5 @@ export const MODAL_POSITION_STYLES = {
     padding: space,
   }),
 };
+
+export const LOGO_URI = '/journeyh.png';

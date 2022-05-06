@@ -43,6 +43,7 @@ ol {
   --role-icon-text-cl: white;
   --carousel-btn-bg: black;
   --post-form-bg: #fafafa;
+  --logoSize: 40px;
 }
 
 body {
@@ -61,6 +62,10 @@ main>.container {
 
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) {
+  :root {
+    --logoSize: 50px;
+  }
+
   main>.container {
     width: calc(100% - var(--sidebar-width));
   }
@@ -68,6 +73,7 @@ main>.container {
 
 @media screen and (min-width: 1025px) {
   :root {
+    --logoSize: 55px;
     --topbar-height: 100px
   }
 }

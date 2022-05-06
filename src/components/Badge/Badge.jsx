@@ -4,11 +4,7 @@ import './Badge.scss';
 
 function Badge({ text, style }) {
   return (
-    <div
-      className='badge'
-      style={{
-        ...style,
-      }}>
+    <div className='badge' style={style}>
       <p>{text}</p>
     </div>
   );

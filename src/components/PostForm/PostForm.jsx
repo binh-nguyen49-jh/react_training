@@ -5,6 +5,8 @@ import Avatar from '../Avatar/Avatar';
 import TextAreaField from '../TextAreaField/TextAreaField';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../hooks/authentication';
+import { ReactComponent as ImageIcon } from '../SVGs/ImageIcon.svg';
+import { ReactComponent as DeleteIcon } from '../SVGs/DeleteIcon.svg';
 import './PostForm.scss';
 
 function PostForm(props) {
@@ -88,12 +90,7 @@ function PostForm(props) {
                   style={{
                     backgroundImage: photoUrl ? `url('${photoUrl}')` : '',
                   }}>
-                  <svg
-                    onClick={() => onRemoveImage(idx)}
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 512 512'>
-                    <path d='M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z' />
-                  </svg>
+                  <DeleteIcon onClick={() => onRemoveImage(idx)} />
                 </div>
               )
           )}
@@ -103,9 +100,7 @@ function PostForm(props) {
           <div className='fileInput'>
             <input onChange={onSelectImage} type='file' id='file' name='file' />
             <label htmlFor='file'>
-              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-                <path d='M447.1 32h-384C28.64 32-.0091 60.65-.0091 96v320c0 35.35 28.65 64 63.1 64h384c35.35 0 64-28.65 64-64V96C511.1 60.65 483.3 32 447.1 32zM111.1 96c26.51 0 48 21.49 48 48S138.5 192 111.1 192s-48-21.49-48-48S85.48 96 111.1 96zM446.1 407.6C443.3 412.8 437.9 416 432 416H82.01c-6.021 0-11.53-3.379-14.26-8.75c-2.73-5.367-2.215-11.81 1.334-16.68l70-96C142.1 290.4 146.9 288 152 288s9.916 2.441 12.93 6.574l32.46 44.51l93.3-139.1C293.7 194.7 298.7 192 304 192s10.35 2.672 13.31 7.125l128 192C448.6 396 448.9 402.3 446.1 407.6z' />
-              </svg>
+              <ImageIcon />
               <p>Photo</p>
             </label>
           </div>

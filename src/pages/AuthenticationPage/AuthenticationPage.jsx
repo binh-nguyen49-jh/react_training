@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import withFirebaseAuth from '../../components/HOC/withFirebaseAuth';
 import './AuthenticationPage.scss';
 import PropTypes from 'prop-types';
+import { LOGO_URI } from '../../config/constants';
 
 class AuthenticationPage extends PureComponent {
   static propTypes = {
@@ -16,7 +17,7 @@ class AuthenticationPage extends PureComponent {
       <main>
         <div className='container'>
           <div className='logo'>
-            <img src='/journeyh.png' alt='' />
+            <img src={LOGO_URI} alt='' />
             <h1>journey horizon</h1>
           </div>
           <div className='formContainer'>{this.props.children}</div>
