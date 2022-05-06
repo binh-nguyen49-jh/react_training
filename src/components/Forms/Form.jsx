@@ -20,11 +20,13 @@ class Form extends Component {
         error: errorMessage,
       },
     };
-    this.setState(newForm);
-    const isValidForm = this.checkValidateForm(false);
-    this.onValidateInput(field, value, true);
-    this.setState({
-      isSubmittable: isValidForm,
+    this.setState(newForm, () => {
+      const isValidInput =
+        this.onValidateInput(field, value, true) === undefined;
+      const isValidForm = this.checkValidateForm(false) && isValidInput;
+      this.setState({
+        isSubmittable: isValidForm,
+      });
     });
   };
 
@@ -34,7 +36,7 @@ class Form extends Component {
       const newForm = {
         ...this.state,
         [field]: {
-          ...this.state[field],
+          value,
           error,
         },
       };
