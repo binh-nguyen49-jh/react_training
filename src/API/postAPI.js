@@ -7,7 +7,6 @@ import {
   limit,
   startAfter,
   Timestamp,
-  where,
 } from 'firebase/firestore/lite';
 import uploadSingleFile from '../utils/uploadImage';
 import { firestoreDB } from './firebase';
@@ -34,13 +33,18 @@ export default class PostAPI {
   static lastQueryPosition = null;
   // retrieve others posts
   static async getPosts(userId, limitPerRequest = 10) {
-    const q = query(
-      collection(firestoreDB, 'posts'),
-      where('ownerId', '!=', userId),
-      orderBy('ownerId', 'createdAt'),
-      startAfter(PostAPI.lastQueryPosition),
-      limit(limitPerRequest)
-    );
+    const q = PostAPI.lastQueryPosition
+      ? query(
+          collection(firestoreDB, 'posts'),
+          orderBy('createdAt', 'desc'),
+          startAfter(PostAPI.lastQueryPosition),
+          limit(limitPerRequest)
+        )
+      : query(
+          collection(firestoreDB, 'posts'),
+          orderBy('createdAt', 'desc'),
+          limit(limitPerRequest)
+        );
 
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {

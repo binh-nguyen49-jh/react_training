@@ -22,10 +22,7 @@ function PostList(props) {
       setIsLoading(true);
       const newPosts = await PostAPI.getPosts(user.uid);
       if (newPosts.length === 0) return;
-      setPosts((oldPosts) => [
-        ...oldPosts,
-        ...newPosts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds),
-      ]);
+      setPosts((oldPosts) => [...oldPosts, ...newPosts]);
       setIsLoading(false);
     }
   }, [user]);
@@ -39,6 +36,7 @@ function PostList(props) {
   }, [isIntersecting, observer, getPosts]);
 
   useEffect(() => {
+    PostAPI.lastQueryPosition = null;
     if (isFirstRender.current) {
       isFirstRender.current = false;
       getPosts();
