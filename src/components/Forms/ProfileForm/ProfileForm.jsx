@@ -91,7 +91,11 @@ class ProfileForm extends Form {
       <form>
         <div className='container'>
           <div className='avatarInput'>
-            <ImageField name='avatar' onChange={this.onChangeForm} />
+            <ImageField
+              name='avatar'
+              onChange={this.onChangeForm}
+              defaultValue={avatar}
+            />
           </div>
           <div className='userInfo'>
             <InputField

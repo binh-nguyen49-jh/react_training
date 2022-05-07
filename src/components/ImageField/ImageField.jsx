@@ -4,9 +4,9 @@ import { ReactComponent as DeleteIcon } from '../SVGs/DeleteIcon.svg';
 import { PropTypes } from 'prop-types';
 import './ImageField.scss';
 
-function ImageField({ name, className, onChange }) {
-  const [photo, setPhoto] = useState(null);
-  const [photoUrl, setPhotoUrl] = useState([]);
+function ImageField({ name, className, onChange, defaultValue }) {
+  const [photo, setPhoto] = useState(defaultValue.photo);
+  const [photoUrl, setPhotoUrl] = useState(defaultValue.photoUrl);
 
   const onRemoveImage = () => {
     setPhoto(null);
@@ -53,6 +53,7 @@ ImageField.propTypes = {
   name: PropTypes.string,
   className: PropTypes.string,
   onChange: PropTypes.func,
+  defaultValue: PropTypes.object,
 };
 
 export default ImageField;
