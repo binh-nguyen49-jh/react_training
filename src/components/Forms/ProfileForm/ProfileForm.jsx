@@ -7,6 +7,8 @@ import UserAPI from '../../../api/UserAPI';
 import Form from '../Form';
 import './ProfileForm.scss';
 import { isUploadedByUser } from '../../../utils/formUtils';
+import DropdownField from '../../DropdownField/DropdownField';
+import { POSITIONS } from '../../../config/constants';
 
 class ProfileForm extends Form {
   constructor(props) {
@@ -83,7 +85,8 @@ class ProfileForm extends Form {
   });
 
   render() {
-    const { avatar, name, highlightImages, bio, position, status } = this.state;
+    const { avatar, name, highlightImages, bio, dob, position, status } =
+      this.state;
     return (
       <form>
         <div className='container'>
@@ -100,6 +103,25 @@ class ProfileForm extends Form {
               error={name.error}
               onChange={this.onChangeForm}
               defaultValue={name.value}
+            />
+            <InputField
+              onValidate={this.onValidateInput}
+              type='date'
+              name='dob'
+              label='Date of Birth'
+              error={dob.error}
+              onChange={this.onChangeForm}
+              defaultValue={dob.value}
+            />
+            <DropdownField
+              onValidate={this.onValidateInput}
+              name='position'
+              label='Position'
+              placeholder='Select your position'
+              options={POSITIONS}
+              defaultValues={position.value}
+              error={position.error}
+              onChange={this.onChangeForm}
             />
           </div>
           <div className='imageInputs'></div>

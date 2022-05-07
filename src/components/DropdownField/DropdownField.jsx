@@ -6,9 +6,12 @@ import PropTypes from 'prop-types';
 class DropdownField extends Component {
   constructor(props) {
     super(props);
+    const { options, defaultValues } = props;
     this.state = {
       value: '',
-      selected: new Array(this.props.options.length).fill(false),
+      selected: new Array(options.length).fill(false).map((item, idx) => {
+        return defaultValues.contains(options[idx]) || false;
+      }),
       isChoosing: false,
     };
     this.optionListRef = React.createRef(null);
@@ -55,6 +58,7 @@ class DropdownField extends Component {
 
   render = () => {
     const { label, name, options, className, error, placeholder } = this.props;
+    const { value, selected, isChoosing } = this.state;
     return (
       <div ref={this.optionListRef} className={`formInput select ${className}`}>
         <input
@@ -67,11 +71,11 @@ class DropdownField extends Component {
           id={`placeholder-${name}`}
           type='text'
           placeholder={placeholder}
-          defaultValue={this.state.value}
+          defaultValue={value}
           readOnly={true}
           onBlur={this.validate}
         />
-        <div className={`selectInput ${this.state.isChoosing ? 'show' : ''}`}>
+        <div className={`selectInput ${isChoosing ? 'show' : ''}`}>
           <ul className='optionList'>
             {options.map((option, index) => {
               return (
@@ -82,7 +86,7 @@ class DropdownField extends Component {
                       id={option}
                       name={name}
                       value={option}
-                      checked={this.state.selected[index]}
+                      checked={selected[index]}
                       onChange={() => this.handleChange(index)}
                     />
                     <label htmlFor={option}>{option}</label>
