@@ -1,16 +1,16 @@
 import React from 'react';
-import { logInWithEmail } from '../../API/authentication';
+import { logInWithEmail } from '../../../API/authentication';
 import {
   composeValidators,
   emailFormat,
   required,
-} from '../../utils/formValidate';
-import LoadingButton from '../LoadingButton/LoadingButton';
-import withRouter from '../HOC/withRouter';
-import InputField from '../InputField/InputField';
+} from '../../../utils/formValidate';
+import LoadingButton from '../../LoadingButton/LoadingButton';
+import withRouter from '../../HOC/withRouter';
+import InputField from '../../InputField/InputField';
 import './Form.scss';
 import { Link } from 'react-router-dom';
-import Form from './Form';
+import Form from '../Form';
 
 class LoginForm extends Form {
   constructor(props) {

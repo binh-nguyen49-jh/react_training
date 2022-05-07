@@ -13,7 +13,7 @@ import LoadingButton from '../LoadingButton/LoadingButton';
 import withRouter from '../HOC/withRouter';
 import InputField from '../InputField/InputField';
 import { Link } from 'react-router-dom';
-import Form from './Form';
+import Form from '../Form';
 
 class SignUpForm extends Form {
   constructor(props) {

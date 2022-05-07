@@ -1,10 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
-import PostAPI from '../../API/postAPI';
-import { MAX_IMAGE_INPUTS } from '../../config/constants';
-import Avatar from '../Avatar/Avatar';
-import TextAreaField from '../TextAreaField/TextAreaField';
+import PostAPI from '../../../API/postAPI';
+import { MAX_IMAGE_INPUTS } from '../../../config/constants';
+import Avatar from '../../Avatar/Avatar';
+import TextAreaField from '../../TextAreaField/TextAreaField';
 import { toast } from 'react-toastify';
-import { useAuth } from '../../hooks/authentication';
+import { useAuth } from '../../../hooks/authentication';
 import { ReactComponent as ImageIcon } from '../SVGs/ImageIcon.svg';
 import { ReactComponent as DeleteIcon } from '../SVGs/DeleteIcon.svg';
 import './PostForm.scss';
