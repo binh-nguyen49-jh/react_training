@@ -1,0 +1,43 @@
+.imageField {
+  position: relative;
+  background-color: var(--dark-cl);
+  background-size: cover;
+  background-position: center;
+
+  .deleteIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 1;
+    transform: translate(50%, -50%);
+  }
+
+  input {
+    display: none;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: var(--overlay-cl);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .imgIcon {
+      fill: var(--secondary-cl);
+    }
+  }
+
+  &:hover {
+    .overlay {
+      opacity: 1;
+    }
+  }
+}

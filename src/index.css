@@ -18,8 +18,10 @@ ol {
   --gray-4-cl: #949494;
   --pink-cl: #ee4a57;
   --blue-cl: #006eff;
+  --dark-cl: #1c1c1c;
   --bg-cl: white;
   --box-shadow-cl: rgba(0, 0, 0, 0.1);
+  --overlay-cl: rgba(0, 0, 0, 0.5);
   --sidebar-width: 75px;
   --topbar-height: 60px;
   --disabled-btn-bg: var(--gray-3-cl);

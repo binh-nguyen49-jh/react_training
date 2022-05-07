@@ -16,6 +16,9 @@ export const maxLength = (max) => (value) =>
 export const emailFormat = (value) =>
   value && !EMAIL_REGEX.test(value) ? 'Invalid email address' : undefined;
 
+export const haveImage = (value) =>
+  value.photo && value.photoUrl ? undefined : 'Please upload an image';
+
 export const composeValidators =
   (...validators) =>
   (value) =>
