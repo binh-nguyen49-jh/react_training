@@ -2,6 +2,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { haveImage, required } from '../../../utils/formValidate';
 import ImageField from '../../ImageField/ImageField';
+import InputField from '../../InputField/InputField';
 import UserAPI from '../../../api/UserAPI';
 import Form from '../Form';
 import './ProfileForm.scss';
@@ -82,13 +83,25 @@ class ProfileForm extends Form {
   });
 
   render() {
+    const { avatar, name, highlightImages, bio, position, status } = this.state;
     return (
       <form>
         <div className='container'>
           <div className='avatarInput'>
-            <ImageField />
+            <ImageField name='avatar' onChange={this.onChangeForm} />
           </div>
-          <div className='userInfo'></div>
+          <div className='userInfo'>
+            <InputField
+              onValidate={this.onValidateInput}
+              type='name'
+              name='name'
+              label='Name'
+              placeholder='Type your name'
+              error={name.error}
+              onChange={this.onChangeForm}
+              defaultValue={name.value}
+            />
+          </div>
           <div className='imageInputs'></div>
         </div>
       </form>
