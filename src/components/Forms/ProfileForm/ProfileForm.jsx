@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { haveImage, required } from '../../../utils/formValidate';
 import ImageField from '../../ImageField/ImageField';
 import InputField from '../../InputField/InputField';
-import UserAPI from '../../../api/UserAPI';
+import UserAPI from '../../../API/userAPI';
 import Form from '../Form';
 import './ProfileForm.scss';
 import { isUploadedByUser } from '../../../utils/formUtils';
