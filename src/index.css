@@ -45,7 +45,8 @@ ol {
   --role-icon-text-cl: white;
   --carousel-btn-bg: black;
   --post-form-bg: #fafafa;
-  --logoSize: 40px;
+  --logo-size: 40px;
+  --toggle-btn-size: 25px;
 }
 
 body {

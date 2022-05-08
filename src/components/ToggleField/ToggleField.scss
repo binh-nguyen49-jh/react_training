@@ -1,0 +1,35 @@
+.toggleField {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  position: relative;
+  height: fit-content;
+  aspect-ratio: 2.5;
+
+  &__slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: var(toggle-btn-size);
+    transition: all 0.3s ease;
+
+    .circle {
+      height: 100%;
+      aspect-ratio: 1;
+      background-color: var(--primary-cl);
+      border-radius: 50%;
+    }
+  }
+
+  input {
+    display: none;
+
+    &:checked {
+      &+.toggleField__slider {
+        right: 0;
+      }
+    }
+  }
+}
