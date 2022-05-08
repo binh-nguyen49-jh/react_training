@@ -9,6 +9,7 @@ import './ProfileForm.scss';
 import { isUploadedByUser } from '../../../utils/formUtils';
 import DropdownField from '../../DropdownField/DropdownField';
 import { POSITIONS } from '../../../config/constants';
+import withFirebaseAuth from '../../HOC/withFirebaseAuth';
 
 class ProfileForm extends Form {
   constructor(props) {
@@ -26,6 +27,7 @@ class ProfileForm extends Form {
       bio: {},
       position: {},
       status: {},
+      dob: {},
     };
 
     this.validators = {
@@ -38,27 +40,20 @@ class ProfileForm extends Form {
 
   componentDidMount() {
     const { user } = this.props;
+    const { avatarUrl, ...userInfo } = user;
+    const userStates = Object.entries(userInfo).map(([key, value]) => ({
+      [key]: {
+        value: value,
+      },
+    }));
+
     this.setState({
       avatar: {
         value: {
-          photoUrl: user.avatarUrl,
+          photoUrl: avatarUrl,
         },
       },
-      name: {
-        value: user.name,
-      },
-      highlightImages: {
-        value: user.highlightImages,
-      },
-      bio: {
-        value: user.bio,
-      },
-      position: {
-        value: user.position,
-      },
-      status: {
-        value: user.status,
-      },
+      ...userStates,
     });
   }
 
@@ -122,7 +117,7 @@ class ProfileForm extends Form {
               name='position'
               label='Position'
               placeholder='Select your position'
-              options={POSITIONS}
+              options={Object.keys(POSITIONS)}
               defaultValues={position.value}
               error={position.error}
               onChange={this.onChangeForm}
@@ -135,4 +130,4 @@ class ProfileForm extends Form {
   }
 }
 
-export default ProfileForm;
+export default withFirebaseAuth(ProfileForm);

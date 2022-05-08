@@ -10,7 +10,7 @@ class DropdownField extends Component {
     this.state = {
       value: '',
       selected: new Array(options.length).fill(false).map((item, idx) => {
-        return defaultValues.contains(options[idx]) || false;
+        return defaultValues.indexOf(options[idx]) !== -1 || false;
       }),
       isChoosing: false,
     };
@@ -19,10 +19,11 @@ class DropdownField extends Component {
   }
 
   handleChange = (index) => {
+    const { options, onChange, name } = this.props;
     const newSelected = [...this.state.selected];
     newSelected[index] = !newSelected[index];
     const newValue = newSelected
-      .map((selected, idx) => (selected ? this.props.options[idx] : ''))
+      .map((selected, idx) => (selected ? options[idx] : ''))
       .filter((val) => val.length > 0)
       .join(',');
     this.setState({
@@ -30,7 +31,7 @@ class DropdownField extends Component {
       value: newValue,
     });
     this.placeholderRef.current.value = newValue;
-    this.props.onChange(this.props.name, newValue, '');
+    onChange(name, newValue, '');
   };
 
   validate = () => {
@@ -112,6 +113,7 @@ DropdownField.propTypes = {
   options: PropTypes.array,
   className: PropTypes.string,
   error: PropTypes.string,
+  defaultValues: PropTypes.array,
 };
 
 DropdownField.defaultProps = {
@@ -120,6 +122,7 @@ DropdownField.defaultProps = {
   label: '',
   options: [],
   className: '',
+  defaultValues: [],
 };
 
 export default React.memo(DropdownField);
