@@ -9,6 +9,7 @@ import waves from './waves.svg';
 import LoginForm from './components/Forms/AuthForm/LoginForm';
 import SignUpForm from './components/Forms/AuthForm/SignUpForm';
 import { ToastContainer } from 'react-toastify';
+import CreateProfilePage from './pages/CreateProfilePage/CreateProfilePage';
 
 function App() {
   return (
@@ -47,6 +48,14 @@ function App() {
             </ProtectedRoute>
           }
           path='/profile/:uid'
+        />
+        <Route
+          element={
+            <ProtectedRoute>
+              <CreateProfilePage />
+            </ProtectedRoute>
+          }
+          path='/create-profile'
         />
       </Routes>
       <div className='background'>
