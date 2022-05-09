@@ -7,8 +7,9 @@ class DropdownField extends Component {
   constructor(props) {
     super(props);
     const { options, defaultValues } = props;
+    console.log(defaultValues);
     this.state = {
-      value: '',
+      value: defaultValues.join(', '),
       selected: new Array(options.length).fill(false).map((item, idx) => {
         return defaultValues.indexOf(options[idx]) !== -1 || false;
       }),

@@ -6,10 +6,14 @@ import InputField from '../../InputField/InputField';
 import UserAPI from '../../../API/userAPI';
 import Form from '../Form';
 import './ProfileForm.scss';
-import { isUploadedByUser } from '../../../utils/formUtils';
+import {
+  convertObjectToFormState,
+  isUploadedByUser,
+} from '../../../utils/formUtils';
 import DropdownField from '../../DropdownField/DropdownField';
 import { POSITIONS } from '../../../config/constants';
 import withFirebaseAuth from '../../HOC/withFirebaseAuth';
+import ToggleField from '../../ToggleField/ToggleField';
 
 class ProfileForm extends Form {
   constructor(props) {
@@ -40,20 +44,19 @@ class ProfileForm extends Form {
 
   componentDidMount() {
     const { user } = this.props;
-    const { avatarUrl, ...userInfo } = user;
-    const userStates = Object.entries(userInfo).map(([key, value]) => ({
-      [key]: {
-        value: value,
-      },
-    }));
-
-    this.setState({
+    const { avatarUrl, authProvider, ...userInfo } = user;
+    const filledUserInfoState = {
+      ...this.state,
       avatar: {
         value: {
+          photo: null,
           photoUrl: avatarUrl,
         },
       },
-      ...userStates,
+    };
+    Object.assign(filledUserInfoState, convertObjectToFormState(userInfo));
+    this.setState(filledUserInfoState, () => {
+      console.log('authentication: ', this.state);
     });
   }
 
@@ -121,6 +124,12 @@ class ProfileForm extends Form {
               defaultValues={position.value}
               error={position.error}
               onChange={this.onChangeForm}
+            />
+            <ToggleField
+              name='status'
+              label='Status'
+              onChange={this.onChangeForm}
+              defaultValue={status.value}
             />
           </div>
           <div className='imageInputs'></div>
