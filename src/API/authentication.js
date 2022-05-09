@@ -29,17 +29,10 @@ export const registerWithEmail = async ({
     email,
     password
   );
-  const user = res.user;
   await UserAPI.createUser({
     uid: res.user.uid,
     name,
     email,
     position,
   });
-  return {
-    uid: user.uid,
-    name,
-    email,
-    position,
-  };
 };
