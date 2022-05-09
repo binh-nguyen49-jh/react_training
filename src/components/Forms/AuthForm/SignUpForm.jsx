@@ -44,7 +44,7 @@ class SignUpForm extends Form {
   });
 
   render() {
-    const { name, email, password, position, formError, isSubmittable } =
+    const { name, email, password, position, formError, isInvalidForm } =
       this.state;
     return (
       <>
@@ -90,7 +90,7 @@ class SignUpForm extends Form {
           <LoadingButton
             className='btnSignUp'
             handleOnClick={this.handleSubmit}
-            disabled={!isSubmittable}
+            disabled={isInvalidForm}
             text='Sign up'
             type='submit'
           />

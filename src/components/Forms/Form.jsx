@@ -8,7 +8,7 @@ class Form extends Component {
     super(props);
     this.state = {
       formError: null,
-      isSubmittable: true,
+      isInvalidForm: true,
     };
   }
 
@@ -23,9 +23,9 @@ class Form extends Component {
     this.setState(newForm, () => {
       const isValidInput =
         this.onValidateInput(field, value, true) === undefined;
-      const isValidForm = this.checkValidateForm(false) && isValidInput;
+      const isInvalidForm = !(this.checkValidateForm(false) && isValidInput);
       this.setState({
-        isSubmittable: isValidForm,
+        isInvalidForm,
       });
     });
   };

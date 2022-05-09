@@ -33,7 +33,7 @@ class LoginForm extends Form {
   });
 
   render() {
-    const { email, password, formError, isSubmittable } = this.state;
+    const { email, password, formError, isInvalidForm } = this.state;
     return (
       <>
         <h2>Login</h2>
@@ -63,7 +63,7 @@ class LoginForm extends Form {
             handleOnClick={this.handleSubmit}
             type='submit'
             text='Login'
-            disabled={!isSubmittable}
+            disabled={isInvalidForm}
           />
           <hr />
           <p>
