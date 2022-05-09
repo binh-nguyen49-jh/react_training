@@ -8,7 +8,7 @@ import {
 import LoadingButton from '../../LoadingButton/LoadingButton';
 import withRouter from '../../HOC/withRouter';
 import InputField from '../../InputField/InputField';
-import './Form.scss';
+import '../Form.scss';
 import { Link } from 'react-router-dom';
 import Form from '../Form';
 

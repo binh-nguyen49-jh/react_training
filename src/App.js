@@ -6,8 +6,8 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
 import Header from './components/Header/Header';
 import waves from './waves.svg';
-import LoginForm from './components/Forms/LoginForm';
-import SignUpForm from './components/Forms/SignUpForm';
+import LoginForm from './components/Forms/AuthForm/LoginForm';
+import SignUpForm from './components/Forms/AuthForm/SignUpForm';
 import { ToastContainer } from 'react-toastify';
 
 function App() {

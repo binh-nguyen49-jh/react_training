@@ -5,8 +5,8 @@ import Avatar from '../../Avatar/Avatar';
 import TextAreaField from '../../TextAreaField/TextAreaField';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../../hooks/authentication';
-import { ReactComponent as ImageIcon } from '../SVGs/ImageIcon.svg';
-import { ReactComponent as DeleteIcon } from '../SVGs/DeleteIcon.svg';
+import { ReactComponent as ImageIcon } from '../../SVGs/ImageIcon.svg';
+import { ReactComponent as DeleteIcon } from '../../SVGs/DeleteIcon.svg';
 import './PostForm.scss';
 
 function PostForm(props) {

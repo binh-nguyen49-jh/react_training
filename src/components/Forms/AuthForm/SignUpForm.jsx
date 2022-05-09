@@ -1,17 +1,17 @@
 import React from 'react';
-import { registerWithEmail } from '../../API/authentication';
+import { registerWithEmail } from '../../../API/authentication';
 import {
   composeValidators,
   emailFormat,
   maxLength,
   minLength,
   required,
-} from '../../utils/formValidate';
-import { POSITIONS } from '../../config/constants';
-import DropdownField from '../DropdownField/DropdownField';
-import LoadingButton from '../LoadingButton/LoadingButton';
-import withRouter from '../HOC/withRouter';
-import InputField from '../InputField/InputField';
+} from '../../../utils/formValidate';
+import { POSITIONS } from '../../../config/constants';
+import DropdownField from '../../DropdownField/DropdownField';
+import LoadingButton from '../../LoadingButton/LoadingButton';
+import withRouter from '../../HOC/withRouter';
+import InputField from '../../InputField/InputField';
 import { Link } from 'react-router-dom';
 import Form from '../Form';
 
