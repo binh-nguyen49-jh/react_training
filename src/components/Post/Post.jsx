@@ -20,7 +20,6 @@ import PostAction from './PostAction';
 function Post(props) {
   const { owner, post, hidePost, user, postRef } = props;
   const [liked, setLiked] = useState(props.liked || false);
-  const commentRef = useRef(null);
   const likeRef = useRef(null);
   const [showActionModal, setShowActionModal] = useState(false);
 
@@ -162,7 +161,7 @@ function Post(props) {
       </div>
       <div className='postFooter'>
         <form>
-          <TextAreaField placeholder={'Type your comment'} ref={commentRef} />
+          <TextAreaField placeholder={'Type your comment'} />
           <button onClick={onSubmitComment} type='submit'>
             Đăng
           </button>
