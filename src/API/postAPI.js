@@ -46,6 +46,14 @@ export default class PostAPI {
     return post;
   }
 
+  static async getPostsDetails(postDocs, userId) {
+    PostAPI.lastQueryPosition = postDocs[postDocs.length - 1];
+    const posts = await Promise.all(
+      postDocs.map((postDoc) => PostAPI.getPostDetails(postDoc, userId))
+    );
+    return posts;
+  }
+
   static async getPosts(userId, limitPerRequest = 10) {
     const q = PostAPI.lastQueryPosition
       ? query(
@@ -59,15 +67,10 @@ export default class PostAPI {
           orderBy('createdAt', 'desc'),
           limit(limitPerRequest)
         );
-
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
       return [];
     }
-    PostAPI.lastQueryPosition = docs.docs[docs.docs.length - 1];
-    const posts = await Promise.all(
-      docs.docs.map((postDoc) => PostAPI.getPostDetails(postDoc, userId))
-    );
-    return posts;
+    return this.getPostsDetails(docs.docs, userId);
   }
 }
