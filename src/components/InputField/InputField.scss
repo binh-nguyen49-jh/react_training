@@ -29,15 +29,15 @@
   &>input:not(:placeholder-shown) {
     outline: none;
     border: 3px solid var(--primary-cl);
-    height: 45px;
+    height: var(--input-height);
     transition: height .25s;
     cursor: text;
   }
 
   &>input:focus~label,
   &>input:not(:placeholder-shown)~label {
-    color: #B6B6B6;
-    font-size: 1rem;
+    color: var(--label-cl);
+    font-size: var(--label-size);
     margin: 0;
   }
 

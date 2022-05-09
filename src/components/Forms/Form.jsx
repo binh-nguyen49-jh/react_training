@@ -31,6 +31,10 @@ class Form extends Component {
   };
 
   onValidateInput = (field, value, updateError = true) => {
+    if (!this.validators[field]) {
+      return;
+    }
+
     const error = this.validators[field](value);
     if (updateError) {
       const newForm = {

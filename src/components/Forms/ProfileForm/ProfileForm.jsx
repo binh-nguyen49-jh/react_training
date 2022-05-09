@@ -8,30 +8,37 @@ import Form from '../Form';
 import './ProfileForm.scss';
 import {
   convertObjectToFormState,
+  convertToDateInputFormat,
   isUploadedByUser,
 } from '../../../utils/formUtils';
 import DropdownField from '../../DropdownField/DropdownField';
 import { POSITIONS } from '../../../config/constants';
 import withFirebaseAuth from '../../HOC/withFirebaseAuth';
 import ToggleField from '../../ToggleField/ToggleField';
+import TextAreaField from '../../TextAreaField/TextAreaField';
+import BioField from '../../BioField/BioField';
 
 class ProfileForm extends Form {
   constructor(props) {
     super(props);
+    const { user } = this.props;
+    const { avatarUrl, dob, position, authProvider, email, uid, ...userInfo } =
+      user;
     this.state = {
       ...super.state,
       avatar: {
         value: {
           photo: null,
-          photoUrl: null,
+          photoUrl: avatarUrl,
         },
       },
-      name: {},
-      highlightImages: {},
-      bio: {},
-      position: {},
-      status: {},
-      dob: {},
+      dob: {
+        value: convertToDateInputFormat(dob.toDate()),
+      },
+      position: {
+        value: position.join(', '),
+      },
+      ...convertObjectToFormState(userInfo),
     };
 
     this.validators = {
@@ -40,24 +47,9 @@ class ProfileForm extends Form {
       highlightImages: required,
       position: required,
     };
-  }
 
-  componentDidMount() {
-    const { user } = this.props;
-    const { avatarUrl, authProvider, ...userInfo } = user;
-    const filledUserInfoState = {
-      ...this.state,
-      avatar: {
-        value: {
-          photo: null,
-          photoUrl: avatarUrl,
-        },
-      },
-    };
-    Object.assign(filledUserInfoState, convertObjectToFormState(userInfo));
-    this.setState(filledUserInfoState, () => {
-      console.log('authentication: ', this.state);
-    });
+    this.isFirstRender = React.createRef();
+    this.isFirstRender.current = true;
   }
 
   handleSubmit = this.handleSubmitTemplate(() => {
@@ -86,7 +78,7 @@ class ProfileForm extends Form {
     const { avatar, name, highlightImages, bio, dob, position, status } =
       this.state;
     return (
-      <form>
+      <form className='profileForm'>
         <div className='container'>
           <div className='avatarInput'>
             <ImageField
@@ -104,7 +96,7 @@ class ProfileForm extends Form {
               placeholder='Type your name'
               error={name.error}
               onChange={this.onChangeForm}
-              defaultValue={name.value}
+              defaultValue={this.state.name.value}
             />
             <InputField
               onValidate={this.onValidateInput}
@@ -123,6 +115,12 @@ class ProfileForm extends Form {
               options={Object.keys(POSITIONS)}
               defaultValues={position.value}
               error={position.error}
+              onChange={this.onChangeForm}
+            />
+            <BioField
+              name='bio'
+              label='Biography'
+              defaultValue={bio.value}
               onChange={this.onChangeForm}
             />
             <ToggleField

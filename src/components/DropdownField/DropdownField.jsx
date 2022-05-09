@@ -7,11 +7,10 @@ class DropdownField extends Component {
   constructor(props) {
     super(props);
     const { options, defaultValues } = props;
-    console.log(defaultValues);
     this.state = {
-      value: defaultValues.join(', '),
+      value: defaultValues,
       selected: new Array(options.length).fill(false).map((item, idx) => {
-        return defaultValues.indexOf(options[idx]) !== -1 || false;
+        return defaultValues.includes(options[idx]) || false;
       }),
       isChoosing: false,
     };
@@ -36,7 +35,8 @@ class DropdownField extends Component {
   };
 
   validate = () => {
-    this.props.onValidate(this.props.name, this.state.value);
+    if (!this.state.isChoosing)
+      this.props.onValidate(this.props.name, this.state.value);
   };
 
   componentDidMount() {
@@ -114,7 +114,7 @@ DropdownField.propTypes = {
   options: PropTypes.array,
   className: PropTypes.string,
   error: PropTypes.string,
-  defaultValues: PropTypes.array,
+  defaultValues: PropTypes.string,
 };
 
 DropdownField.defaultProps = {
@@ -123,7 +123,7 @@ DropdownField.defaultProps = {
   label: '',
   options: [],
   className: '',
-  defaultValues: [],
+  defaultValues: '',
 };
 
 export default React.memo(DropdownField);

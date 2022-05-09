@@ -3,6 +3,9 @@
   background-color: var(--dark-cl);
   background-size: cover;
   background-position: center;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
 
   .deleteIcon {
     position: absolute;
@@ -11,6 +14,11 @@
     cursor: pointer;
     z-index: 1;
     transform: translate(50%, -50%);
+    width: 24px;
+    height: 24px;
+    fill: var(--pink-cl);
+    border-radius: 50%;
+    background-color: var(--secondary-cl);
   }
 
   input {
@@ -29,9 +37,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     .imgIcon {
       fill: var(--secondary-cl);
+      width: 32px;
+      height: 32px;
     }
   }
 

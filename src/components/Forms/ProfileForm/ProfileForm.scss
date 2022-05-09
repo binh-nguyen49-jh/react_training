@@ -1,0 +1,36 @@
+.avatarInput {
+  .imageField {
+    width: 200px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+    .deleteIcon {
+      display: none;
+    }
+  }
+}
+
+.toggleField__slider {
+  width: 60px;
+}
+
+.profileForm {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    column-gap: var(--form-col-spacing);
+
+    .avatarInput {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .userInfo {
+      display: flex;
+      flex-flow: column;
+      gap: var(--form-row-spacing);
+    }
+  }
+}

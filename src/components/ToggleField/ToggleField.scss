@@ -1,34 +1,56 @@
 .toggleField {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  position: relative;
-  height: fit-content;
-  aspect-ratio: 2.5;
+  &>label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
 
   &__slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: var(toggle-btn-size);
+    position: relative;
+    height: fit-content;
     transition: all 0.3s ease;
+    background-color: var(--gray-1-cl);
+    border: 2px solid var(--primary-cl);
+    border-radius: calc(var(--toggle-btn-size) / 2 + 2px);
+    cursor: pointer;
 
-    .circle {
-      height: 100%;
-      aspect-ratio: 1;
+    .slider {
+      width: var(--toggle-btn-size);
+      height: fit-content;
       background-color: var(--primary-cl);
-      border-radius: 50%;
+      display: flex;
+      justify-content: flex-end;
+      border-radius: calc(var(--toggle-btn-size) / 2);
+      overflow: hidden;
+      transition: 0.3s linear;
+
+      .circle {
+        width: var(--toggle-btn-size);
+        border: 2px solid var(--secondary-cl);
+        height: var(--toggle-btn-size);
+        background-color: var(--dark-cl);
+        border-radius: 50%;
+      }
     }
   }
 
-  input {
+  &>input {
     display: none;
 
     &:checked {
-      &+.toggleField__slider {
-        right: 0;
+      &~label .toggleField__slider {
+
+        .slider {
+          background-color: var(--secondary-cl);
+          width: 100%;
+          transition: 0.3s linear;
+        }
+
+        .circle {
+          background-color: var(--primary-cl);
+        }
       }
     }
   }

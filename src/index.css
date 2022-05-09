@@ -47,6 +47,12 @@ ol {
   --post-form-bg: #fafafa;
   --logo-size: 40px;
   --toggle-btn-size: 25px;
+  --active-cl: #02a82c;
+  --form-row-spacing: 5px;
+  --form-col-spacing: 20px;
+  --input-height: 45px;
+  --label-cl: var(--gray-3-cl);
+  --label-size: 1rem;
 }
 
 body {

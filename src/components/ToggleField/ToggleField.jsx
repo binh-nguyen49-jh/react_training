@@ -1,10 +1,11 @@
 import React from 'react';
 import '../InputField/InputField.scss';
+import './ToggleField.scss';
 import PropTypes from 'prop-types';
 
 function ToggleField({ name, className, label, defaultValue, ...props }) {
   const onChange = (event) => {
-    props.onChange(name, event.target.value, '');
+    props.onChange(name, event.target.checked, '');
   };
   return (
     <div className='formInput toggleField'>
@@ -16,10 +17,14 @@ function ToggleField({ name, className, label, defaultValue, ...props }) {
         defaultChecked={defaultValue}
         className={className}
       />
-      <label htmlFor={name}>{label}</label>
-      <div className='toggleField__slider'>
-        <span className='circle' />
-      </div>
+      <label htmlFor={name}>
+        {label}
+        <div className='toggleField__slider'>
+          <div className='slider'>
+            <div className='circle' />
+          </div>
+        </div>
+      </label>
     </div>
   );
 }
