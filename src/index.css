@@ -53,6 +53,7 @@ ol {
   --input-height: 45px;
   --label-cl: var(--gray-3-cl);
   --label-size: 1rem;
+  --highlight-image-width: 150px;
 }
 
 body {

@@ -1,14 +1,20 @@
 import React from 'react';
 import { toast } from 'react-toastify';
-import { haveImage, required } from '../../../utils/formValidate';
+import {
+  haveAtLeastImage,
+  haveImage,
+  required,
+} from '../../../utils/formValidate';
 import ImageField from '../../ImageField/ImageField';
 import InputField from '../../InputField/InputField';
 import UserAPI from '../../../API/userAPI';
 import Form from '../Form';
 import './ProfileForm.scss';
 import {
+  convertListToObject,
   convertObjectToFormState,
   convertToDateInputFormat,
+  convertToFormImages,
   isUploadedByUser,
 } from '../../../utils/formUtils';
 import DropdownField from '../../DropdownField/DropdownField';
@@ -16,13 +22,14 @@ import { POSITIONS } from '../../../config/constants';
 import withFirebaseAuth from '../../HOC/withFirebaseAuth';
 import ToggleField from '../../ToggleField/ToggleField';
 import TextAreaField from '../../TextAreaField/TextAreaField';
+import { v4 as uuidv4 } from 'uuid';
 import BioField from '../../BioField/BioField';
 
 class ProfileForm extends Form {
   constructor(props) {
     super(props);
     const { user } = this.props;
-    const { avatarUrl, dob, position, authProvider, email, uid, ...userInfo } =
+    const { avatarUrl, highlightImages, dob, position, bio, name, status } =
       user;
     this.state = {
       ...super.state,
@@ -38,13 +45,20 @@ class ProfileForm extends Form {
       position: {
         value: position.join(', '),
       },
-      ...convertObjectToFormState(userInfo),
+      highlightImages: {
+        value: convertToFormImages(highlightImages),
+      },
+      ...convertObjectToFormState({
+        name,
+        bio,
+        status,
+      }),
     };
 
     this.validators = {
       avatar: haveImage,
       name: required,
-      highlightImages: required,
+      highlightImages: haveAtLeastImage,
       position: required,
     };
 
@@ -74,6 +88,36 @@ class ProfileForm extends Form {
     }
   });
 
+  onHighlightImageChange = (name, image, error) => {
+    this.setState((prevState) => {
+      const { highlightImages } = prevState;
+      highlightImages.value[name] = image;
+      return {
+        highlightImages: {
+          ...highlightImages,
+        },
+      };
+    });
+  };
+
+  onAddHighlightImage = (name, image, error) => {
+    // Create random key for new highlight image
+    name = uuidv4();
+    this.onHighlightImageChange(name, image, error);
+  };
+
+  onRemoveHighlight = (name) => {
+    this.setState((prevState) => {
+      const { highlightImages } = prevState;
+      delete highlightImages.value[name];
+      return {
+        highlightImages: {
+          ...highlightImages,
+        },
+      };
+    });
+  };
+
   render() {
     const { avatar, name, highlightImages, bio, dob, position, status } =
       this.state;
@@ -84,7 +128,7 @@ class ProfileForm extends Form {
             <ImageField
               name='avatar'
               onChange={this.onChangeForm}
-              defaultValue={avatar}
+              defaultValue={avatar.value}
             />
           </div>
           <div className='userInfo'>
@@ -130,7 +174,29 @@ class ProfileForm extends Form {
               defaultValue={status.value}
             />
           </div>
-          <div className='imageInputs'></div>
+          <div className='highlightImages'>
+            <h3>Highlight Images</h3>
+            <div className='images'>
+              {Object.entries(highlightImages.value).map(([key, value]) => {
+                return (
+                  <ImageField
+                    key={key}
+                    name={key}
+                    onChange={this.onHighlightImageChange}
+                    onRemove={this.onRemoveHighlight}
+                    defaultValue={value}
+                  />
+                );
+              })}
+              <ImageField
+                className={'addImageField'}
+                key={`addHighlightImages`}
+                name={`addHighlightImages`}
+                onChange={this.onAddHighlightImage}
+                alwaysUpdate
+              />
+            </div>
+          </div>
         </div>
       </form>
     );

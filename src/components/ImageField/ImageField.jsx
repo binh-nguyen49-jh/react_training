@@ -1,48 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ReactComponent as AddImageIcon } from '../SVGs/AddImageIcon.svg';
 import { ReactComponent as DeleteIcon } from '../SVGs/DeleteIcon.svg';
 import { PropTypes } from 'prop-types';
 import './ImageField.scss';
 
-function ImageField({ name, className, onChange, defaultValue }) {
-  const [photo, setPhoto] = useState(defaultValue.photo);
-  const [photoUrl, setPhotoUrl] = useState(defaultValue.photoUrl);
+function ImageField({
+  name,
+  className,
+  onChange,
+  defaultValue,
+  onRemove,
+  alwaysUpdate,
+}) {
+  const [photo, setPhoto] = useState(defaultValue);
 
   const onRemoveImage = () => {
-    setPhoto(null);
-    setPhotoUrl(null);
+    setPhoto({});
+    onRemove(name);
   };
 
-  const onSelectImage = async (event) => {
+  const onChangeImage = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const fileUrl = await URL.createObjectURL(file);
-      setPhoto(file);
-      setPhotoUrl(fileUrl);
       onChange(
         name,
         {
-          photo,
-          photoUrl,
+          photo: file,
+          url: fileUrl,
         },
         ''
       );
+
+      setPhoto({
+        photo: file,
+        url: fileUrl,
+      });
+    }
+  };
+
+  const onStartSelect = (event) => {
+    if (alwaysUpdate) {
+      event.target.value = null;
     }
   };
 
   return (
-    <label
-      htmlFor={name}
-      className={`imageField ${className}`}
-      style={{
-        backgroundImage: photoUrl ? `url('${photoUrl}')` : '',
-      }}>
+    <div className='imageField'>
+      <label
+        htmlFor={name}
+        className={className}
+        style={{
+          backgroundImage: photo.url ? `url('${photo.url}')` : '',
+        }}>
+        <input
+          onClick={onStartSelect}
+          onChange={onChangeImage}
+          type='file'
+          id={name}
+          name={name}
+        />
+        <div className='overlay'>
+          <AddImageIcon className='imgIcon' />
+        </div>
+      </label>
       <DeleteIcon className='deleteIcon' onClick={onRemoveImage} />
-      <input onChange={onSelectImage} type='file' id={name} name={name} />
-      <div className='overlay'>
-        <AddImageIcon className='imgIcon' />
-      </div>
-    </label>
+    </div>
   );
 }
 
@@ -50,12 +73,17 @@ ImageField.propTypes = {
   name: PropTypes.string,
   className: PropTypes.string,
   onChange: PropTypes.func,
+  onRemove: PropTypes.func,
+  alwaysUpdate: PropTypes.bool,
   defaultValue: PropTypes.object,
 };
 
 ImageField.defaultProps = {
   className: '',
   onChange: () => {},
+  onRemove: () => {},
+  alwaysUpdate: false,
+  defaultValue: {},
 };
 
 export default ImageField;

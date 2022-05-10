@@ -26,3 +26,9 @@ export const composeValidators =
       (error, validator) => error || validator(value),
       undefined
     );
+
+export const haveAtLeastImage = (values) => {
+  return values.some((value) => value.photo && value.photoUrl)
+    ? undefined
+    : 'Please upload at least one image';
+};
