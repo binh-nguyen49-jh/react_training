@@ -18,10 +18,7 @@ export default class UserAPI {
       where('uid', '==', userId)
     );
     const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      return null;
-    }
-    return docs.docs[0].data();
+    return docs.docs[0] ? docs.docs[0].data() : null;
   }
 
   static createUser({ uid, name, authProvider = 'local', email, position }) {
