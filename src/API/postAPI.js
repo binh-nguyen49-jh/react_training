@@ -55,18 +55,17 @@ export default class PostAPI {
   }
 
   static async getPosts(userId, limitPerRequest = 10) {
-    const q = PostAPI.lastQueryPosition
-      ? query(
-          collection(firestoreDB, 'posts'),
-          orderBy('createdAt', 'desc'),
-          startAfter(PostAPI.lastQueryPosition),
-          limit(limitPerRequest)
-        )
-      : query(
-          collection(firestoreDB, 'posts'),
-          orderBy('createdAt', 'desc'),
-          limit(limitPerRequest)
-        );
+    const queryConstrains = [
+      collection(firestoreDB, 'posts'),
+      orderBy('createdAt', 'desc'),
+      limit(limitPerRequest),
+    ];
+
+    if (PostAPI.lastQueryPosition) {
+      queryConstrains.splice(2, 0, startAfter(PostAPI.lastQueryPosition));
+    }
+
+    const q = query(...queryConstrains);
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
       return [];

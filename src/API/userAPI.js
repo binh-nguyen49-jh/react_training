@@ -11,17 +11,14 @@ import { firestoreDB } from './firebase';
 export default class UserAPI {
   static async getUser(userId) {
     if (!userId) {
-      throw new Error(AUTHENTICATION_ERRORS.UserNotFound);
+      throw new Error(AUTHENTICATION_ERRORS.NOT_EXISTS_PROFILE);
     }
     const q = query(
       collection(firestoreDB, 'users'),
       where('uid', '==', userId)
     );
     const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      return null;
-    }
-    return docs.docs[0].data();
+    return docs.docs[0] ? docs.docs[0].data() : null;
   }
 
   static createUser({ uid, name, authProvider = 'local', email, position }) {
