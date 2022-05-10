@@ -11,7 +11,7 @@ import { firestoreDB } from './firebase';
 export default class UserAPI {
   static async getUser(userId) {
     if (!userId) {
-      throw new Error(AUTHENTICATION_ERRORS.UserNotFound);
+      throw new Error(AUTHENTICATION_ERRORS.NOT_EXISTS_PROFILE);
     }
     const q = query(
       collection(firestoreDB, 'users'),

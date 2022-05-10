@@ -7,8 +7,7 @@ import { firebaseAuth } from './firebase';
 import UserAPI from './userAPI';
 
 export const AUTHENTICATION_ERRORS = {
-  NotExistProfile: 'User profile does not exist',
-  UserNotFound: 'User not found',
+  NOT_EXISTS_PROFILE: 'User profile does not exist',
 };
 
 export const logInWithEmail = async (email, password) => {
