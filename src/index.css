@@ -54,6 +54,8 @@ ol {
   --label-cl: var(--gray-3-cl);
   --label-size: 1rem;
   --highlight-image-width: 120px;
+  --avatar-image-width: 150px;
+  --status-icon-size: 20px;
 }
 
 body {
@@ -73,6 +75,7 @@ main>.container {
 @media only screen and (min-width: 480px) {
   :root {
     --highlight-image-width: 150px;
+    --avatar-image-width: 200px;
     --logoSize: 50px;
   }
 }

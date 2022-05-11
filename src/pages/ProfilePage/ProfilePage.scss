@@ -1,0 +1,39 @@
+.profilePage {
+  .profileAvatar {
+    position: relative;
+
+    .avatar {
+      width: var(--avatar-image-width);
+      aspect-ratio: 1;
+    }
+
+    .status {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      transform-origin: center center;
+      transform: rotateZ(45deg);
+
+      &Circle {
+        border: 1px solid var(--dark-cl);
+        box-shadow: 0px 5px 10px var(--box-shadow-cl);
+        background-color: var(--secondary-cl);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        width: var(--status-icon-size);
+        height: var(--status-icon-size);
+
+        .circleInner {
+          width: calc(var(--status-icon-size) / 2);
+          height: calc(var(--status-icon-size) / 2);
+          border-radius: inherit;
+        }
+      }
+    }
+  }
+
+}

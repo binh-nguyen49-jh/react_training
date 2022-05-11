@@ -1,6 +1,6 @@
 .avatarInput {
   .imageField {
-    width: 150px;
+    width: var(--avatar-image-width);
     aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;
@@ -111,11 +111,5 @@
       }
     }
 
-  }
-
-  .avatarInput {
-    .imageField {
-      width: 200px;
-    }
   }
 }
