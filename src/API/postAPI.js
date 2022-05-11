@@ -34,7 +34,7 @@ export default class PostAPI {
 
   static async getPostDetails(postDoc, userId) {
     const post = postDoc.data();
-    const userProfile = await UserAPI.getUser(post.ownerId);
+    const userProfile = await UserAPI.getUserData(post.ownerId);
     post.owner = userProfile;
     post.id = postDoc.id;
     const interaction = await UserPostAPI.getInteractPost(userId, postDoc.id);

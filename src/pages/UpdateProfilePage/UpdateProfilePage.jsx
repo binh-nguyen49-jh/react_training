@@ -2,15 +2,15 @@ import React from 'react';
 import ProfileForm from '../../components/Forms/ProfileForm/ProfileForm';
 import './UpdateProfile.scss';
 
-function CreateProfilePage() {
+function UpdateProfilePage({ title }) {
   return (
     <main className='updateProfile'>
       <div className='container'>
-        <h1>Create Profile</h1>
+        <h1>Update Profile</h1>
         <ProfileForm />
       </div>
     </main>
   );
 }
 
-export default CreateProfilePage;
+export default UpdateProfilePage;

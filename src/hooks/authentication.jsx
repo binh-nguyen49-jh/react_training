@@ -19,7 +19,7 @@ function useFirebaseAuth() {
   useEffect(() => {
     const updateUser = firebaseAuth.onAuthStateChanged(async (user) => {
       if (user) {
-        const userProfile = await UserAPI.getUser(user.uid);
+        const userProfile = await UserAPI.getUserData(user.uid);
         setUser(userProfile || false);
       } else {
         setUser(false);

@@ -14,11 +14,10 @@ import {
   convertObjectToFormState,
   convertToDateInputFormat,
   convertToFormImages,
-  isUploadedByUser,
 } from '../../../utils/formUtils';
 import DropdownField from '../../DropdownField/DropdownField';
 import LoadingButton from '../../LoadingButton/LoadingButton';
-import { POSITIONS } from '../../../config/constants';
+import { NOTIFICATION_MESSAGES, POSITIONS } from '../../../config/constants';
 import withFirebaseAuth from '../../HOC/withFirebaseAuth';
 import ToggleField from '../../ToggleField/ToggleField';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,14 +28,13 @@ class ProfileForm extends Form {
   constructor(props) {
     super(props);
     const { user } = this.props;
-    const { avatarUrl, highlightImages, dob, position, bio, name, status } =
-      user;
+    const { avatar, highlightImages, dob, position, bio, name, status } = user;
     this.state = {
       ...super.state,
       avatar: {
         value: {
           photo: null,
-          photoUrl: avatarUrl,
+          url: avatar,
         },
       },
       dob: {
@@ -63,33 +61,20 @@ class ProfileForm extends Form {
     };
   }
 
-  handleSubmit = this.handleSubmitTemplate(() => {
+  handleSubmit = this.handleSubmitTemplate(async () => {
     try {
-      const { highlightImages, avatar, ...userInfo } = this.state;
+      const { formError, isInvalidForm, ...userInfo } = this.state;
       const { user } = this.props;
 
-      // just get the photo uploaded by user ()
-      const uploadedHighlightImages = highlightImages
-        .filter((image) => isUploadedByUser(image))
-        .map((image) => image.photo);
-
-      UserAPI.updateProfile(user, {
-        avatar: avatar.value.photo,
-        highlightImages: uploadedHighlightImages,
+      await UserAPI.updateUser(user, {
         ...userInfo,
       });
 
-      toast.success('Profile created successfully!');
+      toast.success(NOTIFICATION_MESSAGES.UPDATE_PROFILE_SUCCESSFULLY);
     } catch (error) {
-      toast.error('Failed to create post!');
+      toast.error(NOTIFICATION_MESSAGES.CREATE_POST_FAILED);
     }
   });
-
-  componentDidMount() {
-    this.setState({
-      isInvalidForm: !this.checkValidateForm(false),
-    });
-  }
 
   onHighlightImageChange = (name, image, error) => {
     const { highlightImages } = this.state;
@@ -117,6 +102,7 @@ class ProfileForm extends Form {
       bio: defaultBio,
       name: defaultName,
       status: defaultStatus,
+      uid,
     } = this.props.user;
     return (
       <form className='profileForm'>
@@ -196,7 +182,7 @@ class ProfileForm extends Form {
             </div>
           </div>
           <div className='actionContainer'>
-            <Link to='/view-profile' className='btn link'>
+            <Link to={`/profile/${uid}`} className='btn link'>
               View Profile
             </Link>
             <LoadingButton

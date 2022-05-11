@@ -9,8 +9,8 @@ import waves from './waves.svg';
 import LoginForm from './components/Forms/AuthForm/LoginForm';
 import SignUpForm from './components/Forms/AuthForm/SignUpForm';
 import { ToastContainer } from 'react-toastify';
-import CreateProfilePage from './pages/CreateProfilePage/CreateProfilePage';
 import './styles/index.scss';
+import UpdateProfilePage from './pages/UpdateProfilePage/UpdateProfilePage';
 
 function App() {
   return (
@@ -53,10 +53,10 @@ function App() {
         <Route
           element={
             <ProtectedRoute>
-              <CreateProfilePage />
+              <UpdateProfilePage />
             </ProtectedRoute>
           }
-          path='/create-profile'
+          path='/update-profile'
         />
       </Routes>
       <div className='background'>

@@ -151,3 +151,10 @@ export const MODAL_POSITION_STYLES = {
 export const LOGO_URI = '/journeyh.png';
 
 export const EMAIL_REGEX = /^\w+([._-]?\w+)*@\w+([._-]?\w+)*([.]\w{2,3})+$/i;
+
+export const NOTIFICATION_MESSAGES = {
+  UPDATE_PROFILE_SUCCESSFULLY: 'Profile updated successfully',
+  UPDATE_PROFILE_FAILED: 'Profile update failed',
+  CREATE_POST_SUCCESSFULLY: 'Post created successfully',
+  CREATE_POST_FAILED: 'Post creation failed',
+};

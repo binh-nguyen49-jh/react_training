@@ -17,7 +17,7 @@ export const emailFormat = (value) =>
   value && !EMAIL_REGEX.test(value) ? 'Invalid email address' : undefined;
 
 export const haveImage = (value) =>
-  value.photo && value.url ? undefined : 'Please upload an image';
+  value.url ? undefined : 'Please upload an image';
 
 export const composeValidators =
   (...validators) =>
@@ -29,7 +29,7 @@ export const composeValidators =
 
 export const haveAtLeastImage = (values) => {
   const images = Object.entries(values).map(([key, value]) => value);
-  return images.some((value) => value.photo && value.url)
+  return images.some((value) => value.url)
     ? undefined
     : 'Please upload at least one image';
 };
