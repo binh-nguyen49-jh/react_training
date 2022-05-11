@@ -56,6 +56,8 @@ ol {
   --highlight-image-width: 120px;
   --avatar-image-width: 150px;
   --status-icon-size: 20px;
+  --profile-name-size: 1.5rem;
+  --profile-dob-size: 0.8rem;
 }
 
 body {
