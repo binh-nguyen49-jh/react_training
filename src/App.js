@@ -10,6 +10,7 @@ import LoginForm from './components/Forms/AuthForm/LoginForm';
 import SignUpForm from './components/Forms/AuthForm/SignUpForm';
 import { ToastContainer } from 'react-toastify';
 import CreateProfilePage from './pages/CreateProfilePage/CreateProfilePage';
+import './styles/index.scss';
 
 function App() {
   return (

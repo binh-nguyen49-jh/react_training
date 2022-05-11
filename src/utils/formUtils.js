@@ -10,7 +10,7 @@ export const convertObjectToFormState = (object) =>
     Object.entries(object).map(([key, value]) => [
       key,
       {
-        value: value,
+        value,
       },
     ])
   );

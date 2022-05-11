@@ -53,7 +53,7 @@ ol {
   --input-height: 45px;
   --label-cl: var(--gray-3-cl);
   --label-size: 1rem;
-  --highlight-image-width: 150px;
+  --highlight-image-width: 120px;
 }
 
 body {
@@ -70,12 +70,14 @@ main>.container {
   width: 100%;
 }
 
-
-@media only screen and (min-width: 480px) and (max-width: 1024px) {
+@media only screen and (min-width: 480px) {
   :root {
+    --highlight-image-width: 150px;
     --logoSize: 50px;
   }
+}
 
+@media only screen and (min-width: 480px) and (max-width: 1024px) {
   main>.container {
     width: calc(100% - var(--sidebar-width));
   }

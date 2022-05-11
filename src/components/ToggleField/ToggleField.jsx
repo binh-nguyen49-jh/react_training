@@ -14,7 +14,7 @@ function ToggleField({ name, className, label, defaultValue, ...props }) {
         name={name}
         id={name}
         onChange={onChange}
-        defaultChecked={defaultValue}
+        // defaultChecked={defaultValue}
         className={className}
       />
       <label htmlFor={name}>
@@ -43,4 +43,4 @@ ToggleField.defaultProps = {
   defaultValue: false,
 };
 
-export default ToggleField;
+export default React.memo(ToggleField);

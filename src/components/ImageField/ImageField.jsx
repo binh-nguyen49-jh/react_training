@@ -86,4 +86,4 @@ ImageField.defaultProps = {
   defaultValue: {},
 };
 
-export default ImageField;
+export default React.memo(ImageField);

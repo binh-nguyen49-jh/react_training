@@ -1,3 +1,10 @@
 .updateProfile .container {
   flex-flow: column;
+  padding: 40px 0 0;
+}
+
+@media only screen and (min-width: 1025px) {
+  .updateProfile .container {
+    padding: 40px;
+  }
 }

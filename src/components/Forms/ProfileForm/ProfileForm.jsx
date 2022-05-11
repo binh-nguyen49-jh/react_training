@@ -11,19 +11,19 @@ import UserAPI from '../../../API/userAPI';
 import Form from '../Form';
 import './ProfileForm.scss';
 import {
-  convertListToObject,
   convertObjectToFormState,
   convertToDateInputFormat,
   convertToFormImages,
   isUploadedByUser,
 } from '../../../utils/formUtils';
 import DropdownField from '../../DropdownField/DropdownField';
+import LoadingButton from '../../LoadingButton/LoadingButton';
 import { POSITIONS } from '../../../config/constants';
 import withFirebaseAuth from '../../HOC/withFirebaseAuth';
 import ToggleField from '../../ToggleField/ToggleField';
-import TextAreaField from '../../TextAreaField/TextAreaField';
 import { v4 as uuidv4 } from 'uuid';
 import BioField from '../../BioField/BioField';
+import { Link } from 'react-router-dom';
 
 class ProfileForm extends Form {
   constructor(props) {
@@ -61,9 +61,6 @@ class ProfileForm extends Form {
       highlightImages: haveAtLeastImage,
       position: required,
     };
-
-    this.isFirstRender = React.createRef();
-    this.isFirstRender.current = true;
   }
 
   handleSubmit = this.handleSubmitTemplate(() => {
@@ -88,16 +85,16 @@ class ProfileForm extends Form {
     }
   });
 
-  onHighlightImageChange = (name, image, error) => {
-    this.setState((prevState) => {
-      const { highlightImages } = prevState;
-      highlightImages.value[name] = image;
-      return {
-        highlightImages: {
-          ...highlightImages,
-        },
-      };
+  componentDidMount() {
+    this.setState({
+      isInvalidForm: !this.checkValidateForm(false),
     });
+  }
+
+  onHighlightImageChange = (name, image, error) => {
+    const { highlightImages } = this.state;
+    highlightImages.value[name] = image;
+    this.onChangeForm('highlightImages', highlightImages.value);
   };
 
   onAddHighlightImage = (name, image, error) => {
@@ -107,20 +104,20 @@ class ProfileForm extends Form {
   };
 
   onRemoveHighlight = (name) => {
-    this.setState((prevState) => {
-      const { highlightImages } = prevState;
-      delete highlightImages.value[name];
-      return {
-        highlightImages: {
-          ...highlightImages,
-        },
-      };
-    });
+    const { highlightImages } = this.state;
+    delete highlightImages.value[name];
+    this.onChangeForm('highlightImages', highlightImages.value);
   };
 
   render() {
-    const { avatar, name, highlightImages, bio, dob, position, status } =
+    const { avatar, name, highlightImages, dob, position, isInvalidForm } =
       this.state;
+    const {
+      position: defaultPosition,
+      bio: defaultBio,
+      name: defaultName,
+      status: defaultStatus,
+    } = this.props.user;
     return (
       <form className='profileForm'>
         <div className='container'>
@@ -140,7 +137,7 @@ class ProfileForm extends Form {
               placeholder='Type your name'
               error={name.error}
               onChange={this.onChangeForm}
-              defaultValue={this.state.name.value}
+              defaultValue={defaultName}
             />
             <InputField
               onValidate={this.onValidateInput}
@@ -157,37 +154,38 @@ class ProfileForm extends Form {
               label='Position'
               placeholder='Select your position'
               options={Object.keys(POSITIONS)}
-              defaultValues={position.value}
+              defaultValues={defaultPosition.join(', ')}
               error={position.error}
               onChange={this.onChangeForm}
             />
             <BioField
               name='bio'
               label='Biography'
-              defaultValue={bio.value}
+              defaultValue={defaultBio}
               onChange={this.onChangeForm}
             />
             <ToggleField
               name='status'
               label='Status'
               onChange={this.onChangeForm}
-              defaultValue={status.value}
+              defaultValue={defaultStatus}
             />
           </div>
           <div className='highlightImages'>
             <h3>Highlight Images</h3>
             <div className='images'>
-              {Object.entries(highlightImages.value).map(([key, value]) => {
-                return (
-                  <ImageField
-                    key={key}
-                    name={key}
-                    onChange={this.onHighlightImageChange}
-                    onRemove={this.onRemoveHighlight}
-                    defaultValue={value}
-                  />
-                );
-              })}
+              {highlightImages.value &&
+                Object.entries(highlightImages.value).map(([key, value]) => {
+                  return (
+                    <ImageField
+                      key={key}
+                      name={key}
+                      onChange={this.onHighlightImageChange}
+                      onRemove={this.onRemoveHighlight}
+                      defaultValue={value}
+                    />
+                  );
+                })}
               <ImageField
                 className={'addImageField'}
                 key={`addHighlightImages`}
@@ -196,6 +194,17 @@ class ProfileForm extends Form {
                 alwaysUpdate
               />
             </div>
+          </div>
+          <div className='actionContainer'>
+            <Link to='/view-profile' className='btn link'>
+              View Profile
+            </Link>
+            <LoadingButton
+              text='Save'
+              handleOnClick={this.handleSubmit}
+              disabled={isInvalidForm}
+              type='submit'
+            />
           </div>
         </div>
       </form>

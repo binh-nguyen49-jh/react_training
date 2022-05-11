@@ -34,4 +34,4 @@ BioField.defaultProps = {
   error: '',
 };
 
-export default BioField;
+export default React.memo(BioField);
