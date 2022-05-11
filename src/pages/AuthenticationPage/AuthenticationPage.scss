@@ -1,12 +1,13 @@
-main .container {
-  min-height: 100vh;
-
+main>.container {
   display: flex;
+  height: fit-content;
+  flex-flow: column;
   align-items: center;
+  gap: 50px;
   padding: 50px;
 }
 
-.logo {
+main .logo {
   flex-basis: 50%;
   display: flex;
   flex-flow: column;
@@ -18,12 +19,14 @@ main .container {
   }
 
   h1 {
+    font-size: 30px;
+    white-space: nowrap;
     text-transform: uppercase;
     color: var(--primary-cl);
   }
 }
 
-.form-container {
+.formContainer {
   flex-basis: 50%;
 }
 
@@ -40,21 +43,35 @@ main .container {
   img {
     width: 150%;
     height: 50%;
-
     transform: translate(-30%, 0);
   }
 
-  &__water {
+  &Water {
     background-color: var(--primary-cl);
     width: 100%;
     flex-grow: 1;
   }
 }
 
-@media only screen and (max-width: 1201px) {
-  main .container {
-    flex-flow: column;
-    align-items: center;
-    gap: 50px;
+@media only screen and (min-width: 480px) {
+  main {
+    display: flex;
+    justify-content: flex-end;
+
+    .logo h1 {
+      font-size: 35px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  main {
+    &>.container {
+      flex-flow: row nowrap;
+    }
+
+    .logo h1 {
+      font-size: 50px;
+    }
   }
 }

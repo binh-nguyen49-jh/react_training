@@ -1,9 +1,12 @@
-import { getFirestore } from "firebase/firestore/lite";
-import {initializeApp} from "firebase/app";
-import {getAuth} from "firebase/auth";
-import firebaseConfig from "../config/firebase";
-const firebaseApp = initializeApp(firebaseConfig);
-const firebaseAuth =  getAuth();
-const firestoreDB = getFirestore(firebaseApp);
+import { getFirestore } from 'firebase/firestore/lite';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import firebaseConfig from '../config/firebase';
+import { getStorage } from 'firebase/storage';
 
-export {firebaseApp, firebaseAuth, firestoreDB};
+const firebaseApp = initializeApp(firebaseConfig);
+const firebaseAuth = getAuth();
+const firestoreDB = getFirestore(firebaseApp);
+const firebaseStorage = getStorage(firebaseApp);
+
+export { firebaseApp, firebaseAuth, firestoreDB, firebaseStorage };

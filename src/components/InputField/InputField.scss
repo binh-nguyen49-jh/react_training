@@ -1,10 +1,11 @@
-.form__input {
+.formInput {
   width: 100%;
   display: flex;
   flex-flow: column;
   align-items: flex-start;
   gap: 0;
-  label {
+
+  &>label {
     margin: 0 0 0 5px;
     order: 1;
     width: 100%;
@@ -13,37 +14,35 @@
     padding: 0 0 5px 0;
   }
 
-  input {
+  &>input {
     cursor: pointer;
     width: 100%;
     height: 0;
     padding: 0 10px;
     border: none;
-    border-bottom: 3px solid #029AA8;
+    border-bottom: 3px solid var(--primary-cl);
     transition: height .25s;
-
     order: 2;
   }
 
-  input:focus,
-  input:not(:placeholder-shown) {
+  &>input:focus,
+  &>input:not(:placeholder-shown) {
     outline: none;
-    border: 3px solid #029AA8;
+    border: 3px solid var(--primary-cl);
     height: 45px;
     transition: height .25s;
     cursor: text;
   }
 
-  input:focus~label,
-  input:not(:placeholder-shown)~label {
+  &>input:focus~label,
+  &>input:not(:placeholder-shown)~label {
     color: #B6B6B6;
     font-size: 1rem;
     margin: 0;
   }
 
-  .form__error {
+  .inputError {
     order: 3;
-
-    color: red;
+    color: var(--text-danger-cl);
   }
 }

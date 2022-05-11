@@ -1,0 +1,59 @@
+.btn {
+  position: relative;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  font-family: var(--primary-cl);
+  font-weight: 600;
+  font-size: 18px;
+  border: 3px solid var(--primary-cl);
+  box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+  cursor: pointer;
+
+  &:disabled {
+    border: none;
+    background-color: var(--disabled-btn-bg);
+    color: var(--disabled-btn-cl);
+    cursor: not-allowed;
+  }
+}
+
+.text {
+  font-weight: bold;
+  transition: opacity 250ms;
+  transition-delay: 250ms;
+  width: 100%;
+}
+
+button.loading .text {
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+button {
+  .spinner {
+    border: 4px solid var(--primary-cl);
+    border-top-color: rgba(69, 86, 238, 0.349);
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    top: 25%;
+    bottom: 25%;
+    margin: auto;
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+  }
+}
+
+
+.btnLogin {
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.781);
+    border-top-color: rgba(255, 255, 255, 0.322);
+  }
+}
+
+button.loading .spinner {
+  opacity: 1;
+}

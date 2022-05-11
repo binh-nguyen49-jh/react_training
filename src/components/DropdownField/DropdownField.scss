@@ -1,36 +1,73 @@
-.form__input {
-  select {
-    cursor: pointer;
+.formInput {
+  position: relative;
+
+  .selectInput {
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 100%;
-    height: 0;
-    padding: 0 10px;
-    appearance: none;
-    outline: 0;
-    box-shadow: none;
     border: none;
-    border-bottom: 3px solid #029AA8;
-    transition: height .25s;
+    background-color: var(--secondary-cl);
+    box-shadow: 0px 0px 10px var(--box-shadow-cl);
+    z-index: 10;
+    height: 0;
+    transition: 0.2s ease-in-out;
+    padding: 0;
+    overflow: hidden;
 
-    order: 2;
+    &.show {
+      height: fit-content;
+    }
 
-    position: relative;
+    .optionList {
+      padding: 10px;
+    }
+
+    .optionItem {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      label {
+        height: 36px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        cursor: pointer;
+      }
+
+      input {
+        display: none;
+      }
+
+      &:hover {
+        label {
+          color: var(--secondary-cl);
+          background-color: var(--gray-3-cl);
+        }
+      }
+
+      input:checked+label {
+        background-color: var(--primary-cl);
+        color: var(--secondary-cl);
+      }
+    }
   }
 
-  select:focus,
-  select:not(:placeholder-shown) {
-    outline: none;
-    border: 3px solid #029AA8;
-    height: 45px;
-    transition: height .25s;
-    cursor: pointer;
-  }
+  &.select {
+    &>input {
+      outline: none;
+      border: 3px solid var(--primary-cl);
+      height: 45px;
+      transition: height .25s;
+      cursor: pointer;
+    }
 
-  select:focus~label,
-  select:not(:placeholder-shown)~label {
-    color: #B6B6B6;
-    font-size: 1rem;
-    margin: 0;
+    &>label {
+      color: var(--focused-label-cl);
+      font-size: 1rem;
+      margin: 0;
+    }
   }
-
- 
 }
