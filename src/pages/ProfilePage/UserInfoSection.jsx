@@ -1,5 +1,5 @@
-import { indexedDBLocalPersistence } from 'firebase/auth';
 import { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import Accordion from '../../components/Accordion/Accordion';
 import Avatar from '../../components/Avatar/Avatar';
 import Badge from '../../components/Badge/Badge';
@@ -13,6 +13,7 @@ export default function UserInfoSection({
   dob,
   position,
   name,
+  isOwner,
 }) {
   const copyURL = useCallback(() => {
     navigator.clipboard.writeText(window.location.href);
@@ -41,7 +42,7 @@ export default function UserInfoSection({
       </div>
       <div className='profilePosition'>
         <h3 className='positionTitle'>Position</h3>
-        <Accordion maxHeight='100px'>
+        <Accordion maxHeight='50px'>
           <div className='positionContainer'>
             {position.map((positionName, idx) => (
               <Badge key={idx} text={positionName} />
@@ -55,6 +56,11 @@ export default function UserInfoSection({
           <p className='bio'>{bio}</p>
         </Accordion>
       </div>
+      {isOwner && (
+        <Link to='/edit-profile' className='editLink btn'>
+          Edit Profile
+        </Link>
+      )}
     </div>
   );
 }

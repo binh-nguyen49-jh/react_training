@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom';
 import UserAPI from '../../API/userAPI';
 import './ProfilePage.scss';
 import UserInfoSection from './UserInfoSection';
+import { useAuth } from '../../hooks/authentication';
 
 export default function ProfilePage(props) {
   // get uid from params
   const { uid } = useParams();
   const [userProfile, setUserProfile] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,7 +23,12 @@ export default function ProfilePage(props) {
     <main className='profilePage'>
       <div className='container'>
         <h1>Profile Page</h1>
-        {userProfile && <UserInfoSection {...userProfile} />}
+        {userProfile && (
+          <UserInfoSection
+            isOwner={user.uid === userProfile.uid}
+            {...userProfile}
+          />
+        )}
       </div>
     </main>
   );
