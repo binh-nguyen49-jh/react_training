@@ -4,7 +4,7 @@ import Accordion from '../../components/Accordion/Accordion';
 import Avatar from '../../components/Avatar/Avatar';
 import Badge from '../../components/Badge/Badge';
 import ClipboardButton from '../../components/ClipboardButton/ClipboardButton';
-import { convertToDateInputFormat } from '../../utils/formUtils';
+import { convertToDateProfileFormat } from '../../utils/formUtils';
 
 export default function UserInfoSection({
   avatar,
@@ -37,7 +37,7 @@ export default function UserInfoSection({
       </div>
       <div className='profileDescription'>
         <h2 className='name'>{name}</h2>
-        <em className='dob'>{convertToDateInputFormat(dob.toDate())}</em>
+        <em className='dob'>{convertToDateProfileFormat(dob.toDate())}</em>
         <ClipboardButton onClick={copyURL} text='Copy URL' name='copyUrl' />
       </div>
       <div className='profilePosition'>
