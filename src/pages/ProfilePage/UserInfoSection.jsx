@@ -5,6 +5,7 @@ import Avatar from '../../components/Avatar/Avatar';
 import Badge from '../../components/Badge/Badge';
 import ClipboardButton from '../../components/ClipboardButton/ClipboardButton';
 import { convertToDateProfileFormat } from '../../utils/formUtils';
+import { PropTypes } from 'prop-types';
 
 export default function UserInfoSection({
   avatar,
@@ -64,3 +65,13 @@ export default function UserInfoSection({
     </div>
   );
 }
+
+UserInfoSection.propTypes = {
+  avatar: PropTypes.string,
+  bio: PropTypes.string,
+  status: PropTypes.bool,
+  dob: PropTypes.instanceOf(Date),
+  position: PropTypes.arrayOf(PropTypes.string),
+  name: PropTypes.string,
+  isOwner: PropTypes.bool,
+};

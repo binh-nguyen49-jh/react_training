@@ -4,6 +4,7 @@ import UserAPI from '../../API/userAPI';
 import './ProfilePage.scss';
 import UserInfoSection from './UserInfoSection';
 import { useAuth } from '../../hooks/authentication';
+import TabsSection from './TabsSection';
 
 export default function ProfilePage(props) {
   // get uid from params
@@ -23,12 +24,17 @@ export default function ProfilePage(props) {
     <main className='profilePage'>
       <div className='container'>
         <h1>Profile Page</h1>
-        {userProfile && (
-          <UserInfoSection
-            isOwner={user.uid === userProfile.uid}
-            {...userProfile}
-          />
-        )}
+        <div className='userProfile'>
+          {userProfile && (
+            <>
+              <UserInfoSection
+                isOwner={user.uid === userProfile.uid}
+                {...userProfile}
+              />
+              <TabsSection {...userProfile} />
+            </>
+          )}
+        </div>
       </div>
     </main>
   );
