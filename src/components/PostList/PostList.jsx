@@ -3,9 +3,10 @@ import PostAPI from '../../API/postAPI';
 import { useAuth } from '../../hooks/authentication';
 import useInViewport from '../../hooks/useInViewport';
 import PostFactory from '../Post/PostFactory';
+import { PropTypes } from 'prop-types';
 import './PostList.scss';
 
-function PostList(props) {
+function PostList({ postAPI }) {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -20,7 +21,7 @@ function PostList(props) {
     if (user) {
       if (isLoading) return;
       setIsLoading(true);
-      const newPosts = await PostAPI.getPosts(user.uid);
+      const newPosts = await postAPI.getPosts(user.uid);
       if (newPosts.length === 0) return;
       setPosts((oldPosts) => [...oldPosts, ...newPosts]);
       setIsLoading(false);
@@ -36,28 +37,20 @@ function PostList(props) {
   }, [isIntersecting, observer, getPosts]);
 
   useEffect(() => {
-    PostAPI.lastQueryPosition = null;
+    postAPI.lastQueryPosition = null;
     if (isFirstRender.current) {
       isFirstRender.current = false;
       getPosts();
     }
     return () => {
       // Reset cursor to the top of the database
-      PostAPI.lastQueryPosition = null;
+      postAPI.lastQueryPosition = null;
     };
   }, [getPosts]);
 
   return (
     <>
-      <div
-        className='postList'
-        style={{
-          width: '100%',
-          display: 'flex',
-          flexFlow: 'column nowrap',
-          alignItems: 'center',
-          gap: '3rem',
-        }}>
+      <div className='postList'>
         {posts.map((post, idx) =>
           idx === posts.length - 1 ? (
             <PostFactory
@@ -84,5 +77,13 @@ function PostList(props) {
     </>
   );
 }
+
+PostList.propTypes = {
+  postAPI: PropTypes.instanceOf(PostAPI),
+};
+
+PostList.defaultProps = {
+  postAPI: new PostAPI(),
+};
 
 export default PostList;

@@ -70,7 +70,7 @@ UserInfoSection.propTypes = {
   avatar: PropTypes.string,
   bio: PropTypes.string,
   status: PropTypes.bool,
-  dob: PropTypes.instanceOf(Date),
+  dob: PropTypes.any,
   position: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string,
   isOwner: PropTypes.bool,

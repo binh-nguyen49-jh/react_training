@@ -5,12 +5,14 @@
 
   .container {
     flex-flow: column;
+    max-height: 100vh;
   }
 
   .userProfile {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 60vh;
     column-gap: 20px;
   }
 }
@@ -20,10 +22,12 @@
   grid-template-columns: 1fr 1fr;
   column-gap: var(--form-col-spacing);
   row-gap: var(--profile-row-spacing);
+  height: fit-content;
 
   .profileAvatar {
     position: relative;
     width: fit-content;
+    height: fit-content;
 
     .avatar {
       width: var(--avatar-image-width);
@@ -139,5 +143,39 @@
     font-weight: 700;
     text-decoration: none;
     color: var(--primary-cl);
+  }
+}
+
+.tabsSection {
+  max-height: 100%;
+
+  .tabsBody {
+    max-height: inherit;
+    overflow: scroll;
+  }
+
+  .tab {
+    padding: 20px;
+
+    &#Posts {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      gap: 20px;
+
+      .postList {
+        gap: 20px;
+      }
+
+      .infinite-load {
+        align-self: center;
+        width: fit-content;
+
+        .spinner {
+          border: 4px solid var(--primary-cl);
+          border-top-color: var(--box-shadow-cl);
+        }
+      }
+    }
   }
 }

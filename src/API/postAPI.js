@@ -7,6 +7,7 @@ import {
   limit,
   startAfter,
   Timestamp,
+  where,
 } from 'firebase/firestore/lite';
 import uploadSingleFile from '../utils/uploadImage';
 import { firestoreDB } from './firebase';
@@ -30,8 +31,6 @@ export default class PostAPI {
     return addDoc(collection(firestoreDB, 'posts'), post);
   }
 
-  static lastQueryPosition = null;
-
   static async getPostDetails(postDoc, userId) {
     const post = postDoc.data();
     const userProfile = await UserAPI.getUserData(post.ownerId);
@@ -46,23 +45,32 @@ export default class PostAPI {
     return post;
   }
 
-  static async getPostsDetails(postDocs, userId) {
-    PostAPI.lastQueryPosition = postDocs[postDocs.length - 1];
+  constructor(specificUserId) {
+    this.lastQueryPosition = null;
+    this.specificUserId = specificUserId;
+  }
+
+  async getPostsDetails(postDocs, userId) {
+    this.lastQueryPosition = postDocs[postDocs.length - 1];
     const posts = await Promise.all(
       postDocs.map((postDoc) => PostAPI.getPostDetails(postDoc, userId))
     );
     return posts;
   }
 
-  static async getPosts(userId, limitPerRequest = 10) {
+  async getPosts(userId, limitPerRequest = 10) {
     const queryConstrains = [
       collection(firestoreDB, 'posts'),
       orderBy('createdAt', 'desc'),
       limit(limitPerRequest),
     ];
 
-    if (PostAPI.lastQueryPosition) {
-      queryConstrains.splice(2, 0, startAfter(PostAPI.lastQueryPosition));
+    if (this.lastQueryPosition) {
+      queryConstrains.splice(2, 0, startAfter(this.lastQueryPosition));
+    }
+
+    if (this.specificUserId) {
+      queryConstrains.splice(1, 0, where('ownerId', '==', this.specificUserId));
     }
 
     const q = query(...queryConstrains);
