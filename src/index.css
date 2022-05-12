@@ -58,6 +58,7 @@ ol {
   --status-icon-size: 20px;
   --profile-name-size: 1.5rem;
   --profile-dob-size: 0.8rem;
+  --profile-row-spacing: 30px;
 }
 
 body {

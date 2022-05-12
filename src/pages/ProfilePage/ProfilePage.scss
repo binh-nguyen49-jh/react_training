@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: var(--form-col-spacing);
+  row-gap: var(--profile-row-spacing);
 
   .profileAvatar {
     position: relative;
@@ -85,5 +86,35 @@
         color: var(--secondary-cl);
       }
     }
+  }
+
+  .profilePosition {
+    grid-area: 2 / 1 / 3 / 3;
+
+    .positionContainer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 10px;
+    }
+
+    .badge {
+      height: 1.5rem;
+      padding: 0 10px;
+    }
+  }
+
+  .profileBio {
+    grid-area: 3 / 1 / 4 / 3;
+
+    .bio {
+      font-size: 1rem;
+    }
+  }
+
+  .profilePosition,
+  .profileBio {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
   }
 }

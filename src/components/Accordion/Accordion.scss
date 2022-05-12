@@ -1,0 +1,16 @@
+.accordion {
+  display: flex;
+  flex-flow: column;
+  width: fit-content;
+  justify-content: flex-end;
+}
+
+.accordionBtn {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 0.8rem;
+  font-weight: 700;
+  align-self: flex-end;
+}
