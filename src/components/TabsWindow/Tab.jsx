@@ -1,16 +1,23 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-function Tab({ id, children }) {
+function Tab({ id, children, className }) {
   return (
-    <div id={id} className='tab'>
+    <div id={id} className={`tab ${className}`}>
       {children}
     </div>
   );
 }
 Tab.propTypes = {
-  id: PropTypes.string,
+  label: PropTypes.string,
   children: PropTypes.node,
+  className: PropTypes.string,
+};
+
+Tab.defaultProps = {
+  label: '',
+  children: null,
+  className: '',
 };
 
 export default Tab;

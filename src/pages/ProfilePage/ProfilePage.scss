@@ -64,6 +64,7 @@
   }
 
   .profileDescription {
+    max-width: 200px;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -71,8 +72,10 @@
     gap: 10px;
 
     .name {
+      max-width: 100%;
       text-align: left;
       font-size: var(--profile-name-size);
+      word-wrap: break-word;
       margin: 0;
     }
 
@@ -147,21 +150,28 @@
 }
 
 .tabsSection {
+  flex: 0 0 50%;
   max-height: 100%;
 
+  .tabs,
   .tabsBody {
     max-height: inherit;
-    overflow: scroll;
+    overflow: hidden;
   }
 
   .tab {
     padding: 20px;
 
-    &#Posts {
-      display: flex;
-      flex-flow: column;
-      justify-content: center;
-      gap: 20px;
+    &.posts {
+      height: 100%;
+      max-height: inherit;
+      overflow: hidden scroll;
+
+      .container {
+        display: flex;
+        flex-flow: column;
+        gap: 20px;
+      }
 
       .postList {
         gap: 20px;
@@ -176,6 +186,29 @@
           border-top-color: var(--box-shadow-cl);
         }
       }
+    }
+
+    &.images {
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .hCarousel {
+      overflow: visible;
+      max-width: 100%;
+
+      &Container {
+        max-width: inherit;
+
+        .hCarouselItems {
+          transform: translate(-50px, 0);
+        }
+      }
+    }
+
+    .hCarouselItem {
+      width: 120px;
+      aspect-ratio: 0.7;
     }
   }
 }

@@ -5,19 +5,26 @@ import TabsWindow from '../../components/TabsWindow/TabsWindow';
 import PostTab from './PostTab';
 import PostAPI from '../../API/postAPI';
 import { PropTypes } from 'prop-types';
+import HorizontalSlide from '../../components/HorizontalSlide/HorizontalSlide';
+import ImageItem from './ImageItem';
 
-function TabsSection({ uid }) {
+function TabsSection({ uid, highlightImages }) {
   const postAPI = useRef(new PostAPI(uid));
 
   return (
     <div className='tabsSection'>
       <TabsWindow>
-        <Tab id='Posts'>
-          <PostTab />
-          <PostList postAPI={postAPI.current} />
+        <Tab label='Highlight Images' className='images'>
+          <HorizontalSlide
+            items={Object.values(highlightImages)}
+            ItemComponent={ImageItem}
+          />
         </Tab>
-        <Tab id='Highlight Images'>
-          <h1>Highlight Images</h1>
+        <Tab label='Posts' className='posts'>
+          <div className='container'>
+            <PostTab />
+            <PostList postAPI={postAPI.current} />
+          </div>
         </Tab>
       </TabsWindow>
     </div>

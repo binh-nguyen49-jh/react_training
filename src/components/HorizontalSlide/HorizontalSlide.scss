@@ -1,0 +1,35 @@
+.hCarousel {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+
+  &Container {
+    max-width: 100%;
+    flex-grow: 1;
+    overflow: visible;
+    position: relative;
+  }
+
+  .hCarouselItems {
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+}
+
+.hScrollbar {
+  width: 100%;
+  height: 5px;
+  background-color: var(--gray-2-cl);
+
+  .thumb {
+    height: 100%;
+    background-color: var(--primary-cl);
+  }
+}
