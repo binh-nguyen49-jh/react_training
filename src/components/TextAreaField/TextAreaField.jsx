@@ -3,7 +3,6 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { ReactComponent as EmojiIcon } from '../SVGs/EmojiIcon.svg';
 import './TextAreaField.scss';
-import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNextKeyDef';
 
 const TextAreaField = React.forwardRef((props, ref) => {
   const [choosingEmoji, setChoosingEmoji] = useState(false);

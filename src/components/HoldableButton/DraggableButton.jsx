@@ -1,6 +1,5 @@
 import './DraggableButton.scss';
-
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { PropTypes } from 'prop-types';
 
 function DraggableButton({ text, className, style, ...props }) {
