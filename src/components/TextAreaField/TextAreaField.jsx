@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { ReactComponent as EmojiIcon } from '../SVGs/EmojiIcon.svg';
 import './TextAreaField.scss';
+import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNextKeyDef';
 
 const TextAreaField = React.forwardRef((props, ref) => {
   const [choosingEmoji, setChoosingEmoji] = useState(false);
@@ -15,7 +16,15 @@ const TextAreaField = React.forwardRef((props, ref) => {
   const onEmojiClick = useCallback(
     (event, emojiObject) => {
       if (textareaRef.current) {
-        textareaRef.current.value += emojiObject.emoji;
+        const { selectionStart, selectionEnd } = textareaRef.current;
+
+        const text = textareaRef.current.value;
+        const newText =
+          text.slice(0, selectionStart) +
+          emojiObject.emoji +
+          text.slice(selectionEnd);
+        textareaRef.current.value = newText;
+        props.onChange && props.onChange(newText);
       }
     },
     [textareaRef]
