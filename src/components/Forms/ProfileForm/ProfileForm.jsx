@@ -64,12 +64,13 @@ class ProfileForm extends Form {
   handleSubmit = this.handleSubmitTemplate(async () => {
     try {
       const { formError, isInvalidForm, ...userInfo } = this.state;
-      const { user } = this.props;
+      const { user, updateProfile } = this.props;
 
       await UserAPI.updateUser(user, {
         ...userInfo,
       });
 
+      await updateProfile();
       toast.success(NOTIFICATION_MESSAGES.UPDATE_PROFILE_SUCCESSFULLY);
     } catch (error) {
       toast.error(NOTIFICATION_MESSAGES.CREATE_POST_FAILED);
@@ -93,6 +94,14 @@ class ProfileForm extends Form {
     delete highlightImages.value[name];
     this.onChangeForm('highlightImages', highlightImages.value);
   };
+
+  // componentDidMount() {
+  //   const { updateProfile } = this.props;
+  //   const getUpdatedProfile = async () => {
+  //     await updateProfile();
+  //   };
+  //   getUpdatedProfile();
+  // }
 
   render() {
     const { avatar, name, highlightImages, dob, position, isInvalidForm } =

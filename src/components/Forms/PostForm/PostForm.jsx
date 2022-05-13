@@ -9,7 +9,7 @@ import { ReactComponent as ImageIcon } from '../../SVGs/ImageIcon.svg';
 import { ReactComponent as DeleteIcon } from '../../SVGs/DeleteIcon.svg';
 import './PostForm.scss';
 
-function PostForm(props) {
+function PostForm() {
   const { user } = useAuth();
   const textAreaRef = useRef(null);
   const [postText, setPostText] = useState('');
@@ -73,7 +73,7 @@ function PostForm(props) {
     <div className='postForm'>
       <div className='formContainer'>
         <div className='formTop'>
-          <Avatar />
+          <Avatar imgUrl={user.avatar} />
           <TextAreaField
             onChange={onChangePostText}
             ref={textAreaRef}

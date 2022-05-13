@@ -6,6 +6,7 @@ import Badge from '../../components/Badge/Badge';
 import ClipboardButton from '../../components/ClipboardButton/ClipboardButton';
 import { convertToDateProfileFormat } from '../../utils/formUtils';
 import { PropTypes } from 'prop-types';
+import { POSITIONS } from '../../config/constants';
 
 export default function UserInfoSection({
   avatar,
@@ -46,7 +47,13 @@ export default function UserInfoSection({
         <Accordion maxHeight='50px'>
           <div className='positionContainer'>
             {position.map((positionName, idx) => (
-              <Badge key={idx} text={positionName} />
+              <Badge
+                key={idx}
+                text={positionName}
+                style={{
+                  backgroundColor: POSITIONS[positionName].color,
+                }}
+              />
             ))}
           </div>
         </Accordion>

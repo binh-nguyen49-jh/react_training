@@ -115,8 +115,9 @@
 
     .positionContainer {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       column-gap: 10px;
+      row-gap: 10px;
     }
 
     .badge {
@@ -222,6 +223,12 @@
   .profilePage {
     &>.container {
       padding: 50px;
+
+      .profilePosition {
+        .positionContainer {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
     }
   }
 }
