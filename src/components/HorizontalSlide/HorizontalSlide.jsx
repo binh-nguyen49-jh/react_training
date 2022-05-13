@@ -1,6 +1,7 @@
 import './HorizontalSlide.scss';
 import React, { useCallback, useEffect, useRef } from 'react';
 import DraggableButton from '../HoldableButton/DraggableButton';
+import { getValueInRange } from '../../utils/mathFuncs';
 
 function HorizontalSlide({ items, ItemComponent }) {
   const carouselRef = useRef(null);
@@ -26,10 +27,14 @@ function HorizontalSlide({ items, ItemComponent }) {
   };
 
   const calculateThumbWidth = () => {
-    const { carouselWidth, visibleRatio } = getCarouselProperties();
-    scrollbarRef.current.childNodes[0].style.width = `${
-      carouselWidth * visibleRatio
-    }px`;
+    const { visibleRatio, carouselWidth } = getCarouselProperties();
+
+    const thumb = scrollbarRef.current.childNodes[0];
+    if (visibleRatio < 1) {
+      thumb.style.width = `${carouselWidth * visibleRatio}px`;
+    } else {
+      thumb.style.width = '100%';
+    }
   };
 
   const onDragging = useCallback((event, { target, startPosition }) => {
@@ -57,13 +62,14 @@ function HorizontalSlide({ items, ItemComponent }) {
 
     const positionToThumb = event.offsetX < scrollbarWidth / 2 ? -1 : 1;
 
-    const amountChange = Math.min(
-      Math.max(
-        0,
-        event.clientX -
-          left -
-          (positionToThumb * carouselWidth * visibleRatio) / 2
-      ),
+    const positionChange =
+      event.clientX -
+      left -
+      (positionToThumb * carouselWidth * visibleRatio) / 2;
+
+    const amountChange = getValueInRange(
+      0,
+      positionChange,
       (1 - visibleRatio) * scrollbarWidth
     );
     contentRef.current.style.transform = `translateX(-${
@@ -74,14 +80,17 @@ function HorizontalSlide({ items, ItemComponent }) {
   }, []);
 
   useEffect(() => {
-    const calculateOnResize = () => {
+    const handleResize = () => {
       calculateContainerHeight();
       calculateThumbWidth();
+      // Reset position of all absolute positioned elements
+      scrollbarRef.current.childNodes[0].style.transform = `none`;
+      contentRef.current.style.transform = `none`;
     };
-    window.addEventListener('resize', calculateOnResize);
-    calculateOnResize();
+    window.addEventListener('resize', handleResize);
+    handleResize();
     return () => {
-      window.removeEventListener('resize', calculateOnResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 

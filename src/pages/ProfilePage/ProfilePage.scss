@@ -3,25 +3,24 @@
     display: none;
   }
 
-  .container {
+  &>.container {
     flex-flow: column;
-    max-height: 100vh;
+    padding: 50px 10px;
   }
 
   .userProfile {
+    max-width: 100vw;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 60vh;
-    column-gap: 20px;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
   }
 }
 
 .userInfoSection {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: var(--form-col-spacing);
-  row-gap: var(--profile-row-spacing);
+  display: flex;
+  flex-flow: column;
+  gap: 5px;
   height: fit-content;
 
   .profileAvatar {
@@ -64,7 +63,6 @@
   }
 
   .profileDescription {
-    max-width: 200px;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -150,31 +148,32 @@
 }
 
 .tabsSection {
-  flex: 0 0 50%;
-  max-height: 100%;
-
-  .tabs,
-  .tabsBody {
-    max-height: inherit;
-    overflow: hidden;
+  .tabs {
+    height: fit-content;
   }
 
   .tab {
-    padding: 20px;
+    padding: 5px;
 
     &.posts {
-      height: 100%;
-      max-height: inherit;
+      height: 60vh;
+      max-height: 60vh;
       overflow: hidden scroll;
+      scrollbar-width: thin;
 
-      .container {
+      &>.container {
         display: flex;
         flex-flow: column;
+        align-items: center;
         gap: 20px;
       }
 
       .postList {
         gap: 20px;
+
+        .post {
+          min-width: auto;
+        }
       }
 
       .infinite-load {
@@ -202,6 +201,12 @@
 
         .hCarouselItems {
           transform: translate(-50px, 0);
+
+          .imageItem {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
         }
       }
     }
@@ -209,6 +214,45 @@
     .hCarouselItem {
       width: 120px;
       aspect-ratio: 0.7;
+    }
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .profilePage {
+    &>.container {
+      padding: 50px;
+    }
+  }
+}
+
+;
+
+@media only screen and (min-width: 768px) {
+  .userInfoSection {
+    display: grid;
+    column-gap: var(--form-col-spacing);
+    row-gap: var(--profile-row-spacing);
+    grid-template-columns: min-content auto;
+  }
+
+  .tabsSection {
+    .tabs .tab {
+      padding: 10px;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .profilePage {
+    .userProfile {
+      display: grid;
+      grid-template-columns: 500px 1fr;
+      flex-flow: row nowrap;
+
+      // .tabsSection {
+      //   width: 50%;
+      // }
     }
   }
 }

@@ -53,12 +53,12 @@ export default function UserInfoSection({
       </div>
       <div className='profileBio'>
         <h3 className='bioTitle'>Biography</h3>
-        <Accordion maxHeight='100px'>
+        <Accordion maxHeight='50px'>
           <p className='bio'>{bio}</p>
         </Accordion>
       </div>
       {isOwner && (
-        <Link to='/edit-profile' className='editLink btn'>
+        <Link to='/update-profile' className='editLink btn'>
           Edit Profile
         </Link>
       )}

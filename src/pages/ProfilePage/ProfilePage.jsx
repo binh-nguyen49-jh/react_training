@@ -31,7 +31,10 @@ export default function ProfilePage(props) {
                 isOwner={user.uid === userProfile.uid}
                 {...userProfile}
               />
-              <TabsSection {...userProfile} />
+              <TabsSection
+                isOwner={user.uid === userProfile.uid}
+                {...userProfile}
+              />
             </>
           )}
         </div>

@@ -41,7 +41,7 @@ class ProfileForm extends Form {
         value: convertToDateInputFormat(dob.toDate()),
       },
       position: {
-        value: position.join(', '),
+        value: position.join(','),
       },
       highlightImages: {
         value: convertToFormImages(highlightImages),
@@ -140,7 +140,7 @@ class ProfileForm extends Form {
               label='Position'
               placeholder='Select your position'
               options={Object.keys(POSITIONS)}
-              defaultValues={defaultPosition.join(', ')}
+              defaultValues={defaultPosition.join(',')}
               error={position.error}
               onChange={this.onChangeForm}
             />

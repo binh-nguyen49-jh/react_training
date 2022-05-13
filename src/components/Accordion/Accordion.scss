@@ -3,6 +3,10 @@
   flex-flow: column;
   width: fit-content;
   justify-content: flex-end;
+
+  &Body {
+    overflow: hidden;
+  }
 }
 
 .accordionBtn {

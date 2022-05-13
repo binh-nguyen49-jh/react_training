@@ -2,13 +2,13 @@ import React, { useRef } from 'react';
 import PostList from '../../components/PostList/PostList';
 import Tab from '../../components/TabsWindow/Tab';
 import TabsWindow from '../../components/TabsWindow/TabsWindow';
-import PostTab from './PostTab';
+import PostForm from '../../components/Forms/PostForm/PostForm';
 import PostAPI from '../../API/postAPI';
 import { PropTypes } from 'prop-types';
 import HorizontalSlide from '../../components/HorizontalSlide/HorizontalSlide';
 import ImageItem from './ImageItem';
 
-function TabsSection({ uid, highlightImages }) {
+function TabsSection({ uid, highlightImages, isOwner }) {
   const postAPI = useRef(new PostAPI(uid));
 
   return (
@@ -22,7 +22,7 @@ function TabsSection({ uid, highlightImages }) {
         </Tab>
         <Tab label='Posts' className='posts'>
           <div className='container'>
-            <PostTab />
+            {isOwner && <PostForm />}
             <PostList postAPI={postAPI.current} />
           </div>
         </Tab>
@@ -33,6 +33,8 @@ function TabsSection({ uid, highlightImages }) {
 
 TabsSection.propTypes = {
   uid: PropTypes.string,
+  highlightImages: PropTypes.object,
+  isOwner: PropTypes.bool,
 };
 
 export default TabsSection;

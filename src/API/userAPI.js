@@ -74,7 +74,7 @@ export default class UserAPI {
         status,
       }),
       dob: convertToTimestamp(convertFormattedDateToDate(dob.value)),
-      position: position.value.split(', '),
+      position: position.value.split(','),
     });
     const userRef = await this.getUserRef(updatedUser.uid);
     await updateDoc(userRef, updatedUser);

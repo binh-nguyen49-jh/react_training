@@ -28,6 +28,11 @@ function useFirebaseAuth() {
     return () => updateUser();
   }, []);
 
+  const updateProfile = async () => {
+    const userProfile = await UserAPI.getUserData(user.uid);
+    setUser(userProfile || false);
+  };
+
   const logOut = () => {
     firebaseAuth.signOut();
     setUser(false);
@@ -36,5 +41,6 @@ function useFirebaseAuth() {
   return {
     user,
     logOut,
+    updateProfile,
   };
 }
