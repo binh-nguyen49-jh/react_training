@@ -13,8 +13,6 @@ function Accordion({ children, maxHeight, maxWords }) {
     if (maxHeight && contentRef.current.offsetHeight < maxHeight) {
       setShowBtn(false);
     }
-    console.log(children);
-
     if (maxWords) {
       const text = children.props.children;
       if (text === truncateText(text, maxWords)) setShowBtn(false);
