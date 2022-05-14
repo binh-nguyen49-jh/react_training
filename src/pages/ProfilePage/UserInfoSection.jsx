@@ -7,6 +7,8 @@ import ClipboardButton from '../../components/ClipboardButton/ClipboardButton';
 import { convertToDateProfileFormat } from '../../utils/formUtils';
 import { PropTypes } from 'prop-types';
 import { POSITIONS } from '../../config/constants';
+import TruncateText from '../../components/Accordion/TruncateText';
+import TruncateHeight from '../../components/Accordion/TruncateHeight';
 
 export default function UserInfoSection({
   avatar,
@@ -44,8 +46,8 @@ export default function UserInfoSection({
       </div>
       <div className='profilePosition'>
         <h3 className='positionTitle'>Position</h3>
-        <Accordion maxHeight='50px'>
-          <div className='positionContainer'>
+        <Accordion maxHeight={50}>
+          <TruncateHeight className='positionContainer'>
             {position.map((positionName, idx) => (
               <Badge
                 key={idx}
@@ -55,13 +57,13 @@ export default function UserInfoSection({
                 }}
               />
             ))}
-          </div>
+          </TruncateHeight>
         </Accordion>
       </div>
       <div className='profileBio'>
         <h3 className='bioTitle'>Biography</h3>
-        <Accordion maxHeight='50px'>
-          <p className='bio'>{bio}</p>
+        <Accordion maxWords={200}>
+          {<TruncateText className='bio'>{bio}</TruncateText>}
         </Accordion>
       </div>
       {isOwner && (
