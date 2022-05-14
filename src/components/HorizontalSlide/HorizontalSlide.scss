@@ -2,12 +2,18 @@
   display: flex;
   flex-flow: column;
   gap: 10px;
+  position: relative;
 
   &Container {
     max-width: 100%;
     flex-grow: 1;
-    overflow: visible;
-    position: relative;
+    overflow: scroll hidden;
+
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .hCarouselItems {
@@ -19,6 +25,8 @@
     top: 0;
     left: 0;
     z-index: 1;
+
+    pointer-events: none;
   }
 
 }

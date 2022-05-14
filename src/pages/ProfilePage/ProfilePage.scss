@@ -149,6 +149,9 @@
 }
 
 .tabsSection {
+  max-width: 100%;
+  overflow: hidden;
+
   .tabs {
     height: fit-content;
   }

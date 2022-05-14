@@ -6,23 +6,27 @@ import { getValueInRange } from '../../utils/mathFuncs';
 function HorizontalSlide({ items, ItemComponent }) {
   const carouselRef = useRef(null);
   const contentRef = useRef(null);
+  const fakeContentRef = useRef(null);
   const scrollbarRef = useRef(null);
 
   const calculateContainerHeight = () => {
-    const itemHeight = contentRef.current.getBoundingClientRect().height;
+    const { height: itemHeight, width: itemWidth } =
+      contentRef.current.getBoundingClientRect();
     carouselRef.current.style.height = `${itemHeight}px`;
+    fakeContentRef.current.style.width = `${itemWidth}px`;
   };
 
   const getCarouselProperties = () => {
-    const { width, left } = carouselRef.current.getBoundingClientRect();
+    const { width: carouselWidth, left: carouselLeft } =
+      carouselRef.current.getBoundingClientRect();
     const contentWidth = contentRef.current.getBoundingClientRect().width;
     const scrollbarWidth = scrollbarRef.current.getBoundingClientRect().width;
     return {
-      carouselWidth: width,
-      carouselLeft: left,
+      carouselWidth,
+      carouselLeft,
       contentWidth,
       scrollbarWidth,
-      visibleRatio: width / contentWidth,
+      visibleRatio: carouselWidth / contentWidth,
     };
   };
 
@@ -37,46 +41,42 @@ function HorizontalSlide({ items, ItemComponent }) {
     }
   };
 
-  const onDragging = useCallback((event, { target, startPosition }) => {
+  const onDragging = useCallback((event, { startPosition }) => {
     event.preventDefault();
     const { left } = carouselRef.current.getBoundingClientRect();
     const amountChange = event.clientX - left - startPosition;
-
-    const { visibleRatio, scrollbarWidth } = getCarouselProperties();
-
-    if (
-      0 < amountChange &&
-      amountChange < (1 - visibleRatio) * scrollbarWidth
-    ) {
-      target.style.transform = `translateX(${amountChange}px)`;
-      contentRef.current.style.transform = `translateX(-${
-        amountChange / visibleRatio
-      }px)`;
-    }
+    scrollByAmount(amountChange);
   }, []);
 
   const onClickScrollbar = useCallback((event) => {
     const { left } = carouselRef.current.getBoundingClientRect();
     const { visibleRatio, scrollbarWidth, carouselWidth } =
       getCarouselProperties();
-
     const positionToThumb = event.offsetX < scrollbarWidth / 2 ? -1 : 1;
-
     const positionChange =
       event.clientX -
       left -
       (positionToThumb * carouselWidth * visibleRatio) / 2;
+    scrollByAmount(positionChange);
+  }, []);
 
-    const amountChange = getValueInRange(
+  const onScrollCarousel = useCallback((event) => {
+    event.preventDefault();
+    scrollByAmount(carouselRef.current.scrollLeft);
+  }, []);
+
+  const scrollByAmount = useCallback((amount) => {
+    const { visibleRatio, scrollbarWidth } = getCarouselProperties();
+    const scrollAmount = getValueInRange(
       0,
-      positionChange,
+      amount,
       (1 - visibleRatio) * scrollbarWidth
     );
+    scrollbarRef.current.childNodes[0].style.transform = `translateX(${scrollAmount}px)`;
+    carouselRef.current.scrollLeft = scrollAmount;
     contentRef.current.style.transform = `translateX(-${
-      amountChange / visibleRatio
+      scrollAmount / visibleRatio
     }px)`;
-
-    scrollbarRef.current.childNodes[0].style.transform = `translateX(${amountChange}px)`;
   }, []);
 
   useEffect(() => {
@@ -88,6 +88,7 @@ function HorizontalSlide({ items, ItemComponent }) {
       contentRef.current.style.transform = `none`;
     };
     window.addEventListener('resize', handleResize);
+    carouselRef.current.addEventListener('scroll', onScrollCarousel);
     handleResize();
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -97,16 +98,17 @@ function HorizontalSlide({ items, ItemComponent }) {
   return (
     <div className='hCarousel'>
       <div ref={carouselRef} className='hCarouselContainer'>
-        <div ref={contentRef} className='hCarouselItems'>
-          {items &&
-            items.map((item, index) => (
-              <ItemComponent
-                className='hCarouselItem'
-                key={index}
-                content={item}
-              />
-            ))}
-        </div>
+        <div ref={fakeContentRef} className='hCarouselContent' />
+      </div>
+      <div ref={contentRef} className='hCarouselItems'>
+        {items &&
+          items.map((item, index) => (
+            <ItemComponent
+              className='hCarouselItem'
+              key={index}
+              content={item}
+            />
+          ))}
       </div>
       <div className='hScrollbar' ref={scrollbarRef} onClick={onClickScrollbar}>
         <DraggableButton className='thumb' onDragging={onDragging} />
