@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ReactComponent as AddImageIcon } from '../SVGs/AddImageIcon.svg';
-import { ReactComponent as DeleteIcon } from '../SVGs/DeleteIcon.svg';
+import React, { useState } from 'react';
+import AddImageIcon from '../SVGs/AddImageIcon.jsx';
+import DeleteIcon from '../SVGs/DeleteIcon.jsx';
 import { PropTypes } from 'prop-types';
 import './ImageField.scss';
 

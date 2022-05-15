@@ -13,8 +13,8 @@ import { POSITIONS } from '../../config/constants';
 import PostCarousel from './PostCarousel';
 import Comments from './Comments';
 import usePopover from '../../hooks/usePopover';
-import { ReactComponent as FilledHeartIcon } from '../SVGs/FilledHeartIcon.svg';
-import { ReactComponent as EmptyHeartIcon } from '../SVGs/EmptyHeartIcon.svg';
+import FilledHeartIcon from '../SVGs/FilledHeartIcon.jsx';
+import EmptyHeartIcon from '../SVGs/EmptyHeartIcon.jsx';
 import PostAction from './PostAction';
 
 function Post(props) {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ReactComponent as CopyIcon } from '../SVGs/CopyIcon.svg';
-import { ReactComponent as CheckIcon } from '../SVGs/CheckIcon.svg';
+import CopyIcon from '../SVGs/CopyIcon.jsx';
+import CheckIcon from '../SVGs/CheckIcon.jsx';
 import { PropTypes } from 'prop-types';
 import Modal from '../HOC/Modal/Modal';
 import './ClipboardButton.scss';

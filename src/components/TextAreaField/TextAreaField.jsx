@@ -1,7 +1,7 @@
 import Picker from 'emoji-picker-react';
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { ReactComponent as EmojiIcon } from '../SVGs/EmojiIcon.svg';
+import EmojiIcon from '../SVGs/EmojiIcon.jsx';
 import './TextAreaField.scss';
 
 const TextAreaField = React.forwardRef((props, ref) => {
