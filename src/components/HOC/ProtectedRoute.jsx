@@ -3,9 +3,14 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/authentication';
 export default function ProtectedRoute({ children }) {
   const { user } = useAuth();
-  if (user) {
-    return children;
-  } else {
-    return <Navigate to='/authentication/login'></Navigate>;
-  }
+  return user ? (
+    children
+  ) : (
+    <Navigate
+      to='/authentication/login'
+      state={{
+        redirectUrl: window.location.pathname,
+      }}
+    />
+  );
 }

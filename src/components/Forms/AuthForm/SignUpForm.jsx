@@ -1,19 +1,19 @@
 import React from 'react';
-import { registerWithEmail } from '../../API/authentication';
+import { registerWithEmail } from '../../../API/authentication';
 import {
   composeValidators,
   emailFormat,
   maxLength,
   minLength,
   required,
-} from '../../utils/formValidate';
-import { POSITIONS } from '../../config/constants';
-import DropdownField from '../DropdownField/DropdownField';
-import LoadingButton from '../LoadingButton/LoadingButton';
-import withRouter from '../HOC/withRouter';
-import InputField from '../InputField/InputField';
+} from '../../../utils/formValidate';
+import { POSITIONS } from '../../../config/constants';
+import DropdownField from '../../DropdownField/DropdownField';
+import LoadingButton from '../../LoadingButton/LoadingButton';
+import withRouter from '../../HOC/withRouter';
+import InputField from '../../InputField/InputField';
 import { Link } from 'react-router-dom';
-import Form from './Form';
+import Form from '../Form';
 
 class SignUpForm extends Form {
   constructor(props) {
@@ -44,6 +44,8 @@ class SignUpForm extends Form {
   });
 
   render() {
+    const { name, email, password, position, formError, isInvalidForm } =
+      this.state;
     return (
       <>
         <h2>Sign Up</h2>
@@ -54,46 +56,41 @@ class SignUpForm extends Form {
             name='name'
             label='Name'
             placeholder='Type your name'
-            error={this.state.name.error}
+            error={name.error}
             onChange={this.onChangeForm}
           />
-
           <InputField
             onValidate={this.onValidateInput}
             type='email'
             name='email'
             label='Email'
             placeholder='example@abc.xyz'
-            error={this.state.email.error}
+            error={email.error}
             onChange={this.onChangeForm}
           />
-
           <InputField
             onValidate={this.onValidateInput}
             type='password'
             name='password'
             label='Password'
             placeholder='Type your password'
-            error={this.state.password.error}
+            error={password.error}
             onChange={this.onChangeForm}
           />
-
           <DropdownField
             onValidate={this.onValidateInput}
             name='position'
             label='Position'
             placeholder='Select your position'
             options={this.positions}
-            error={this.state.position.error}
+            error={position.error}
             onChange={this.onChangeForm}
           />
-          {this.state.formError && (
-            <p className='formError'>{this.state.formError}</p>
-          )}
+          {formError && <p className='formError'>{formError}</p>}
           <LoadingButton
             className='btnSignUp'
             handleOnClick={this.handleSubmit}
-            disabled={!this.state.isSubmittable}
+            disabled={isInvalidForm}
             text='Sign up'
             type='submit'
           />

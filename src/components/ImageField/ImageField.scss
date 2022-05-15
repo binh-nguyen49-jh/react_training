@@ -1,0 +1,57 @@
+.imageField {
+  position: relative;
+
+  .deleteIcon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 1;
+    transform: translate(50%, -50%);
+    width: 24px;
+    height: 24px;
+    fill: var(--pink-cl);
+    border-radius: 50%;
+    background-color: var(--secondary-cl);
+  }
+
+  label {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark-cl);
+    background-size: cover;
+    background-position: center;
+  }
+
+  input {
+    display: none;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: var(--overlay-cl);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .imgIcon {
+      fill: var(--secondary-cl);
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &:hover {
+    .overlay {
+      opacity: 1;
+    }
+  }
+}

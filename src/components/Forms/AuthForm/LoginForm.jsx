@@ -1,16 +1,16 @@
 import React from 'react';
-import { logInWithEmail } from '../../API/authentication';
+import { logInWithEmail } from '../../../API/authentication';
 import {
   composeValidators,
   emailFormat,
   required,
-} from '../../utils/formValidate';
-import LoadingButton from '../LoadingButton/LoadingButton';
-import withRouter from '../HOC/withRouter';
-import InputField from '../InputField/InputField';
-import './Form.scss';
+} from '../../../utils/formValidate';
+import LoadingButton from '../../LoadingButton/LoadingButton';
+import withRouter from '../../HOC/withRouter';
+import InputField from '../../InputField/InputField';
+import '../Form.scss';
 import { Link } from 'react-router-dom';
-import Form from './Form';
+import Form from '../Form';
 
 class LoginForm extends Form {
   constructor(props) {
@@ -28,10 +28,12 @@ class LoginForm extends Form {
   }
 
   handleSubmit = this.handleSubmitTemplate(() => {
-    return logInWithEmail(this.state.email.value, this.state.password.value);
+    const { email, password } = this.state;
+    return logInWithEmail(email.value, password.value);
   });
 
   render() {
+    const { email, password, formError, isInvalidForm } = this.state;
     return (
       <>
         <h2>Login</h2>
@@ -42,7 +44,7 @@ class LoginForm extends Form {
             name='email'
             label='Email'
             placeholder='example@abc.xyz'
-            error={this.state.email.error}
+            error={email.error}
             onChange={this.onChangeForm}
           />
 
@@ -52,18 +54,16 @@ class LoginForm extends Form {
             name='password'
             label='Password'
             placeholder='Type your password'
-            error={this.state.password.error}
+            error={password.error}
             onChange={this.onChangeForm}
           />
-          {this.state.formError && (
-            <p className='formError'>{this.state.formError}</p>
-          )}
+          {formError && <p className='formError'>{formError}</p>}
           <LoadingButton
             className='btnLogin'
             handleOnClick={this.handleSubmit}
             type='submit'
             text='Login'
-            disabled={!this.state.isSubmittable}
+            disabled={isInvalidForm}
           />
           <hr />
           <p>

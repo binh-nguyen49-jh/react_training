@@ -1,0 +1,29 @@
+.bioField {
+  .bioContainer {
+    order: 2;
+    height: var(--input-height);
+    position: relative;
+
+    .textareaContainer {
+      position: static;
+    }
+
+    textarea {
+      background-color: var(--secondary-cl);
+      width: 100%;
+      padding: 10px;
+      border-bottom: 3px solid var(--primary-cl);
+      outline: none;
+      border: 3px solid var(--primary-cl);
+      height: var(--input-height);
+      transition: height .25s;
+      cursor: text;
+    }
+  }
+
+  label {
+    color: var(--label-cl);
+    font-size: var(--label-size);
+    margin: 0;
+  }
+}

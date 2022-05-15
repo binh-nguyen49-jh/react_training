@@ -1,4 +1,4 @@
-main > .container {
+main>.container {
   display: flex;
   height: fit-content;
   flex-flow: column;
@@ -19,6 +19,8 @@ main .logo {
   }
 
   h1 {
+    font-size: 30px;
+    white-space: nowrap;
     text-transform: uppercase;
     color: var(--primary-cl);
   }
@@ -55,11 +57,21 @@ main .logo {
   main {
     display: flex;
     justify-content: flex-end;
+
+    .logo h1 {
+      font-size: 35px;
+    }
   }
 }
 
 @media only screen and (min-width: 1025px) {
-  main > .container {
-    flex-flow: row nowrap;
+  main {
+    &>.container {
+      flex-flow: row nowrap;
+    }
+
+    .logo h1 {
+      font-size: 50px;
+    }
   }
 }

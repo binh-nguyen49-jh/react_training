@@ -6,24 +6,9 @@ function RoleIcon({ role }) {
     <div
       className='roleIcon'
       style={{
-        width: '28px',
-        height: '28px',
-        borderRadius: '50%',
-        aspectRatio: '1',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: `${role.color}`,
-        color: '#fff',
       }}>
-      <p
-        style={{
-          fontSize: '14px',
-          fontWeight: '700',
-          lineHeight: '14px',
-        }}>
-        {role.icon}
-      </p>
+      <p>{role.icon}</p>
     </div>
   );
 }

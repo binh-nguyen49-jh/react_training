@@ -1,3 +1,5 @@
+import { EMAIL_REGEX } from '../config/constants';
+
 export const required = (value) =>
   value ? undefined : 'This field is required';
 
@@ -12,9 +14,10 @@ export const maxLength = (max) => (value) =>
     : `The length should be lower than ${max} characters`;
 
 export const emailFormat = (value) =>
-  value && !/^\w+([._-]?\w+)*@\w+([._-]?\w+)*([.]\w{2,3})+$/i.test(value)
-    ? 'Invalid email address'
-    : undefined;
+  value && !EMAIL_REGEX.test(value) ? 'Invalid email address' : undefined;
+
+export const haveImage = (value) =>
+  value.url ? undefined : 'Please upload an image';
 
 export const composeValidators =
   (...validators) =>
@@ -23,3 +26,10 @@ export const composeValidators =
       (error, validator) => error || validator(value),
       undefined
     );
+
+export const haveAtLeastImage = (values) => {
+  const images = Object.entries(values).map(([key, value]) => value);
+  return images.some((value) => value.url)
+    ? undefined
+    : 'Please upload at least one image';
+};

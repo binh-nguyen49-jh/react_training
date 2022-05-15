@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { AUTH_ERROR_MESSAGES } from '../../config/constants';
+import { formatErrorCode } from '../../utils/firebaseUtils';
 import './Form.scss';
 
 class Form extends Component {
@@ -7,30 +8,42 @@ class Form extends Component {
     super(props);
     this.state = {
       formError: null,
-      isSubmittable: true,
+      isInvalidForm: true,
     };
   }
 
   onChangeForm = (field, value, errorMessage) => {
-    const newForm = this.state;
-    newForm[field].value = value;
-    newForm[field].error = errorMessage;
-    this.setState(newForm);
-
-    let isValidForm = this.checkValidateForm(false);
-
-    this.onValidateInput(field, value, true);
-    console.log(isValidForm);
-    this.setState({
-      isSubmittable: isValidForm,
+    const newForm = {
+      ...this.state,
+      [field]: {
+        value,
+        error: errorMessage,
+      },
+    };
+    this.setState(newForm, () => {
+      const isValidInput =
+        this.onValidateInput(field, value, true) === undefined;
+      const isInvalidForm = !(this.checkValidateForm(false) && isValidInput);
+      this.setState({
+        isInvalidForm,
+      });
     });
   };
 
   onValidateInput = (field, value, updateError = true) => {
+    if (!this.validators[field]) {
+      return;
+    }
+
     const error = this.validators[field](value);
-    const newForm = this.state;
     if (updateError) {
-      newForm[field].error = error;
+      const newForm = {
+        ...this.state,
+        [field]: {
+          value,
+          error,
+        },
+      };
       this.setState(newForm);
     }
     return error;
@@ -46,6 +59,9 @@ class Form extends Component {
       );
       if (error) {
         validFlag = false;
+        if (!updateErrors) {
+          break;
+        }
       }
     }
     return validFlag;
@@ -67,15 +83,10 @@ class Form extends Component {
           formError: error.message,
         });
       } else {
-        if (AUTH_ERROR_MESSAGES[error.code]) {
-          this.setState({
-            formError: AUTH_ERROR_MESSAGES[error.code],
-          });
-        } else {
-          this.setState({
-            formError: error.code.split('/')[1].split('-').join(' '),
-          });
-        }
+        this.setState({
+          formError:
+            AUTH_ERROR_MESSAGES[error.code] || formatErrorCode(error.code),
+        });
       }
     }
   };

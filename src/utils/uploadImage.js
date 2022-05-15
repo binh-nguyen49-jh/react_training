@@ -1,8 +1,4 @@
-import {
-  getDownloadURL,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { firebaseStorage } from '../API/firebase';
 
 export default function uploadSingleFile(file) {
@@ -18,10 +14,9 @@ export default function uploadSingleFile(file) {
       (error) => {
         reject(error);
       },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((URL) => {
-          resolve(URL);
-        });
+      async () => {
+        const URL = await getDownloadURL(uploadTask.snapshot.ref);
+        resolve(URL);
       }
     );
   });

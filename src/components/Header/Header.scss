@@ -7,6 +7,18 @@ header {
   height: var(--topbar-height);
   box-shadow: 0 0 15px var(--box-shadow-cl);
   z-index: 10;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a,
+    img {
+      width: var(--logo-size);
+      height: var(--logo-size);
+    }
+  }
 }
 
 header .container {
@@ -31,17 +43,19 @@ nav>ul {
   gap: 5px;
   height: 100%;
   cursor: pointer;
-}
 
-.navItem:hover {
-  svg, .avatar {
-    transform: scale(1.1);
+  .avatar {
+    width: 30px;
+    height: 30px;
   }
-}
 
-header .logo img {
-  width: 50px;
-  height: 50px;
+  &:hover {
+
+    svg,
+    .avatar {
+      transform: scale(1.1);
+    }
+  }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 1024px) {

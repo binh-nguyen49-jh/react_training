@@ -46,20 +46,20 @@ h2 {
 
 .btnLogin {
   background-color: var(--login-btn-bg);
-  color: var(--white-cl);
+  color: var(--secondary-cl);
 }
 
 .btnSignUp {
   background-color: var(--signup-btn-bg);
-  color: var(--primary-cl);   
+  color: var(--primary-cl);
 }
 
 @media only screen and (min-width: 481px) {
   h2 {
-    font-size: 2.3rem;   
+    font-size: 2.3rem;
   }
 
   .formContainer {
-    padding: 50px;   
+    padding: 50px;
   }
 }

@@ -9,7 +9,7 @@ function Comments({ comments }) {
       <div
         className='commentsButton'
         onClick={() => setShowingComment(!showingComment)}>
-        {showingComment ? 'Ẩn tất cả bình luận' : 'Xem tất cả bình luận'}
+        {showingComment ? 'Hide all comments' : 'Show all comments'}
       </div>
       <ul className={`commentsList ${showingComment ? 'show' : ''}`}>
         {comments.map((comment, idx) => (

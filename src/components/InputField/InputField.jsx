@@ -11,12 +11,17 @@ class InputField extends Component {
     className: PropTypes.string,
     validate: PropTypes.func,
     onChange: PropTypes.func,
+    defaultValue: PropTypes.string,
   };
-  
+
+  static defaultProps = {
+    defaultValue: '',
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      value: this.props.defaultValue,
     };
   }
 

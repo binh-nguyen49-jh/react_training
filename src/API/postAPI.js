@@ -17,50 +17,71 @@ import UserPostAPI from './userPostAPI';
 export default class PostAPI {
   static async createPost(postData) {
     const images = postData['images'];
-    const image_urls = await Promise.all(
+    const imageUrls = await Promise.all(
       images.map((image) => uploadSingleFile(image))
     );
+
+    const { images: uploadedImages, ...postDataWithoutImages } = postData;
     const post = {
-      imageUrls: image_urls,
+      imageUrls: imageUrls,
       createdAt: Timestamp.fromDate(new Date()),
-      ...postData,
+      ...postDataWithoutImages,
     };
-    delete post['images'];
 
     return addDoc(collection(firestoreDB, 'posts'), post);
   }
 
-  static lastQueryPosition = null;
-  // retrieve others posts
-  static async getPosts(userId, limitPerRequest = 10) {
-    const q = query(
-      collection(firestoreDB, 'posts'),
-      where('ownerId', '!=', userId),
-      orderBy('ownerId', 'createdAt'),
-      startAfter(PostAPI.lastQueryPosition),
-      limit(limitPerRequest),
-    );
+  static async getPostDetails(postDoc, userId) {
+    const post = postDoc.data();
+    const userProfile = await UserAPI.getUserData(post.ownerId);
+    post.owner = userProfile;
+    post.id = postDoc.id;
+    const interaction = await UserPostAPI.getInteractPost(userId, postDoc.id);
+    if (interaction) {
+      Object.assign(post, interaction);
+    } else {
+      post.hidden = false;
+    }
+    const { createdAt, ...postData } = post;
+    return {
+      createdAt: createdAt.toDate(),
+      ...postData,
+    };
+  }
 
+  constructor(specificUserId) {
+    this.lastQueryPosition = null;
+    this.specificUserId = specificUserId;
+  }
+
+  async getPostsDetails(postDocs, userId) {
+    this.lastQueryPosition = postDocs[postDocs.length - 1];
+    const posts = await Promise.all(
+      postDocs.map((postDoc) => PostAPI.getPostDetails(postDoc, userId))
+    );
+    return posts;
+  }
+
+  async getPosts(userId, limitPerRequest = 10) {
+    const queryConstrains = [
+      collection(firestoreDB, 'posts'),
+      orderBy('createdAt', 'desc'),
+      limit(limitPerRequest),
+    ];
+
+    if (this.lastQueryPosition) {
+      queryConstrains.splice(2, 0, startAfter(this.lastQueryPosition));
+    }
+
+    if (this.specificUserId) {
+      queryConstrains.splice(1, 0, where('ownerId', '==', this.specificUserId));
+    }
+
+    const q = query(...queryConstrains);
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
       return [];
     }
-    PostAPI.lastQueryPosition = docs.docs[docs.docs.length - 1];
-    const posts = await Promise.all(
-      docs.docs.map(async (postDoc) => {
-        const post = postDoc.data();
-        const userProfile = await UserAPI.getUser(post.ownerId);
-        post.owner = userProfile;
-        post.id = postDoc.id;
-        const interaction = await UserPostAPI.getInteractPost(userId, postDoc.id);
-        if (interaction) {
-          Object.assign(post, interaction);
-        } else {
-          post.hidden = false;
-        }
-        return post;
-      })
-    );
-    return posts;
+    return this.getPostsDetails(docs.docs, userId);
   }
 }
