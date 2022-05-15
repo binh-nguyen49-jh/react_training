@@ -158,3 +158,10 @@ export const NOTIFICATION_MESSAGES = {
   CREATE_POST_SUCCESSFULLY: 'Post created successfully',
   CREATE_POST_FAILED: 'Post creation failed',
 };
+
+export const ASYNC_STATUS = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  ERROR: 'ERROR',
+  IDLE: 'IDLE',
+};

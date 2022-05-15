@@ -5,10 +5,14 @@ import useInViewport from '../../hooks/useInViewport';
 import PostFactory from '../Post/PostFactory';
 import { PropTypes } from 'prop-types';
 import './PostList.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsAction } from '../../redux/posts';
+import { ASYNC_STATUS } from '../../config/constants';
 
 function PostList({ postAPI }) {
+  const dispatch = useDispatch();
+  const getPostsStatus = useSelector((state) => state.getPosts.status);
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const {
     entryRef: lastSentinelRef,
     isIntersecting,
@@ -19,12 +23,12 @@ function PostList({ postAPI }) {
 
   const getPosts = useCallback(async () => {
     if (user) {
-      if (isLoading) return;
-      setIsLoading(true);
-      const newPosts = await postAPI.getPosts(user.uid);
-      if (newPosts.length === 0) return;
-      setPosts((oldPosts) => [...oldPosts, ...newPosts]);
-      setIsLoading(false);
+      if (getPostsStatus === ASYNC_STATUS.PENDING) return;
+      const newPosts = await dispatch(
+        getPostsAction({ postAPI, userId: user.uid })
+      );
+      if (newPosts.payload.length === 0) return;
+      setPosts((oldPosts) => [...oldPosts, ...newPosts.payload]);
     }
   }, [user]);
 
@@ -70,7 +74,10 @@ function PostList({ postAPI }) {
           )
         )}
       </div>
-      <div className={`infinite-load ${isLoading ? 'show' : ''}`}>
+      <div
+        className={`infinite-load ${
+          getPostsStatus === ASYNC_STATUS.PENDING ? 'show' : ''
+        }`}>
         <div className='spinner' />
         <p>Loading...</p>
       </div>

@@ -42,7 +42,11 @@ export default class PostAPI {
     } else {
       post.hidden = false;
     }
-    return post;
+    const { createdAt, ...postData } = post;
+    return {
+      createdAt: createdAt.toDate(),
+      ...postData,
+    };
   }
 
   constructor(specificUserId) {

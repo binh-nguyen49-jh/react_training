@@ -155,7 +155,7 @@ function Post(props) {
             ]}
           />
           <p className='timestamp'>
-            {post.createdAt && post.createdAt.toDate().toDateString()}
+            {post.createdAt && post.createdAt.toDateString()}
           </p>
         </div>
       </div>
