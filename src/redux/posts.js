@@ -13,7 +13,7 @@ export const { asyncThunk: getPostsAction, reducer: getPostsReducer } =
     initialData: [],
   });
 
-// Async thunk for update post
+// Async thunk for create post
 export const { asyncThunk: createPostAction, reducer: createPostReducer } =
   asyncActionCreator({
     thunkName: 'posts/create',

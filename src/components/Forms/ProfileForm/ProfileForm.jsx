@@ -7,7 +7,6 @@ import {
 } from '../../../utils/formValidate';
 import ImageField from '../../ImageField/ImageField';
 import InputField from '../../InputField/InputField';
-import UserAPI from '../../../API/userAPI';
 import Form from '../Form';
 import './ProfileForm.scss';
 import {
@@ -23,6 +22,8 @@ import ToggleField from '../../ToggleField/ToggleField';
 import { v4 as uuidv4 } from 'uuid';
 import BioField from '../../BioField/BioField';
 import { Link } from 'react-router-dom';
+import { updateUserAction } from '../../../redux/users';
+import { connect } from 'react-redux';
 
 class ProfileForm extends Form {
   constructor(props) {
@@ -64,12 +65,16 @@ class ProfileForm extends Form {
   handleSubmit = this.handleSubmitTemplate(async () => {
     try {
       const { formError, isInvalidForm, ...userInfo } = this.state;
-      const { user, updateProfile } = this.props;
+      const { user, updateProfile, dispatch } = this.props;
 
-      await UserAPI.updateUser(user, {
-        ...userInfo,
-      });
-
+      await dispatch(
+        updateUserAction({
+          user,
+          userData: {
+            ...userInfo,
+          },
+        })
+      );
       await updateProfile();
       toast.success(NOTIFICATION_MESSAGES.UPDATE_PROFILE_SUCCESSFULLY);
     } catch (error) {
@@ -94,14 +99,6 @@ class ProfileForm extends Form {
     delete highlightImages.value[name];
     this.onChangeForm('highlightImages', highlightImages.value);
   };
-
-  // componentDidMount() {
-  //   const { updateProfile } = this.props;
-  //   const getUpdatedProfile = async () => {
-  //     await updateProfile();
-  //   };
-  //   getUpdatedProfile();
-  // }
 
   render() {
     const { avatar, name, highlightImages, dob, position, isInvalidForm } =
@@ -207,4 +204,4 @@ class ProfileForm extends Form {
   }
 }
 
-export default withFirebaseAuth(ProfileForm);
+export default withFirebaseAuth(connect()(ProfileForm));

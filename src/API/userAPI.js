@@ -2,18 +2,14 @@ import { AUTHENTICATION_ERRORS } from './authentication';
 import {
   addDoc,
   collection,
-  doc,
   getDocs,
   query,
-  setDoc,
-  Timestamp,
   updateDoc,
   where,
 } from 'firebase/firestore/lite';
 import { firestoreDB } from './firebase';
 import {
   convertFormattedDateToDate,
-  convertFormImagesToObject,
   convertFormStateToObject,
   convertToTimestamp,
   isUploadedByUser,
