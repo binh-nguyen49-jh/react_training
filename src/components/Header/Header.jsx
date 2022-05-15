@@ -52,7 +52,7 @@ function Header(props) {
             ) : (
               <li>
                 <p className='navItem '>
-                  <img src={UserIcon} alt='authenticate user icon' />
+                  <UserIcon />
                   <Link className='topbarElement' to={'/authentication/signup'}>
                     Signup
                   </Link>
