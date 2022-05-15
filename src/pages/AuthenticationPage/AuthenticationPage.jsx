@@ -14,7 +14,7 @@ class AuthenticationPage extends PureComponent {
   render() {
     const { user, children, redirectUrl } = this.props;
     return user ? (
-      <Navigate to={redirectUrl ? redirectUrl : ''}></Navigate>
+      <Navigate to={redirectUrl ? redirectUrl : '/'}></Navigate>
     ) : (
       <main>
         <div className='container'>

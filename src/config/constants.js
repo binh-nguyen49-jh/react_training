@@ -81,7 +81,7 @@ export const AUTH_ERROR_MESSAGES = {
     'The supplied auth credential is malformed or has expired.',
   'auth/invalid-action-code':
     'The action code is invalid. This can happen if the code is malformed, expired, or has already been used.',
-  'auth/wrong-password': 'The password is invalid.',
+  'auth/wrong-password': 'The password is wrong.',
   'auth/account-exists-with-different-credential':
     'An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.',
   'auth/network-request-failed':
