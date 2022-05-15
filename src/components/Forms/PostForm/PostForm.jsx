@@ -1,5 +1,4 @@
 import React, { useCallback, useRef, useState } from 'react';
-import PostAPI from '../../../API/postAPI';
 import { MAX_IMAGE_INPUTS } from '../../../config/constants';
 import Avatar from '../../Avatar/Avatar';
 import TextAreaField from '../../TextAreaField/TextAreaField';
@@ -8,6 +7,9 @@ import { useAuth } from '../../../hooks/authentication';
 import { ReactComponent as ImageIcon } from '../../SVGs/ImageIcon.svg';
 import { ReactComponent as DeleteIcon } from '../../SVGs/DeleteIcon.svg';
 import './PostForm.scss';
+import { createPostAction } from '../../../redux/posts';
+import { useDispatch } from 'react-redux';
+import LoadingButton from '../../LoadingButton/LoadingButton';
 
 function PostForm() {
   const { user } = useAuth();
@@ -17,16 +19,19 @@ function PostForm() {
   const [photoUrls, setPhotoUrls] = useState(
     new Array(MAX_IMAGE_INPUTS).fill(null)
   );
+  const dispatch = useDispatch();
 
-  const onSubmitForm = (event) => {
+  const onSubmitForm = useCallback(async (event) => {
     event.preventDefault();
     try {
       const uploadedImages = photos.filter((photo) => photo !== null);
-      PostAPI.createPost({
-        images: [...uploadedImages],
-        content: postText,
-        ownerId: user.uid,
-      });
+      await dispatch(
+        createPostAction({
+          images: [...uploadedImages],
+          content: postText,
+          ownerId: user.uid,
+        })
+      );
       textAreaRef.current.value = '';
       setPhotos(new Array(MAX_IMAGE_INPUTS).fill(null));
       setPhotoUrls(new Array(MAX_IMAGE_INPUTS).fill(null));
@@ -34,7 +39,7 @@ function PostForm() {
     } catch (error) {
       toast.error('Failed to create post!');
     }
-  };
+  }, []);
 
   const onSelectImage = async (event) => {
     const file = event.target.files[0];
@@ -105,12 +110,12 @@ function PostForm() {
             </label>
           </div>
 
-          <button
+          <LoadingButton
             type='submit'
             disabled={postText.length === 0}
-            onClick={onSubmitForm}>
-            Post
-          </button>
+            handleOnClick={onSubmitForm}
+            text='Post'
+          />
         </div>
       </div>
     </div>

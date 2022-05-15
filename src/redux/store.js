@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { getPostReducer } from './posts';
+import { getPostsReducer, createPostReducer } from './posts';
 
 const store = configureStore({
   reducer: combineReducers({
-    getPosts: getPostReducer,
+    getPosts: getPostsReducer,
+    createPost: createPostReducer,
   }),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
