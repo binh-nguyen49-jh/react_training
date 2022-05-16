@@ -1,9 +1,10 @@
 import React from 'react';
 
-function UserIcon({ className }) {
+function UserIcon({ className, onClick }) {
   return (
     <svg
       className={className}
+      onClick={onClick}
       xmlns='http://www.w3.org/2000/svg'
       width='30'
       height='30'

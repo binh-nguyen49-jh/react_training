@@ -1,9 +1,10 @@
 import React from 'react';
 
-function HomeIcon({ className }) {
+function HomeIcon({ className, onClick }) {
   return (
     <svg
       className={className}
+      onClick={onClick}
       xmlns='http://www.w3.org/2000/svg'
       width='25'
       height='24'

@@ -1,9 +1,10 @@
 import React from 'react';
 
-function FilledHeartIcon({ className }) {
+function FilledHeartIcon({ className, onClick }) {
   return (
     <svg
       className={className}
+      onClick={onClick}
       fill='#ed4956'
       height='24'
       viewBox='0 0 48 48'
