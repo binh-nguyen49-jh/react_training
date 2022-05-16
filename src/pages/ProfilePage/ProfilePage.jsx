@@ -10,14 +10,17 @@ export default function ProfilePage(props) {
   // get uid from params
   const { uid } = useParams();
   const [userProfile, setUserProfile] = useState(null);
-  const { user } = useAuth();
+  const { user, updateProfile } = useAuth();
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const updateUserProfiles = async () => {
+      // Update viewer's profile
+      await updateProfile();
+      // Update owner's profile
       const userProfile = await UserAPI.getUserData(uid);
       setUserProfile(userProfile);
     };
-    fetchUser();
+    updateUserProfiles();
   }, []);
 
   return (

@@ -205,13 +205,13 @@
 
         .hCarouselItems {
           transform: translate(-50px, 0);
-
-          .imageItem {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-          }
         }
+      }
+
+      .imageItem {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
     }
 
