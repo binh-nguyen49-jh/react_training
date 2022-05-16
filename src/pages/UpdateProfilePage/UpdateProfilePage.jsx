@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileForm from '../../components/Forms/ProfileForm/ProfileForm';
 import './UpdateProfile.scss';
 
-function UpdateProfilePage({ title }) {
+function UpdateProfilePage() {
   return (
     <main className='updateProfile'>
       <div className='container'>

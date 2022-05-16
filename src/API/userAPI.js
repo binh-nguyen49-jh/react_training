@@ -46,6 +46,10 @@ export default class UserAPI {
       authProvider,
       email,
       position: position.split(','),
+      dob: new Date(),
+      avatarUrl: '',
+      bio: '',
+      highlightImages: {},
     });
   }
 

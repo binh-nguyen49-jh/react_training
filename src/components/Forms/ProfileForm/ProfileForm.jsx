@@ -100,6 +100,14 @@ class ProfileForm extends Form {
     this.onChangeForm('highlightImages', highlightImages.value);
   };
 
+  componentDidMount() {
+    const { updateProfile } = this.props;
+    const updateUserProfile = async () => {
+      await updateProfile();
+    };
+    updateUserProfile();
+  }
+
   render() {
     const { avatar, name, highlightImages, dob, position, isInvalidForm } =
       this.state;

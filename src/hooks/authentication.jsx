@@ -24,7 +24,7 @@ function useFirebaseAuth() {
         const { payload: userProfile } = await dispatch(
           getUserAction(user.uid)
         );
-        setUser(userProfile || false);
+        setUser(userProfile || user);
       } else {
         setUser(false);
       }
