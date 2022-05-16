@@ -21,7 +21,7 @@ function PostForm() {
   );
   const dispatch = useDispatch();
 
-  const onSubmitForm = useCallback(async (event) => {
+  const onSubmitForm = async (event) => {
     event.preventDefault();
     try {
       const uploadedImages = photos.filter((photo) => photo !== null);
@@ -39,7 +39,12 @@ function PostForm() {
     } catch (error) {
       toast.error('Failed to create post!');
     }
-  }, []);
+  };
+
+  const onStartSelectImage = (event) => {
+    // Reset value to always trigger on change
+    event.target.value = null;
+  };
 
   const onSelectImage = async (event) => {
     const file = event.target.files[0];
@@ -103,7 +108,13 @@ function PostForm() {
         <hr />
         <div className='formBottom'>
           <div className='fileInput'>
-            <input onChange={onSelectImage} type='file' id='file' name='file' />
+            <input
+              onClick={onStartSelectImage}
+              onChange={onSelectImage}
+              type='file'
+              id='file'
+              name='file'
+            />
             <label htmlFor='file'>
               <ImageIcon />
               <p>Photo</p>
