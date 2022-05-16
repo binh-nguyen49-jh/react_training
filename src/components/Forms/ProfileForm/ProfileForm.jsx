@@ -31,7 +31,7 @@ class ProfileForm extends Form {
     const { user } = this.props;
     const { avatar, highlightImages, dob, position, bio, name, status } = user;
     this.state = {
-      ...super.state,
+      ...this.state,
       avatar: {
         value: {
           photo: null,

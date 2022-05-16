@@ -19,7 +19,7 @@ class SignUpForm extends Form {
   constructor(props) {
     super(props);
     this.state = {
-      ...super.state,
+      ...this.state,
       email: {},
       password: {},
       name: {},
