@@ -1,9 +1,10 @@
 import React from 'react';
 
-function EmojiIcon({ className }) {
+function EmojiIcon({ className, onClick }) {
   return (
     <svg
       className={className}
+      onClick={onClick}
       viewBox='0 0 24 24'
       width='24px'
       height='24px'

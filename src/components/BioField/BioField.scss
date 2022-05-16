@@ -1,11 +1,11 @@
 .bioField {
   .bioContainer {
     order: 2;
-    height: var(--input-height);
     position: relative;
 
     .textareaContainer {
-      position: static;
+      position: relative;
+      min-height: var(--input-height);
     }
 
     textarea {
@@ -15,7 +15,6 @@
       border-bottom: 3px solid var(--primary-cl);
       outline: none;
       border: 3px solid var(--primary-cl);
-      height: var(--input-height);
       transition: height .25s;
       cursor: text;
     }
