@@ -12,7 +12,6 @@ function HorizontalSlide({ items, ItemComponent }) {
   const calculateContainerHeight = () => {
     const { height: itemHeight, width: itemWidth } =
       contentRef.current.getBoundingClientRect();
-    carouselRef.current.style.height = `${itemHeight}px`;
     Object.assign(fakeContentRef.current.style, {
       width: `${itemWidth}px`,
       height: `${itemHeight}px`,
