@@ -13,7 +13,10 @@ function HorizontalSlide({ items, ItemComponent }) {
     const { height: itemHeight, width: itemWidth } =
       contentRef.current.getBoundingClientRect();
     carouselRef.current.style.height = `${itemHeight}px`;
-    fakeContentRef.current.style.width = `${itemWidth}px`;
+    Object.assign(fakeContentRef.current.style, {
+      width: `${itemWidth}px`,
+      height: `${itemHeight}px`,
+    });
   };
 
   const getCarouselProperties = () => {
@@ -61,7 +64,7 @@ function HorizontalSlide({ items, ItemComponent }) {
   }, []);
 
   const onScrollCarousel = useCallback((event) => {
-    event.preventDefault();
+    // event.preventDefault();
     scrollByAmount(carouselRef.current.scrollLeft);
   }, []);
 
