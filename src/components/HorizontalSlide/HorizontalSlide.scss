@@ -9,7 +9,7 @@
     flex-grow: 1;
     overflow: scroll hidden;
 
-    scrollbar-width: thin;
+    scrollbar-width: none;
 
     &::-webkit-scrollbar {
       display: none;
@@ -27,6 +27,7 @@
     z-index: 1;
 
     pointer-events: none;
+    background-color: var(--secondary-cl);
   }
 
 }
