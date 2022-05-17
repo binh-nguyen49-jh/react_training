@@ -6,9 +6,12 @@ import PropTypes from 'prop-types';
 class DropdownField extends Component {
   constructor(props) {
     super(props);
+    const { options, defaultValues } = props;
     this.state = {
-      value: '',
-      selected: new Array(this.props.options.length).fill(false),
+      value: defaultValues,
+      selected: new Array(options.length).fill(false).map((item, idx) => {
+        return defaultValues.includes(options[idx]) || false;
+      }),
       isChoosing: false,
     };
     this.optionListRef = React.createRef(null);
@@ -16,10 +19,11 @@ class DropdownField extends Component {
   }
 
   handleChange = (index) => {
+    const { options, onChange, name } = this.props;
     const newSelected = [...this.state.selected];
     newSelected[index] = !newSelected[index];
     const newValue = newSelected
-      .map((selected, idx) => (selected ? this.props.options[idx] : ''))
+      .map((selected, idx) => (selected ? options[idx] : ''))
       .filter((val) => val.length > 0)
       .join(',');
     this.setState({
@@ -27,11 +31,12 @@ class DropdownField extends Component {
       value: newValue,
     });
     this.placeholderRef.current.value = newValue;
-    this.props.onChange(this.props.name, newValue, '');
+    onChange(name, newValue, '');
   };
 
   validate = () => {
-    this.props.onValidate(this.props.name, this.state.value);
+    if (!this.state.isChoosing)
+      this.props.onValidate(this.props.name, this.state.value);
   };
 
   componentDidMount() {
@@ -55,6 +60,7 @@ class DropdownField extends Component {
 
   render = () => {
     const { label, name, options, className, error, placeholder } = this.props;
+    const { value, selected, isChoosing } = this.state;
     return (
       <div ref={this.optionListRef} className={`formInput select ${className}`}>
         <input
@@ -67,11 +73,11 @@ class DropdownField extends Component {
           id={`placeholder-${name}`}
           type='text'
           placeholder={placeholder}
-          defaultValue={this.state.value}
+          defaultValue={value}
           readOnly={true}
           onBlur={this.validate}
         />
-        <div className={`selectInput ${this.state.isChoosing ? 'show' : ''}`}>
+        <div className={`selectInput ${isChoosing ? 'show' : ''}`}>
           <ul className='optionList'>
             {options.map((option, index) => {
               return (
@@ -82,7 +88,7 @@ class DropdownField extends Component {
                       id={option}
                       name={name}
                       value={option}
-                      checked={this.state.selected[index]}
+                      checked={selected[index]}
                       onChange={() => this.handleChange(index)}
                     />
                     <label htmlFor={option}>{option}</label>
@@ -108,6 +114,7 @@ DropdownField.propTypes = {
   options: PropTypes.array,
   className: PropTypes.string,
   error: PropTypes.string,
+  defaultValues: PropTypes.string,
 };
 
 DropdownField.defaultProps = {
@@ -116,6 +123,7 @@ DropdownField.defaultProps = {
   label: '',
   options: [],
   className: '',
+  defaultValues: '',
 };
 
 export default React.memo(DropdownField);

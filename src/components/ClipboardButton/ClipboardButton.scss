@@ -1,0 +1,36 @@
+.clipboard {
+  $copy-icon-size: 40px;
+  $border-btn: 2px solid var(--dark-cl);
+  display: flex;
+  align-items: center;
+  height: $copy-icon-size;
+  background-color: var(--secondary-cl);
+  cursor: pointer;
+  border: $border-btn;
+  position: relative;
+
+  input {
+    display: none;
+
+    &:checked~p,
+    &:checked~.icon path {
+      color: var(--primary-cl);
+      fill: var(--primary-cl);
+    }
+  }
+
+  .icon {
+    display: block;
+    width: $copy-icon-size;
+    height: inherit;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-right: $border-btn;
+  }
+
+  p {
+    padding: 0 10px;
+    user-select: none;
+    white-space: nowrap;
+  }
+}

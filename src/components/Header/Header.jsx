@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LOGO_URI } from '../../config/constants';
 import { useAuth } from '../../hooks/authentication';
 import Avatar from '../Avatar/Avatar';
-import HomeIcon from '../SVGs/HomeIcon.svg';
-import UserIcon from '../SVGs/UserIcon.svg';
-import LogoutIcon from '../SVGs/LogoutIcon.svg';
+import HomeIcon from '../SVGs/HomeIcon.jsx';
+import UserIcon from '../SVGs/UserIcon.jsx';
+import LogoutIcon from '../SVGs/LogoutIcon.jsx';
 import './Header.scss';
 
 function Header(props) {
@@ -29,14 +29,14 @@ function Header(props) {
           <ul>
             <li>
               <Link className='navItem' to={'/'}>
-                <img src={HomeIcon} alt='homepage icon' />
+                <HomeIcon />
               </Link>
             </li>
             {user ? (
               <>
                 <li>
                   <Link className='navItem' to={`/profile/${user.uid}`}>
-                    <Avatar />
+                    <Avatar imgUrl={user.avatar} />
                   </Link>
                 </li>
                 <li>
@@ -44,7 +44,7 @@ function Header(props) {
                     onClick={handleLogout}
                     className='navItem'
                     to={'/authentication/login'}>
-                    <img src={LogoutIcon} alt='logout icon' />
+                    <LogoutIcon />
                     <span className='topbarElement'>Logout</span>
                   </Link>
                 </li>
@@ -52,7 +52,7 @@ function Header(props) {
             ) : (
               <li>
                 <p className='navItem '>
-                  <img src={UserIcon} alt='authenticate user icon' />
+                  <UserIcon />
                   <Link className='topbarElement' to={'/authentication/signup'}>
                     Signup
                   </Link>

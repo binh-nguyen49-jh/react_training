@@ -33,6 +33,13 @@
       align-items: center;
       gap: 10px;
       position: relative;
+
+      .username {
+        max-width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
 
     .action {
@@ -239,6 +246,7 @@
     }
 
     .username {
+      max-width: none;
       color: var(--hidden-post-text-cl);
     }
 

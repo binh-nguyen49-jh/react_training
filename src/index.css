@@ -18,8 +18,10 @@ ol {
   --gray-4-cl: #949494;
   --pink-cl: #ee4a57;
   --blue-cl: #006eff;
+  --dark-cl: #1c1c1c;
   --bg-cl: white;
   --box-shadow-cl: rgba(0, 0, 0, 0.1);
+  --overlay-cl: rgba(0, 0, 0, 0.5);
   --sidebar-width: 75px;
   --topbar-height: 60px;
   --disabled-btn-bg: var(--gray-3-cl);
@@ -43,7 +45,20 @@ ol {
   --role-icon-text-cl: white;
   --carousel-btn-bg: black;
   --post-form-bg: #fafafa;
-  --logoSize: 40px;
+  --logo-size: 40px;
+  --toggle-btn-size: 25px;
+  --active-cl: #02a82c;
+  --form-row-spacing: 5px;
+  --form-col-spacing: 20px;
+  --input-height: 45px;
+  --label-cl: var(--gray-3-cl);
+  --label-size: 1rem;
+  --highlight-image-width: 120px;
+  --avatar-image-width: 150px;
+  --status-icon-size: 20px;
+  --profile-name-size: 1.5rem;
+  --profile-dob-size: 0.8rem;
+  --profile-row-spacing: 30px;
 }
 
 body {
@@ -58,14 +73,18 @@ body {
 main>.container {
   min-height: calc(100vh - var(--topbar-height));
   width: 100%;
+  max-width: 100%;
 }
 
-
-@media only screen and (min-width: 480px) and (max-width: 1024px) {
+@media only screen and (min-width: 480px) {
   :root {
+    --highlight-image-width: 150px;
+    --avatar-image-width: 200px;
     --logoSize: 50px;
   }
+}
 
+@media only screen and (min-width: 480px) and (max-width: 1024px) {
   main>.container {
     width: calc(100% - var(--sidebar-width));
   }

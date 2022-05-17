@@ -13,14 +13,13 @@ import { POSITIONS } from '../../config/constants';
 import PostCarousel from './PostCarousel';
 import Comments from './Comments';
 import usePopover from '../../hooks/usePopover';
-import { ReactComponent as FilledHeartIcon } from '../SVGs/FilledHeartIcon.svg';
-import { ReactComponent as EmptyHeartIcon } from '../SVGs/EmptyHeartIcon.svg';
+import FilledHeartIcon from '../SVGs/FilledHeartIcon.jsx';
+import EmptyHeartIcon from '../SVGs/EmptyHeartIcon.jsx';
 import PostAction from './PostAction';
 
 function Post(props) {
   const { owner, post, hidePost, user, postRef } = props;
   const [liked, setLiked] = useState(props.liked || false);
-  const commentRef = useRef(null);
   const likeRef = useRef(null);
   const [showActionModal, setShowActionModal] = useState(false);
 
@@ -156,13 +155,13 @@ function Post(props) {
             ]}
           />
           <p className='timestamp'>
-            {post.createdAt && post.createdAt.toDate().toDateString()}
+            {post.createdAt && post.createdAt.toDateString()}
           </p>
         </div>
       </div>
       <div className='postFooter'>
         <form>
-          <TextAreaField placeholder={'Type your comment'} ref={commentRef} />
+          <TextAreaField placeholder={'Type your comment'} />
           <button onClick={onSubmitComment} type='submit'>
             Đăng
           </button>

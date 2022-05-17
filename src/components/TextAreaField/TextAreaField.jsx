@@ -1,21 +1,32 @@
 import Picker from 'emoji-picker-react';
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { ReactComponent as EmojiIcon } from '../SVGs/EmojiIcon.svg';
+import EmojiIcon from '../SVGs/EmojiIcon.jsx';
 import './TextAreaField.scss';
 
 const TextAreaField = React.forwardRef((props, ref) => {
   const [choosingEmoji, setChoosingEmoji] = useState(false);
   const containerRef = useRef(null);
+  const internalTextareaRef = useRef(null);
   const emojiWindow = useRef(null);
+
+  const textareaRef = ref || internalTextareaRef;
 
   const onEmojiClick = useCallback(
     (event, emojiObject) => {
-      if (ref.current) {
-        ref.current.value += emojiObject.emoji;
+      if (textareaRef.current) {
+        const { selectionStart, selectionEnd } = textareaRef.current;
+
+        const text = textareaRef.current.value;
+        const newText =
+          text.slice(0, selectionStart) +
+          emojiObject.emoji +
+          text.slice(selectionEnd);
+        textareaRef.current.value = newText;
+        props.onChange && props.onChange(newText);
       }
     },
-    [ref]
+    [textareaRef]
   );
 
   const handleEmojiButton = (event) => {
@@ -27,9 +38,9 @@ const TextAreaField = React.forwardRef((props, ref) => {
     if (containerRef.current) {
       containerRef.current.style.height = '0'; // To get full of scrollHeight
       containerRef.current.style.height =
-        parseInt(ref.current.scrollHeight) + 16 + 'px';
+        parseInt(textareaRef.current.scrollHeight) + 16 + 'px';
     }
-  }, [ref, containerRef]);
+  }, [textareaRef, containerRef]);
 
   const onChangingText = (event) => {
     responsiveHeight();
@@ -42,20 +53,24 @@ const TextAreaField = React.forwardRef((props, ref) => {
     }
   }, []);
 
+  const { className, placeholder, name, style } = props;
+
   return (
     <div
-      className={`${props.className} textareaContainer`}
+      className={`${className} textareaContainer`}
       ref={containerRef}
       style={{
-        ...props.style,
+        ...style,
       }}>
       <textarea
-        ref={ref}
+        ref={textareaRef}
         className='textareaField'
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         maxLength={3000}
         cols='30'
         rows='10'
+        id={name}
+        defaultValue={props.defaultValue}
         onInput={onChangingText}></textarea>
       <button
         className='emojiButton'
@@ -85,12 +100,16 @@ TextAreaField.defaultProps = {
   className: '',
   placeholder: '',
   onChange: () => {},
+  name: '',
+  defaultValue: '',
 };
 
 TextAreaField.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  name: PropTypes.string,
+  defaultValue: PropTypes.string,
 };
 
 export default React.memo(TextAreaField);

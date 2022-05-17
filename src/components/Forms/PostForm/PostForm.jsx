@@ -1,15 +1,17 @@
 import React, { useCallback, useRef, useState } from 'react';
-import PostAPI from '../../../API/postAPI';
 import { MAX_IMAGE_INPUTS } from '../../../config/constants';
 import Avatar from '../../Avatar/Avatar';
 import TextAreaField from '../../TextAreaField/TextAreaField';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../../hooks/authentication';
-import { ReactComponent as ImageIcon } from '../../SVGs/ImageIcon.svg';
-import { ReactComponent as DeleteIcon } from '../../SVGs/DeleteIcon.svg';
+import ImageIcon from '../../SVGs/ImageIcon.jsx';
+import DeleteIcon from '../../SVGs/DeleteIcon.jsx';
 import './PostForm.scss';
+import { createPostAction } from '../../../redux/posts';
+import { useDispatch } from 'react-redux';
+import LoadingButton from '../../LoadingButton/LoadingButton';
 
-function PostForm(props) {
+function PostForm() {
   const { user } = useAuth();
   const textAreaRef = useRef(null);
   const [postText, setPostText] = useState('');
@@ -17,16 +19,19 @@ function PostForm(props) {
   const [photoUrls, setPhotoUrls] = useState(
     new Array(MAX_IMAGE_INPUTS).fill(null)
   );
+  const dispatch = useDispatch();
 
-  const onSubmitForm = (event) => {
+  const onSubmitForm = async (event) => {
     event.preventDefault();
     try {
       const uploadedImages = photos.filter((photo) => photo !== null);
-      PostAPI.createPost({
-        images: [...uploadedImages],
-        content: postText,
-        ownerId: user.uid,
-      });
+      await dispatch(
+        createPostAction({
+          images: [...uploadedImages],
+          content: postText,
+          ownerId: user.uid,
+        })
+      );
       textAreaRef.current.value = '';
       setPhotos(new Array(MAX_IMAGE_INPUTS).fill(null));
       setPhotoUrls(new Array(MAX_IMAGE_INPUTS).fill(null));
@@ -34,6 +39,11 @@ function PostForm(props) {
     } catch (error) {
       toast.error('Failed to create post!');
     }
+  };
+
+  const onStartSelectImage = (event) => {
+    // Reset value to always trigger on change
+    event.target.value = null;
   };
 
   const onSelectImage = async (event) => {
@@ -73,7 +83,7 @@ function PostForm(props) {
     <div className='postForm'>
       <div className='formContainer'>
         <div className='formTop'>
-          <Avatar />
+          <Avatar imgUrl={user.avatar} />
           <TextAreaField
             onChange={onChangePostText}
             ref={textAreaRef}
@@ -98,19 +108,25 @@ function PostForm(props) {
         <hr />
         <div className='formBottom'>
           <div className='fileInput'>
-            <input onChange={onSelectImage} type='file' id='file' name='file' />
+            <input
+              onClick={onStartSelectImage}
+              onChange={onSelectImage}
+              type='file'
+              id='file'
+              name='file'
+            />
             <label htmlFor='file'>
               <ImageIcon />
               <p>Photo</p>
             </label>
           </div>
 
-          <button
+          <LoadingButton
             type='submit'
             disabled={postText.length === 0}
-            onClick={onSubmitForm}>
-            Post
-          </button>
+            handleOnClick={onSubmitForm}
+            text='Post'
+          />
         </div>
       </div>
     </div>

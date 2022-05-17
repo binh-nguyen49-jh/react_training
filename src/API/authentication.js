@@ -13,7 +13,7 @@ export const AUTHENTICATION_ERRORS = {
 export const logInWithEmail = async (email, password) => {
   const res = await signInWithEmailAndPassword(firebaseAuth, email, password);
   const user = res.user;
-  const userProfile = await UserAPI.getUser(user.uid);
+  const userProfile = await UserAPI.getUserData(user.uid);
   return userProfile;
 };
 

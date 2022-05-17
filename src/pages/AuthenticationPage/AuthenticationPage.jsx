@@ -4,6 +4,7 @@ import withFirebaseAuth from '../../components/HOC/withFirebaseAuth';
 import './AuthenticationPage.scss';
 import PropTypes from 'prop-types';
 import { LOGO_URI } from '../../config/constants';
+import withLocation from '../../components/HOC/withLocation';
 
 class AuthenticationPage extends PureComponent {
   static propTypes = {
@@ -11,20 +12,21 @@ class AuthenticationPage extends PureComponent {
   };
 
   render() {
-    return this.props.user ? (
-      <Navigate to='/'></Navigate>
+    const { user, children, redirectUrl } = this.props;
+    return user ? (
+      <Navigate to={redirectUrl ? redirectUrl : '/'}></Navigate>
     ) : (
       <main>
         <div className='container'>
           <div className='logo'>
-            <img src={LOGO_URI} alt='' />
+            <img src={LOGO_URI} alt="journey horizon's logo " />
             <h1>journey horizon</h1>
           </div>
-          <div className='formContainer'>{this.props.children}</div>
+          <div className='formContainer'>{children}</div>
         </div>
       </main>
     );
   }
 }
 
-export default withFirebaseAuth(AuthenticationPage);
+export default withLocation(withFirebaseAuth(AuthenticationPage));

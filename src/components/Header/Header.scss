@@ -15,8 +15,8 @@ header {
 
     a,
     img {
-      width: var(--logoSize);
-      height: var(--logoSize);
+      width: var(--logo-size);
+      height: var(--logo-size);
     }
   }
 }
@@ -51,7 +51,7 @@ nav>ul {
 
   &:hover {
 
-    img,
+    svg,
     .avatar {
       transform: scale(1.1);
     }

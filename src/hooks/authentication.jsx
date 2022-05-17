@@ -1,6 +1,7 @@
 import { firebaseAuth } from '../API/firebase';
 import { createContext, useContext, useEffect, useState } from 'react';
-import UserAPI from '../API/userAPI';
+import { getUserAction } from '../redux/users';
+import { useDispatch } from 'react-redux';
 
 const authContext = createContext();
 
@@ -15,18 +16,26 @@ export const useAuth = () => {
 
 function useFirebaseAuth() {
   const [user, setUser] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const updateUser = firebaseAuth.onAuthStateChanged(async (user) => {
       if (user) {
-        const userProfile = await UserAPI.getUser(user.uid);
-        setUser(userProfile || false);
+        const { payload: userProfile } = await dispatch(
+          getUserAction(user.uid)
+        );
+        setUser(userProfile || user);
       } else {
         setUser(false);
       }
     });
     return () => updateUser();
   }, []);
+
+  const updateProfile = async () => {
+    const { payload: userProfile } = await dispatch(getUserAction(user.uid));
+    setUser(userProfile || false);
+  };
 
   const logOut = () => {
     firebaseAuth.signOut();
@@ -36,5 +45,6 @@ function useFirebaseAuth() {
   return {
     user,
     logOut,
+    updateProfile,
   };
 }

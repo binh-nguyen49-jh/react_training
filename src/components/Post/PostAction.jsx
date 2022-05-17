@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../HOC/Modal/Modal';
-import { ReactComponent as DotsIcon } from '../SVGs/DotsIcon.svg';
+import DotsIcon from '../SVGs/DotsIcon.jsx';
 function PostAction({
   position,
   children,

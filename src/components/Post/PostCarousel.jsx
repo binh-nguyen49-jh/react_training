@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ReactComponent as LeftArrow } from '../SVGs/LeftArrow.svg';
-import { ReactComponent as RightArrow } from '../SVGs/RightArrow.svg';
+import LeftArrow from '../SVGs/LeftArrow.jsx';
+import RightArrow from '../SVGs/RightArrow.jsx';
 
 export default function PostCarousel({ post }) {
   const [currentImage, setCurrentImage] = useState(0);

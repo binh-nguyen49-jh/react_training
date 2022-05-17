@@ -1,5 +1,13 @@
 @import '../LoadingButton/Spinner.scss';
 
+.postList {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 3rem;
+}
+
 .infinite-load {
   gap: 10px;
   visibility: hidden;
